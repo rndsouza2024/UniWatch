@@ -1271,16 +1271,6 @@ const IPTV: React.FC = () => {
                 Back
               </button>
               
-              {selectedChannel.streams && selectedChannel.streams.length > 1 && (
-                <button
-                  onClick={handleSwitchServer}
-                  className="flex-1 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
-                  aria-label="Switch server"
-                >
-                  <Server size={18} aria-hidden="true" />
-                  Switch Server
-                </button>
-              )}
             </div>
           </div>
         )}
