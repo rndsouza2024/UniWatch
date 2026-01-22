@@ -176,7 +176,7 @@ const UNIQUE_MOVIES = [
       "Server 1": "https://xprime.today/watch/1599099",
       "Server 2": "https://cinemaos.tech/player/1599099",
       "Server 3": "https://zxcstream.xyz/player/movie/1599099/hindi?autoplay=false&back=true&server=0",
-      "Server 4": "https://be4235.rcr32.ams02.r66nv9ed.com/hls2/02/10676/cmmjdn01dvbu_h/master.m3u8?t=0AJcotTdga7ljRwE5p5v1Oeeu_9IhM9Zyo7_YvgLcYE&s=1769062847&e=10800&f=53380243&srv=31&asn=13335&sp=4000&p=0",
+      "Server 4": "https://byseqekaho.com/e/cmmjdn01dvbu",
       "Server 5 - Use Videasy": "https://www.cinezo.net/watch/movie/1599099",
       "Server 6": "https://vidsrc-embed.ru/embed/movie/1599099",
       "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1599099"
@@ -196,7 +196,7 @@ const UNIQUE_MOVIES = [
       "Server 1": "https://xprime.today/watch/1457939",
       "Server 2": "https://cinemaos.tech/player/1457939",
       "Server 3": "https://zxcstream.xyz/player/movie/1457939/hindi?autoplay=false&back=true&server=0",
-      "Server 4": "https://fin-3dg-b1.r66nv9ed.com/hls2/07/10676/mecoep0szpat_h/index-v1-a1.m3u8?t=t6oOIz5j4czEz60Adp57x3jin345wHRTrucHmEoT8Lc&s=1769062535&e=10800&f=53383133&srv=1055&asn=13335&sp=4000&p=0",
+      "Server 4": "https://byseqekaho.com/e/mecoep0szpat",
       "Server 5 - Use Videasy": "https://www.cinezo.net/watch/movie/1457939",
       "Server 6": "https://vidsrc-embed.ru/embed/movie/1457939",
       "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1599099"
@@ -526,8 +526,8 @@ const UNIQUE_TV_SHOWS = [
       "Server 3": "https://vidsrc-embed.ru/embed/tv/61859",
       "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-61859/2/1",
       "Server 5 ": "https://www.cinezo.net/watch/tv/61859?season=1&episode=1",
-      // "Server 4 - Hindi": "https://byseqekaho.com/e/p9vhhvpow8rk/the-night-manager-2026",
-      "Server 6 - Hindi": "https://fin-3dg-b1.r66nv9ed.com/hls2/07/10675/p9vhhvpow8rk_h/index-v1-a1.m3u8?t=I4bXfQbp55V-OKQrGBmt_DDla5XwAwi3uzfo5_C-aBw&s=1769064512&e=10800&f=53379877&srv=1060&asn=13335&sp=4000&p=0"     
+      "Server 4 - Hindi": "https://byseqekaho.com/e/p9vhhvpow8rk",
+           
      },
     genres: ['Drama', 'Crime', 'Mystery'],
     overview: 'Former British soldier Jonathan Pine navigates the shadowy recesses of Whitehall and Washington where an unholy alliance operates between the intelligence community and the secret arms trade. To infiltrate the inner circle of lethal arms dealer Richard Onslow Roper, Pine must himself become a criminal.'
