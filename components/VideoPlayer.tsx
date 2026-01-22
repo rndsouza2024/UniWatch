@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Server, ShieldCheck, AlertCircle, Settings, Zap, Eye, Palette } from 'lucide-react';
 import { StreamSource } from '../types';
 import { UNIQUE_MOVIES, UNIQUE_TV_SHOWS, UNIQUE_SPORTS, UNIQUE_TV_LIVE } from '../services/tmdb';
+import Hls from 'hls.js';
 
 interface VideoPlayerProps {
   tmdbId?: string | number;
@@ -24,6 +25,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [videoEnhancement, setVideoEnhancement] = useState(true);
   const [videoFilter, setVideoFilter] = useState('standard');
+  const [playerError, setPlayerError] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const filterPresets = {
     standard: 'brightness(1.05) contrast(1.1) saturate(1.08)',
@@ -33,6 +40,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     sports: 'brightness(1.1) contrast(1.3) saturate(1.3)',
     natural: 'brightness(1.02) contrast(1.05) saturate(1.0)',
     off: 'none'
+  };
+
+  const isM3U8Url = (url: string) => {
+    return url.includes('.m3u8') || url.includes('/hls/') || url.includes('m3u8');
+  };
+
+  const isDirectVideoUrl = (url: string) => {
+    const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.avi', '.mkv', '.flv', '.wmv'];
+    return videoExtensions.some(ext => url.includes(ext)) || url.includes('videoplayback');
   };
 
   const getVideoFilterStyle = () => {
@@ -61,7 +77,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       msFilter: preset,
       transform: 'translate3d(0,0,0)',
       backfaceVisibility: 'hidden',
-      WebkitBackfaceVisibility: 'hidden'
+      WebkitBackfaceVisibility: 'hidden',
+      width: '100%',
+      height: '100%',
+      objectFit: 'contain'
     };
   };
 
@@ -80,7 +99,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         id: `movie-${tmdbId}-s${index + 1}`,
         name: serverName,
         url: url as string,
-        quality: index === 0 ? 'FHD' : 'HD'
+        quality: index === 0 ? 'FHD' : 'HD',
+        type: isM3U8Url(url as string) ? 'hls' : isDirectVideoUrl(url as string) ? 'direct' : 'iframe'
       }));
     } else if (type === 'tv') {
       const tvShow = UNIQUE_TV_SHOWS.find(tv => tv.id === tmdbId.toString());
@@ -97,7 +117,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           id: `tv-${tmdbId}-s${index + 1}`,
           name: serverName,
           url: processedUrl,
-          quality: 'HD'
+          quality: 'HD',
+          type: isM3U8Url(processedUrl) ? 'hls' : isDirectVideoUrl(processedUrl) ? 'direct' : 'iframe'
         };
       });
     } else if (type === 'sports') {
@@ -108,7 +129,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         id: `sports-${tmdbId}-s${index + 1}`,
         name: serverName,
         url: url as string,
-        quality: index === 0 ? 'FHD' : 'HD'
+        quality: index === 0 ? 'FHD' : 'HD',
+        type: isM3U8Url(url as string) ? 'hls' : isDirectVideoUrl(url as string) ? 'direct' : 'iframe'
       }));
     } else if (type === 'tv_live') {
       const tvLive = UNIQUE_TV_LIVE.find(tv => tv.id === tmdbId.toString());
@@ -118,7 +140,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         id: `tv_live-${tmdbId}-s${index + 1}`,
         name: serverName,
         url: url as string,
-        quality: 'HD'
+        quality: 'HD',
+        type: isM3U8Url(url as string) ? 'hls' : isDirectVideoUrl(url as string) ? 'direct' : 'iframe'
       }));
     }
     
@@ -127,23 +150,227 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     setIsLoading(true);
+    setPlayerError(false);
     setActiveServer(0);
+    
+    // Clean up previous HLS instance
+    if (hlsRef.current) {
+      hlsRef.current.destroy();
+      hlsRef.current = null;
+    }
+    
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.removeAttribute('src');
+      videoRef.current.load();
+    }
   }, [tmdbId, type, season, episode]);
 
-  const handleIframeLoad = () => {
-    setIsLoading(false);
-    setTimeout(() => {
-      const iframe = document.querySelector('iframe');
-      if (iframe && videoEnhancement) {
-        iframe.style.transition = 'filter 0.5s ease-out';
-      }
-    }, 100);
+  const loadHLSStream = (url: string) => {
+    if (!videoRef.current) return;
+
+    if (hlsRef.current) {
+      hlsRef.current.destroy();
+      hlsRef.current = null;
+    }
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: true,
+        backBufferLength: 90,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 600,
+        maxBufferSize: 60 * 1000 * 1000,
+        maxBufferHole: 0.5,
+        manifestLoadingTimeOut: 10000,
+        manifestLoadingMaxRetry: 3,
+        manifestLoadingRetryDelay: 500,
+        levelLoadingTimeOut: 10000,
+        levelLoadingMaxRetry: 3,
+        levelLoadingRetryDelay: 500,
+        fragLoadingTimeOut: 20000,
+        fragLoadingMaxRetry: 6,
+        fragLoadingRetryDelay: 500,
+        startFragPrefetch: true,
+        autoStartLoad: true,
+      });
+
+      hlsRef.current = hls;
+      
+      hls.loadSource(url);
+      hls.attachMedia(videoRef.current);
+      
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        setIsLoading(false);
+        setPlayerError(false);
+        videoRef.current?.play().catch(() => {
+          // Autoplay blocked, show controls
+          if (videoRef.current) {
+            videoRef.current.controls = true;
+          }
+        });
+      });
+
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        if (data.fatal) {
+          switch (data.type) {
+            case Hls.ErrorTypes.NETWORK_ERROR:
+              hls.startLoad();
+              break;
+            case Hls.ErrorTypes.MEDIA_ERROR:
+              hls.recoverMediaError();
+              break;
+            default:
+              setPlayerError(true);
+              setIsLoading(false);
+              break;
+          }
+        }
+      });
+    } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari native HLS support
+      videoRef.current.src = url;
+      videoRef.current.addEventListener('loadedmetadata', () => {
+        setIsLoading(false);
+        setPlayerError(false);
+        videoRef.current?.play().catch(() => {
+          if (videoRef.current) {
+            videoRef.current.controls = true;
+          }
+        });
+      });
+      
+      videoRef.current.addEventListener('error', () => {
+        setPlayerError(true);
+        setIsLoading(false);
+      });
+    } else {
+      setPlayerError(true);
+      setIsLoading(false);
+    }
+  };
+
+  const loadDirectVideo = (url: string) => {
+    if (!videoRef.current) return;
+    
+    videoRef.current.src = url;
+    videoRef.current.load();
+    
+    videoRef.current.addEventListener('loadeddata', () => {
+      setIsLoading(false);
+      setPlayerError(false);
+      videoRef.current?.play().catch(() => {
+        if (videoRef.current) {
+          videoRef.current.controls = true;
+        }
+      });
+    });
+    
+    videoRef.current.addEventListener('error', () => {
+      setPlayerError(true);
+      setIsLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    if (streams.length === 0 || !streams[activeServer]) return;
+
+    setIsLoading(true);
+    setPlayerError(false);
+    
+    const currentStream = streams[activeServer];
+    
+    // Determine stream type
+    if (isM3U8Url(currentStream.url)) {
+      loadHLSStream(currentStream.url);
+    } else if (isDirectVideoUrl(currentStream.url)) {
+      loadDirectVideo(currentStream.url);
+    } else {
+      // For iframe sources, we'll let the iframe handle loading
+      setIsLoading(false);
+    }
+  }, [activeServer, streams]);
+
+  const handleFullscreen = () => {
+    if (!containerRef.current) return;
+    
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen().then(() => {
+        setIsFullscreen(true);
+      }).catch(err => {
+        console.log(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  const renderVideoPlayer = () => {
+    if (streams.length === 0 || !streams[activeServer]) return null;
+    
+    const currentStream = streams[activeServer];
+    
+    if (isM3U8Url(currentStream.url) || isDirectVideoUrl(currentStream.url)) {
+      return (
+        <video
+          ref={videoRef}
+          className="w-full h-full"
+          style={getVideoFilterStyle()}
+          controls
+          playsInline
+          autoPlay
+          muted={false}
+          preload="auto"
+          crossOrigin="anonymous"
+          onCanPlay={() => {
+            setIsLoading(false);
+            setPlayerError(false);
+          }}
+          onError={() => {
+            setPlayerError(true);
+            setIsLoading(false);
+          }}
+        />
+      );
+    } else {
+      // For embedded iframe sources
+      return (
+        <iframe
+          src={currentStream.url}
+          className="w-full h-full border-0"
+          style={getVideoFilterStyle()}
+          allowFullScreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          onLoad={() => setIsLoading(false)}
+          onError={() => {
+            setPlayerError(true);
+            setIsLoading(false);
+          }}
+          title={`${title || 'Video'} Player - UniWatch`}
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      );
+    }
   };
 
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
-      .video-player-iframe {
+      .video-player-iframe, video {
         transition: filter 0.5s ease-out, -webkit-filter 0.5s ease-out !important;
         will-change: filter, transform;
       }
@@ -163,6 +390,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         border-color: #60a5fa !important;
         box-shadow: 0 0 15px rgba(59, 130, 246, 0.3) !important;
       }
+      
+      /* Fullscreen styles */
+      :fullscreen .video-player-container {
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      :fullscreen video,
+      :fullscreen iframe {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+      }
     `;
     document.head.appendChild(style);
     
@@ -180,7 +423,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }
 
   return (
-    <div className="w-full bg-black rounded-xl overflow-hidden shadow-2xl border border-dark-border">
+    <div ref={containerRef} className="video-player-container w-full bg-black rounded-xl overflow-hidden shadow-2xl border border-dark-border">
       <div className="bg-dark-surface px-4 py-2 flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-dark-border gap-3">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
@@ -255,6 +498,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 <Eye size={10} /> Enhanced
               </span>
             )}
+            <button
+              onClick={handleFullscreen}
+              className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded hover:bg-gray-700 flex items-center gap-1"
+              title="Toggle fullscreen"
+            >
+              {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+            </button>
           </div>
         </div>
       </div>
@@ -280,21 +530,32 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           </div>
         )}
         
-        {videoEnhancement && !isLoading && (
+        {playerError && !isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center z-20 bg-black">
+            <div className="text-center p-6">
+              <AlertCircle size={48} className="text-red-500 mx-auto mb-4" />
+              <div className="text-white font-medium mb-2">Failed to load stream</div>
+              <div className="text-gray-400 text-sm mb-4">
+                The stream could not be loaded. Please try another server.
+              </div>
+              <button
+                onClick={() => {
+                  setPlayerError(false);
+                  setIsLoading(true);
+                }}
+                className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        )}
+        
+        {videoEnhancement && !isLoading && !playerError && (
           <div className="absolute inset-0 z-10 video-enhancement-overlay"></div>
         )}
         
-        <iframe
-          src={streams[activeServer].url}
-          className="video-player-iframe w-full h-full"
-          style={getVideoFilterStyle()}
-          frameBorder="0"
-          allowFullScreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          onLoad={handleIframeLoad}
-          title={`${title || 'Video'} Player - UniWatch`}
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
+        {renderVideoPlayer()}
       </div>
 
       {streams.length > 1 && (
