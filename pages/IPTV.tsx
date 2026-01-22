@@ -1262,8 +1262,8 @@ const IPTV: React.FC = () => {
 
         {/* Mobile Back and Switch Server Buttons - Bottom - FIXED SIDE BY SIDE */}
         {mobileView === 'player' && selectedChannel && (
-          <div className="fixed bottom-16 left-4 right-4 z-20">
-            <div className="flex gap-2 w-full">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+         <div className="text-gray-400 text-sm font-bold">
               <button
                 onClick={handleBackToList}
                 className="flex-1 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors flex items-center justify-center gap-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
