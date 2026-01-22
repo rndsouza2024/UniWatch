@@ -528,7 +528,7 @@ const UNIQUE_TV_SHOWS = [
       "Server 5": "https://cinemaos.tech/player/61859/2/1",
       "Server 6 ": "https://www.cinezo.net/watch/tv/61859?season=1&episode=1",
       // "Server 4 - Hindi": "https://byseqekaho.com/e/p9vhhvpow8rk/the-night-manager-2026",
-      "Server 7 - Hindi": "https://fin-3dg-b1.r66nv9ed.com/hls2/07/10675/p9vhhvpow8rk_h/index-v1-a1.m3u8?t=129kBaTo71D-tSvhjthnba0FRjsT4RCXu4M_OgU1nT4&s=1769045592&e=10800&f=53379877&srv=1060&asn=13335&sp=4000&p=0"     
+      "Server 7 - Hindi": "https://fin-3dg-b1.r66nv9ed.com/hls2/07/10675/p9vhhvpow8rk_h/index-v1-a1.m3u8?t=I4bXfQbp55V-OKQrGBmt_DDla5XwAwi3uzfo5_C-aBw&s=1769064512&e=10800&f=53379877&srv=1060&asn=13335&sp=4000&p=0"     
      },
     genres: ['Drama', 'Crime', 'Mystery'],
     overview: 'Former British soldier Jonathan Pine navigates the shadowy recesses of Whitehall and Washington where an unholy alliance operates between the intelligence community and the secret arms trade. To infiltrate the inner circle of lethal arms dealer Richard Onslow Roper, Pine must himself become a criminal.'
