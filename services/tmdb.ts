@@ -525,10 +525,9 @@ const UNIQUE_TV_SHOWS = [
       "Server 2": "https://xprime.today/watch/61859/2/1",
       "Server 3": "https://vidsrc-embed.ru/embed/tv/61859",
       "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-61859/2/1",
-      "Server 5": "https://cinemaos.tech/player/61859/2/1",
-      "Server 6 ": "https://www.cinezo.net/watch/tv/61859?season=1&episode=1",
+      "Server 5 ": "https://www.cinezo.net/watch/tv/61859?season=1&episode=1",
       // "Server 4 - Hindi": "https://byseqekaho.com/e/p9vhhvpow8rk/the-night-manager-2026",
-      "Server 7 - Hindi": "https://fin-3dg-b1.r66nv9ed.com/hls2/07/10675/p9vhhvpow8rk_h/index-v1-a1.m3u8?t=I4bXfQbp55V-OKQrGBmt_DDla5XwAwi3uzfo5_C-aBw&s=1769064512&e=10800&f=53379877&srv=1060&asn=13335&sp=4000&p=0"     
+      "Server 6 - Hindi": "https://fin-3dg-b1.r66nv9ed.com/hls2/07/10675/p9vhhvpow8rk_h/index-v1-a1.m3u8?t=I4bXfQbp55V-OKQrGBmt_DDla5XwAwi3uzfo5_C-aBw&s=1769064512&e=10800&f=53379877&srv=1060&asn=13335&sp=4000&p=0"     
      },
     genres: ['Drama', 'Crime', 'Mystery'],
     overview: 'Former British soldier Jonathan Pine navigates the shadowy recesses of Whitehall and Washington where an unholy alliance operates between the intelligence community and the secret arms trade. To infiltrate the inner circle of lethal arms dealer Richard Onslow Roper, Pine must himself become a criminal.'
@@ -546,9 +545,8 @@ const UNIQUE_TV_SHOWS = [
       "Server 2": "https://xprime.today/watch/259731/1/1",
       "Server 3": "https://vidsrc-embed.ru/embed/tv/259731",
       "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-259731/1/1",
-      "Server 5": "https://cinemaos.tech/player/259731/1/1",
-      "Server 6 ": "https://www.cinezo.net/watch/tv/259731?season=1&episode=1",
-      "Server 7- HINDI": "https://short.icu/tyiiqPGLF?thumbnail=https://freestreaming.vercel.app/His_And_Hers_S01_2026.jpg"
+      "Server 5 ": "https://www.cinezo.net/watch/tv/259731?season=1&episode=1",
+      "Server 6- HINDI": "https://short.icu/tyiiqPGLF?thumbnail=https://freestreaming.vercel.app/His_And_Hers_S01_2026.jpg"
     },
     genres: ['Drama', 'Crime', 'Mystery'],
     overview: 'Two estranged spouses — one a detective, the other a news reporter — vie to solve a murder in which each believes the other is a prime suspect.'
@@ -565,10 +563,9 @@ const UNIQUE_TV_SHOWS = [
       "Server 1": "https://zxcstream.xyz/player/tv/100088/s=1/e=1/english?autoplay=false&back=true&server=0",
       "Server 2": "https://vidsrc-embed.ru/embed/tv/100088",
       "Server 3": "https://xprime.today/watch/100088/2/1",
-      "Server 4": "https://cinemaos.tech/player/100088/2/1",
-      "Server 5": "https://api.cinezo.net/embed/tmdb-tv-100088/2/1",
-      "Server 6 ": "https://www.cinezo.net/watch/tv/100088?season=2&episode=1",
-      "Server 7- HINDI": ""
+      "Server 4": "https://api.cinezo.net/embed/tmdb-tv-100088/2/1",
+      "Server 5 ": "https://www.cinezo.net/watch/tv/100088?season=2&episode=1",
+      "Server 6- HINDI": ""
        },
     genres: ['Drama', 'Action', 'Sci-Fi'],
     overview: 'After a global pandemic destroys civilization.'
@@ -585,10 +582,9 @@ const UNIQUE_TV_SHOWS = [
       "Server 1": "https://www.zxcstream.xyz/player/tv/94997/2/1?autoplay=false&back=true&server=0",
       "Server 2": "https://vidsrc-embed.ru/embed/tv/94997",
       "Server 3": "https://xprime.today/watch/94997/2/1",
-      "Server 4": "https://cinemaos.tech/player/94997/2/1",
-      "Server 5": "https://api.cinezo.net/embed/tmdb-tv-94997/2/1",
-      "Server 6 ": "https://www.cinezo.net/watch/tv/94997?season=2&episode=1",
-      "Server 7- HINDI": ""
+      "Server 4": "https://api.cinezo.net/embed/tmdb-tv-94997/2/1",
+      "Server 5 ": "https://www.cinezo.net/watch/tv/94997?season=2&episode=1",
+      "Server 6- HINDI": ""
        },
     genres: ['Drama', 'Action', 'Adventure'],
     overview: 'The story of House Targaryen set 200 years before Game of Thrones.'
@@ -605,10 +601,9 @@ const UNIQUE_TV_SHOWS = [
         "Server 1": "https://www.zxcstream.xyz/player/tv/119051/2/1?autoplay=false&back=true&server=0",
         "Server 2": "https://vidsrc-embed.ru/embed/tv/119051",
         "Server 3": "https://xprime.today/watch/119051/2/1",
-        "Server 4": "https://cinemaos.tech/player/119051/2/1",
-        "Server 5": "https://api.cinezo.net/embed/tmdb-tv-119051/2/1",
-        "Server 6 ": "https://www.cinezo.net/watch/tv/119051?season=2&episode=1",
-        "Server 7- HINDI": ""
+        "Server 4": "https://api.cinezo.net/embed/tmdb-tv-119051/2/1",
+        "Server 5 ": "https://www.cinezo.net/watch/tv/119051?season=2&episode=1",
+        "Server 6- HINDI": ""
         },
       genres: ['Comedy', 'Crime', 'Fantasy'],
     overview: 'Wednesday Addams attempts to master her psychic ability.'
@@ -637,21 +632,14 @@ const UNIQUE_TV_SHOWS = [
     release_date: '2016-07-15',
     vote_average: 8.7,
     duration: '50m',
-    streams: {
-
-      "Server 1 - S1-S2": "https://zxcstream.xyz/player/tv/66732/s=1/e=1/english?autoplay=false&back=true&server=0",
-      "Server 2 - S1-S2": "https://vidsrc-embed.ru/embed/tv/66732",
-      "Server 3 - S1": "https://xprime.today/watch/66732/1/1",
-      "Server 3 - S2": "https://xprime.today/watch/66732/2/1",
-      "Server 3 - S3": "https://xprime.today/watch/66732/3/1",
-      "Server 3 - S4": "https://xprime.today/watch/66732/4/1",
-      "Server 3 - S5": "https://xprime.today/watch/66732/5/1",
-      "Server 4 - S1": "https://cinemaos.tech/player/66732/1/8",
-      "Server 4 - S2": "https://cinemaos.tech/player/66732/2/9",
-      "Server 4 - S3": "https://cinemaos.tech/player/66732/3/8",
-      "Server 4 - S4": "https://cinemaos.tech/player/66732/4/9",
-      "Server 4 - S5": "https://cinemaos.tech/player/66732/5/8"
-    },
+     streams: {
+        "Server 1": "https://www.zxcstream.xyz/player/tv/66732/5/1?autoplay=false&back=true&server=0",
+        "Server 2": "https://vidsrc-embed.ru/embed/tv/66732",
+        "Server 3": "https://xprime.today/watch/66732/5/1",
+        "Server 4": "https://api.cinezo.net/embed/tmdb-tv-66732/5/1",
+        "Server 5 ": "https://www.cinezo.net/watch/tv/66732?season=5&episode=1",
+        "Server 6- HINDI": ""
+        },
     genres: ['Drama', 'Fantasy', 'Horror'],
     overview: 'When a young boy vanishes, a small town uncovers a mystery.'
   },
@@ -664,19 +652,15 @@ const UNIQUE_TV_SHOWS = [
     vote_average: 8.2,
     duration: '1h',
     genres: ['Action', 'Adventure', 'Drama'],
-    streams: {
-      "Server 1 - S1-S2": "https://zxcstream.xyz/player/tv/71912/s=1/e=1/english?autoplay=false&back=true&server=0",
-      "Server 2 - S1-S2": "https://vidsrc-embed.ru/embed/tv/71912",
-      "Server 3 - S1": "https://xprime.today/watch/71912/1/1",
-      "Server 3 - S2": "https://xprime.today/watch/71912/2/1",
-      "Server 3 - S3": "https://xprime.today/watch/71912/3/1",
-      "Server 3 - S4": "https://xprime.today/watch/71912/4/1",
-      "Server 4 - S1": "https://cinemaos.tech/player/71912/1/8",
-      "Server 4 - S2": "https://cinemaos.tech/player/71912/2/8",
-      "Server 4 - S3": "https://cinemaos.tech/player/71912/3/8",
-      "Server 4 - S4": "https://cinemaos.tech/player/71912/4/8"
-    },
-    overview: 'Geralt of Rivia, a mutated monster-hunter for hire.'
+     streams: {
+        "Server 1": "https://www.zxcstream.xyz/player/tv/71912/4/1?autoplay=false&back=true&server=0",
+        "Server 2": "https://vidsrc-embed.ru/embed/tv/71912",
+        "Server 3": "https://xprime.today/watch/71912/4/1",
+        "Server 4": "https://api.cinezo.net/embed/tmdb-tv-71912/4/1",
+        "Server 5 ": "https://www.cinezo.net/watch/tv/71912?season=4&episode=1",
+        "Server 6- HINDI": ""
+        },
+     overview: 'Geralt of Rivia, a mutated monster-hunter for hire.'
   }
   
 ];
