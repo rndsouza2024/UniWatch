@@ -4,21 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-     <!-- Icons -->
   <link rel="icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
 
-    <!-- Primary Meta Tags -->
     <title>UniWatch™ - Ultimate Media Experience</title>
     <meta name="description" content="UniWatch™ - The ultimate media aggregation platform for Movies, TV Shows, Live Sports, and IPTV.">
     <meta name="keywords" content="streaming, movies, tv shows, live sports, iptv, free streaming, hd movies">
     <meta name="author" content="UniWatch™">
     <meta name="robots" content="index, follow">
     
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://uniwatchfree.vercel.app/">
     <meta property="og:title" content="UniWatch™ - Ultimate Media Experience">
@@ -29,7 +26,6 @@
     <meta property="og:site_name" content="UniWatch™">
     <meta property="og:locale" content="en_US">
     <meta name="google-site-verification" content="4gdbnCGat0T4Ow3Y_RYzPM4vwtsXvhUel5Q-2yULK6k">
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://uniwatchfree.vercel.app/">
     <meta property="twitter:title" content="UniWatch™ - Ultimate Media Experience">
@@ -37,7 +33,6 @@
     <meta property="twitter:image" content="https://image.tmdb.org/t/p/w1280/fm6KqXpk3M2HVveHwCrBSSBaB0.jpg">
     <meta property="twitter:site" content="@UniWatch">
     
-    <!-- Theme Color -->
     <meta name="theme-color" content="#0f172a">
     <meta name="msapplication-TileColor" content="#0f172a">
     
@@ -125,7 +120,115 @@
       }
     </style>
     
-    <!-- Social Sharing Script -->
+    
+    <script>
+      // Function to load ads after page is fully loaded
+      function loadAds() {
+        console.log('Loading advertisements...');
+        
+        // Ad zone 1 - Header/Banner Ad
+        try {
+          const adScript1 = document.createElement('script');
+          adScript1.type = 'text/javascript';
+          adScript1.dataset.zone = '10501236';
+          adScript1.src = 'https://nap5k.com/tag.min.js';
+          adScript1.async = true;
+          adScript1.onload = function() {
+            console.log('Ad script 1 loaded successfully');
+          };
+          adScript1.onerror = function() {
+            console.log('Failed to load ad script 1, trying fallback...');
+            loadFallbackAd('header-ad');
+          };
+          document.body.appendChild(adScript1);
+        } catch (error) {
+          console.error('Error loading ad script 1:', error);
+          loadFallbackAd('header-ad');
+        }
+
+        // Ad zone 2 - Vignette Ad
+        try {
+          const adScript2 = document.createElement('script');
+          adScript2.type = 'text/javascript';
+          adScript2.dataset.zone = '10501249';
+          adScript2.src = 'https://gizokraijaw.net/vignette.min.js';
+          adScript2.async = true;
+          adScript2.onload = function() {
+            console.log('Ad script 2 loaded successfully');
+          };
+          adScript2.onerror = function() {
+            console.log('Failed to load ad script 2');
+          };
+          document.body.appendChild(adScript2);
+        } catch (error) {
+          console.error('Error loading ad script 2:', error);
+        }
+
+        // Ad zone 3 - Additional banner ad (fallback)
+        try {
+          const adScript3 = document.createElement('script');
+          adScript3.type = 'text/javascript';
+          adScript3.src = 'https://www.googletagmanager.com/gtag/js?id=G-8FXDRRC982';
+          adScript3.async = true;
+          document.head.appendChild(adScript3);
+        } catch (error) {
+          console.error('Error loading Google Analytics:', error);
+        }
+      }
+
+      // Fallback ad system
+      function loadFallbackAd(containerId) {
+        console.log('Loading fallback ad for:', containerId);
+        
+        // Create a simple fallback ad
+        const fallbackAds = [
+          {
+            html: '<div style="width:100%;height:90px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;border-radius:8px;">Support Us - Disable AdBlocker</div>',
+            width: '100%',
+            height: '90px'
+          },
+          {
+            html: '<div style="width:300px;height:250px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;border-radius:8px;margin:0 auto;">Premium Content Available</div>',
+            width: '300px',
+            height: '250px'
+          },
+          {
+            html: '<div style="width:728px;height:90px;background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;border-radius:8px;margin:0 auto;">UniWatch™ - Ultimate Streaming</div>',
+            width: '728px',
+            height: '90px'
+          }
+        ];
+
+        // Select random fallback ad
+        const randomAd = fallbackAds[Math.floor(Math.random() * fallbackAds.length)];
+        
+        // Try to find container or create one
+        let container = document.getElementById(containerId);
+        if (!container) {
+          container = document.createElement('div');
+          container.id = containerId;
+          container.className = 'ad-container';
+          container.style.cssText = `width:${randomAd.width};height:${randomAd.height};margin:10px auto;`;
+          document.body.appendChild(container);
+        }
+        
+        container.innerHTML = randomAd.html;
+        
+        // Make it clickable
+        container.addEventListener('click', function() {
+          window.open('https://uniwatchfree.vercel.app', '_blank');
+        });
+        
+        container.style.cursor = 'pointer';
+        console.log('Fallback ad loaded in:', containerId);
+      }
+
+      // Initialize ads when DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        // Wait a bit to ensure React app is loaded
+        setTimeout(loadAds, 1000);
+      });
+    </script> 
     <script>
       window.socialShareConfig = {
         siteUrl: 'https://uniwatchfree.vercel.app',
@@ -133,7 +236,6 @@
         twitterHandle: '@StreamOS_App'
       };
       
-      // Enhanced share function
       window.shareContent = function(data) {
         const shareData = {
           title: data.title || document.title,
@@ -175,7 +277,8 @@
   }
 }
 </script>
-<!-- Google tag (gtag.js) -->
+<script>(function(s){s.dataset.zone='10501236',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<script>(function(s){s.dataset.zone='10501249',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FXDRRC982"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -184,7 +287,6 @@
 
   gtag('config', 'G-8FXDRRC982');
 </script>
-<!-- Main Website Schema -->
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -205,8 +307,6 @@
     }
 }
 </script>
-
-<!-- Schema for Movie Collection Website -->
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -242,7 +342,6 @@
 }
 </script>
 
-<!-- Schema for Movie Collections -->
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
