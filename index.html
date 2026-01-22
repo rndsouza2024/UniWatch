@@ -3,7 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
+     <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+
     <!-- Primary Meta Tags -->
     <title>UniWatch™ - Ultimate Media Experience</title>
     <meta name="description" content="UniWatch™ - The ultimate media aggregation platform for Movies, TV Shows, Live Sports, and IPTV.">
@@ -16,12 +23,12 @@
     <meta property="og:url" content="https://uniwatchfree.vercel.app/">
     <meta property="og:title" content="UniWatch™ - Ultimate Media Experience">
     <meta property="og:description" content="UniWatch™ - The ultimate media aggregation platform for Movies, TV Shows, Live Sports, and IPTV.">
-    <meta property="og:image" content="https://image.tmdb.org/t/p/w1280/fm6KqXpk3M2HVveHwCrBSSBaB0.jpg">
+    <meta property="og:image" content="https://uniwatchfree.vercel.app/og-image.jpg">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
     <meta property="og:site_name" content="UniWatch™">
     <meta property="og:locale" content="en_US">
-    
+    <meta name="google-site-verification" content="4gdbnCGat0T4Ow3Y_RYzPM4vwtsXvhUel5Q-2yULK6k">
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://uniwatchfree.vercel.app/">
@@ -165,6 +172,249 @@
     "lucide-react": "https://esm.sh/lucide-react@0.562.0",
     "react-router-dom": "https://esm.sh/react-router-dom@7.12.0",
     "react-markdown": "https://esm.sh/react-markdown@10.1.0"
+  }
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8FXDRRC982"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8FXDRRC982');
+</script>
+<!-- Main Website Schema -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "FreeStream™",
+    "description": "Free streaming website with 5000+ HD movies and TV shows",
+    "url": "https://uniwatchfree.vercel.app",
+    "image": "https://uniwatchfree.vercel.app/og-image.jpg",
+    "inLanguage": "en",
+    "copyrightHolder": {
+        "@type": "Organization",
+        "name": "FreeStream"
+    },
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+    }
+}
+</script>
+
+<!-- Schema for Movie Collection Website -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "FreeStream™",
+    "description": "Free streaming website with 5000+ HD movies and TV shows",
+    "url": "https://uniwatchfree.vercel.app",
+    "image": "https://uniwatchfree.vercel.app/og-image.jpg",
+    "inLanguage": "en",
+    "hasPart": [
+        {
+            "@type": "ItemList",
+            "name": "Trending Movies",
+            "numberOfItems": 20,
+            "itemListOrder": "Descending",
+            "url": "https://uniwatchfree.vercel.app#home"
+        },
+        {
+            "@type": "ItemList",
+            "name": "Movie Categories",
+            "numberOfItems": 7,
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Action Movies"},
+                {"@type": "ListItem", "position": 2, "name": "Comedy Movies"},
+                {"@type": "ListItem", "position": 3, "name": "Drama Movies"},
+                {"@type": "ListItem", "position": 4, "name": "Thriller Movies"},
+                {"@type": "ListItem", "position": 5, "name": "Adult Content"},
+                {"@type": "ListItem", "position": 6, "name": "Horror Movies"},
+                {"@type": "ListItem", "position": 7, "name": "All Categories"}
+            ]
+        }
+    ]
+}
+</script>
+
+<!-- Schema for Movie Collections -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Movie Collections",
+    "description": "Featured movie collections available for streaming",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+                "@type": "Movie",
+                "name": "Action Movies Collection",
+                "description": "HD action movies collection with explosive content",
+                "image": "https://uniwatchfree.vercel.app/og-image.jpg",
+                "dateCreated": "2025-03-15",
+                "director": {
+                    "@type": "Person",
+                    "name": "Dr Tralier"
+                },
+                "url": "https://uniwatchfree.vercel.app#action"
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+                "@type": "Movie",
+                "name": "Comedy Movies Collection",
+                "description": "Latest comedy movies for endless laughter",
+                "image": "https://uniwatchfree.vercel.app/og-image.jpg",
+                "dateCreated": "2025-06-22",
+                "director": {
+                    "@type": "Person",
+                    "name": "Dr Tralier"
+                },
+                "url": "https://uniwatchfree.vercel.app#comedy"
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+                "@type": "Movie",
+                "name": "Drama Movies Collection",
+                "description": "Emotional drama movies collection",
+                "image": "https://uniwatchfree.vercel.app/og-image.jpg",
+                "dateCreated": "2025-04-10",
+                "director": {
+                    "@type": "Person",
+                    "name": "Dr Tralier"
+                },
+                "url": "https://uniwatchfree.vercel.app#drama"
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+                "@type": "Movie",
+                "name": "Romance Movies Collection",
+                "description": "Romantic movies collection for love stories",
+                "image": "https://uniwatchfree.vercel.app/og-image.jpg",
+                "dateCreated": "2025-05-18",
+                "director": {
+                    "@type": "Person",
+                    "name": "Dr Tralier"
+                },
+                "url": "https://uniwatchfree.vercel.app#romance"
+            }
+        }
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Movie Collections",
+  "description": "Featured movie collections available for streaming",
+  "url": "https://uniwatchfree.vercel.app/",
+   "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "CollectionPage",
+          "name": "Action Series",
+          "url": "https://uniwatchfree.vercel.app/#action"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "CollectionPage",
+          "name": "Comedy Series",
+          "url": "https://uniwatchfree.vercel.app/#comedy"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "CollectionPage",
+          "name": "Drama Series",
+          "url": "https://uniwatchfree.vercel.app/#drama"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "CollectionPage",
+          "name": "Romance Series",
+          "url": "https://uniwatchfree.vercel.app/#romance"
+        }
+      }
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "TV Series Collection",
+  "description": "Complete TV series collection with all seasons",
+  "url": "https://uniwatchfree.vercel.app/",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "CollectionPage",
+          "name": "Action Series",
+          "url": "https://uniwatchfree.vercel.app/#action"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "CollectionPage",
+          "name": "Comedy Series",
+          "url": "https://uniwatchfree.vercel.app/#comedy"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "CollectionPage",
+          "name": "Drama Series",
+          "url": "https://uniwatchfree.vercel.app/#drama"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "CollectionPage",
+          "name": "Romance Series",
+          "url": "https://uniwatchfree.vercel.app/#romance"
+        }
+      }
+    ]
   }
 }
 </script>
