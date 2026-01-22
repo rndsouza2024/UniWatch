@@ -1305,7 +1305,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           
           {videoEnhancement && (
             <div className="mt-4 pt-4 border-t border-gray-800">
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
+              <div className="flex flex-col gap-3 mb-4">
                 <div className="flex items-center gap-2">
                   <Palette size={14} className="text-brand-400" />
                   <span className="text-sm text-gray-300">Active Filter Preset:</span>
@@ -1317,7 +1317,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                       <button
                         key={preset}
                         onClick={() => setVideoFilter(preset)}
-                        className={`px-3 py-1.5 text-xs rounded-full border transition-all ${
+                        className={`px-3 py-1.5 text-xs rounded-full border transition-all flex-shrink-0 ${
                           videoFilter === preset
                             ? 'bg-gradient-to-r from-brand-500/20 to-purple-500/20 text-brand-300 border-brand-500/30'
                             : 'bg-gray-800/50 text-gray-400 border-gray-700 hover:bg-gray-800'
@@ -1330,7 +1330,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                 <div className="bg-gray-900/50 p-2 rounded">
                   <div className="text-gray-500">Brightness</div>
                   <div className="text-brand-300 font-medium">
