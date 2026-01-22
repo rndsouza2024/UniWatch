@@ -1218,6 +1218,7 @@ const IPTV: React.FC = () => {
   const [tempAdultChannel, setTempAdultChannel] = useState<Channel | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDesktop, setIsDesktop] = useState<boolean>(false);
+  const [currentStreamIndex, setCurrentStreamIndex] = useState<number>(0);
 
   // Refs
   const channelListRef = useRef<HTMLDivElement>(null);
@@ -1382,6 +1383,8 @@ const IPTV: React.FC = () => {
       
       // Set selected channel
       setSelectedChannel(channel);
+      // Reset stream index when changing channel
+      setCurrentStreamIndex(0);
       
       // Switch to player view on mobile
       if (!isDesktop) {
@@ -1406,6 +1409,7 @@ const IPTV: React.FC = () => {
   const handleAdultAccess = useCallback(() => {
     if (tempAdultChannel) {
       setSelectedChannel(tempAdultChannel);
+      setCurrentStreamIndex(0);
       setShowAdultWarning(false);
       setTempAdultChannel(null);
       
@@ -1452,6 +1456,22 @@ const IPTV: React.FC = () => {
     if (categoryId === 'All') return MOCK_CHANNELS.length;
     return MOCK_CHANNELS.filter(c => c.category === categoryId).length;
   }, []);
+
+  // Handle switch server
+  const handleSwitchServer = useCallback(() => {
+    if (!selectedChannel || !selectedChannel.streams) return;
+    
+    const nextIndex = (currentStreamIndex + 1) % selectedChannel.streams.length;
+    setCurrentStreamIndex(nextIndex);
+  }, [selectedChannel, currentStreamIndex]);
+
+  // Get current stream URL
+  const getCurrentStream = useCallback(() => {
+    if (!selectedChannel || !selectedChannel.streams || selectedChannel.streams.length === 0) {
+      return null;
+    }
+    return selectedChannel.streams[currentStreamIndex];
+  }, [selectedChannel, currentStreamIndex]);
 
   // Adult Warning Modal Component
   const AdultWarningModal = () => (
@@ -1862,11 +1882,44 @@ const IPTV: React.FC = () => {
                   {/* Video Player */}
                   <section className="mb-8" aria-label="Video player">
                     <VideoPlayer 
-                      key={selectedChannel.id}
+                      key={`${selectedChannel.id}-${currentStreamIndex}`}
                       title={selectedChannel.name}
                       customStreams={selectedChannel.streams}
                       autoPlay={true}
                     />
+                    
+                    {/* Server Selection for Desktop */}
+                    {selectedChannel.streams && selectedChannel.streams.length > 1 && (
+                      <div className="mt-4 flex justify-end">
+                        <div className="inline-flex items-center gap-2 bg-gray-800/50 px-4 py-2 rounded-lg">
+                          <span className="text-sm text-gray-300">Server:</span>
+                          <div className="flex items-center gap-1">
+                            {selectedChannel.streams.map((_, index) => (
+                              <button
+                                key={`server-${index}`}
+                                onClick={() => setCurrentStreamIndex(index)}
+                                className={`w-2 h-2 rounded-full transition-all ${
+                                  currentStreamIndex === index 
+                                    ? selectedChannel.category === 'Adult' 
+                                      ? 'bg-red-500' 
+                                      : selectedChannel.category === 'Sports'
+                                      ? 'bg-red-500'
+                                      : 'bg-brand-500'
+                                    : 'bg-gray-600'
+                                } ${currentStreamIndex === index ? 'w-6' : ''}`}
+                                aria-label={`Switch to server ${index + 1}`}
+                              />
+                            ))}
+                          </div>
+                          <button
+                            onClick={handleSwitchServer}
+                            className="ml-2 px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded transition-colors"
+                          >
+                            Switch
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </section>
 
                   {/* Program Guide */}
@@ -1980,14 +2033,35 @@ const IPTV: React.FC = () => {
             </div>
             
             {mobileView === 'player' && selectedChannel && (
-              <button 
-                onClick={handleBackToList}
-                className="flex items-center gap-2 px-3 py-1.5 bg-brand-600 text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
-                aria-label="Back to channel list"
-              >
-                <ChevronLeft size={16} aria-hidden="true" />
-                Back
-              </button>
+              <div className="flex items-center gap-2">
+                {selectedChannel.streams && selectedChannel.streams.length > 1 && (
+                  <div className="flex items-center gap-1 mr-2">
+                    {selectedChannel.streams.map((_, index) => (
+                      <div
+                        key={`mobile-server-${index}`}
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          currentStreamIndex === index 
+                            ? selectedChannel.category === 'Adult' 
+                              ? 'bg-red-500' 
+                              : selectedChannel.category === 'Sports'
+                              ? 'bg-red-500'
+                              : 'bg-brand-500'
+                            : 'bg-gray-600'
+                        }`}
+                        aria-hidden="true"
+                      />
+                    ))}
+                  </div>
+                )}
+                <button 
+                  onClick={handleBackToList}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-brand-600 text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  aria-label="Back to channel list"
+                >
+                  <ChevronLeft size={16} aria-hidden="true" />
+                  Back
+                </button>
+              </div>
             )}
           </div>
         </header>
@@ -2219,7 +2293,7 @@ const IPTV: React.FC = () => {
             {/* Video Player */}
             <section className="p-4" aria-label="Video player">
               <VideoPlayer 
-                key={selectedChannel.id}
+                key={`${selectedChannel.id}-${currentStreamIndex}`}
                 title={selectedChannel.name}
                 customStreams={selectedChannel.streams}
                 autoPlay={true}
@@ -2263,6 +2337,38 @@ const IPTV: React.FC = () => {
                   <span>End</span>
                 </div>
               </div>
+
+              {/* Server Info */}
+              {selectedChannel.streams && selectedChannel.streams.length > 1 && (
+                <div className="mb-4 p-4 bg-gray-800/50 rounded-xl">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-blue-500 rounded-full" aria-hidden="true"></div>
+                      <span className="text-sm text-white font-medium">Current Server</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      {selectedChannel.streams.map((_, index) => (
+                        <div
+                          key={`mobile-server-indicator-${index}`}
+                          className={`w-2 h-2 rounded-full ${
+                            currentStreamIndex === index 
+                              ? selectedChannel.category === 'Adult' 
+                                ? 'bg-red-500' 
+                                : selectedChannel.category === 'Sports'
+                                ? 'bg-red-500'
+                                : 'bg-brand-500'
+                              : 'bg-gray-600'
+                          }`}
+                          aria-hidden="true"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400 mb-3">
+                    Server {currentStreamIndex + 1} of {selectedChannel.streams.length}
+                  </p>
+                </div>
+              )}
 
               {/* Time Info */}
               <div className="mt-4 pt-4 border-t border-dark-border text-center">
@@ -2330,17 +2436,29 @@ const IPTV: React.FC = () => {
           </div>
         </nav>
 
-        {/* Mobile Back Button - Bottom */}
+        {/* Mobile Back and Switch Server Buttons - Bottom */}
         {mobileView === 'player' && selectedChannel && (
-          <div className="fixed bottom-16 left-4 right-4 z-20">
+          <div className="fixed bottom-16 left-4 right-4 z-20 flex gap-2">
             <button
               onClick={handleBackToList}
-              className="w-full py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors flex items-center justify-center gap-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="flex-1 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors flex items-center justify-center gap-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
               aria-label="Back to channel list"
             >
               <ChevronLeft size={18} aria-hidden="true" />
-              Back to Channel List
+              Back
             </button>
+            {selectedChannel.streams && selectedChannel.streams.length > 1 && (
+              <button
+                onClick={handleSwitchServer}
+                className="flex-1 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                aria-label="Switch to another server"
+              >
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full" aria-hidden="true"></div>
+                  <span>Switch Server</span>
+                </div>
+              </button>
+            )}
           </div>
         )}
       </div>
