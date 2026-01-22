@@ -92,7 +92,7 @@ const Navbar: React.FC<NavbarProps> = ({ onAuthToggle, isAuthenticated }) => {
             </div>
 
             <a
-              href='https://median.co/share/oddyzxr'
+              href='https://median.co/share/bnnzemj'
               target='_blank'
               rel='noopener noreferrer'
               className='flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-400'
@@ -164,7 +164,7 @@ const Navbar: React.FC<NavbarProps> = ({ onAuthToggle, isAuthenticated }) => {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {/* Download APK Link for Mobile */}
             <a
-              href='https://median.co/share/oddyzxr'
+              href='https://median.co/share/bnnzemj'
               target='_blank'
               rel='noopener noreferrer'
               className='flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700'
