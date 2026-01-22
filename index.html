@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>UniWatch™ - Ultimate Media Experience</title>
+    <meta name="description" content="UniWatch™ - The ultimate media aggregation platform for Movies, TV Shows, Live Sports, and IPTV.">
+    <meta name="keywords" content="streaming, movies, tv shows, live sports, iptv, free streaming, hd movies">
+    <meta name="author" content="UniWatch™">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://streamos.app/">
+    <meta property="og:title" content="UniWatch™ - Ultimate Media Experience">
+    <meta property="og:description" content="UniWatch™ - The ultimate media aggregation platform for Movies, TV Shows, Live Sports, and IPTV.">
+    <meta property="og:image" content="https://image.tmdb.org/t/p/w1280/fm6KqXpk3M2HVveHwCrBSSBaB0.jpg">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:site_name" content="UniWatch™">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://streamos.app/">
+    <meta property="twitter:title" content="UniWatch™ - Ultimate Media Experience">
+    <meta property="twitter:description" content="UniWatch™ - The ultimate media aggregation platform for Movies, TV Shows, Live Sports, and IPTV.">
+    <meta property="twitter:image" content="https://image.tmdb.org/t/p/w1280/fm6KqXpk3M2HVveHwCrBSSBaB0.jpg">
+    <meta property="twitter:site" content="@UniWatch">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="msapplication-TileColor" content="#0f172a">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#f0f9ff',
+                100: '#e0f2fe',
+                500: '#0ea5e9',
+                600: '#0284c7',
+                900: '#0c4a6e',
+                950: '#082f49',
+              },
+              dark: {
+                bg: '#0f172a',
+                surface: '#1e293b',
+                border: '#334155',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+            animation: {
+              'fadeIn': 'fadeIn 0.2s ease-out',
+              'slideUp': 'slideUp 0.3s ease-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(10px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background-color: #0f172a;
+        color: #f8fafc;
+        font-family: 'Inter', sans-serif;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
+      }
+      .hide-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .line-clamp-2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+      .line-clamp-3 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+      }
+    </style>
+    
+    <!-- Social Sharing Script -->
+    <script>
+      window.socialShareConfig = {
+        siteUrl: 'https://streamos.app',
+        siteName: 'StreamOS',
+        twitterHandle: '@StreamOS_App'
+      };
+      
+      // Enhanced share function
+      window.shareContent = function(data) {
+        const shareData = {
+          title: data.title || document.title,
+          text: data.text || document.querySelector('meta[name="description"]')?.content || '',
+          url: data.url || window.location.href,
+        };
+        
+        if (navigator.share && navigator.canShare(shareData)) {
+          navigator.share(shareData)
+            .then(() => console.log('Shared successfully'))
+            .catch((error) => console.log('Sharing cancelled:', error));
+        } else {
+          // Fallback: Copy to clipboard
+          navigator.clipboard.writeText(shareData.url)
+            .then(() => alert('Link copied to clipboard!'))
+            .catch(() => {
+              const textArea = document.createElement('textarea');
+              textArea.value = shareData.url;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textArea);
+              alert('Link copied to clipboard!');
+            });
+        }
+      };
+    </script>
+    
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.2.0",
+    "react-dom/": "https://esm.sh/react-dom@19.2.0/",
+    "react/": "https://esm.sh/react@19.2.0/",
+    "@google/genai": "https://esm.sh/@google/genai@1.37.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.562.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@7.12.0",
+    "react-markdown": "https://esm.sh/react-markdown@10.1.0"
+  }
+}
+</script>
+
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+   </body>
+</html>
