@@ -10,7 +10,7 @@
 // import { fetchByGenre, fetchById } from './services/tmdb';
 // import { MediaItem } from './types';
 // import MediaCard from './components/MediaCard';
-// import { ArrowLeft, Home as HomeIcon, Loader2 } from 'lucide-react';
+// import { ArrowLeft, Home as HomeIcon, Loader2, ChevronDown } from 'lucide-react';
 // import SocialShare from './components/SocialShare';
 
 // const WatchPage = () => {
@@ -231,21 +231,35 @@
 // };
 
 // const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' }) => {
-//     const [items, setItems] = useState<MediaItem[]>([]);
+//     const [allItems, setAllItems] = useState<MediaItem[]>([]);
 //     const [loading, setLoading] = useState(true);
+//     const [loadingMore, setLoadingMore] = useState(false);
+//     const [displayCount, setDisplayCount] = useState(18);
 //     const navigate = useNavigate();
 
 //     useEffect(() => {
 //         setLoading(true);
 //         fetchByGenre(type).then(data => {
-//             setItems(data);
+//             setAllItems(data);
 //             setLoading(false);
 //         });
 //     }, [type]);
 
+//     const loadMore = () => {
+//         setLoadingMore(true);
+//         // Simulate loading delay
+//         setTimeout(() => {
+//             setDisplayCount(prev => prev + 18);
+//             setLoadingMore(false);
+//         }, 500);
+//     };
+
+//     const displayedItems = allItems.slice(0, displayCount);
+//     const hasMoreItems = displayCount < allItems.length;
+
 //     const pageTitle = `${title} - Free Streaming | UniWatch`;
 //     const pageDesc = `Browse our collection of ${title.toLowerCase()}. Watch free in HD quality on UniWatch.`;
-//     const pageImage = items[0]?.poster_path;
+//     const pageImage = allItems[0]?.poster_path;
 
 //     return (
 //         <div className="min-h-screen bg-dark-bg pt-20 px-4 sm:px-6 lg:px-8 pb-12">
@@ -270,7 +284,7 @@
 //                         <div>
 //                             <h1 className="text-3xl font-bold text-white">{title}</h1>
 //                             <p className="text-gray-400 text-sm mt-1">
-//                                 {items.length} titles available • HD Streaming
+//                                 {allItems.length} titles available • HD Streaming
 //                             </p>
 //                         </div>
 //                     </div>
@@ -291,13 +305,41 @@
 //                 ) : (
 //                     <>
 //                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 sm:gap-6">
-//                             {items.map((item) => (
+//                             {displayedItems.map((item) => (
 //                                 <MediaCard key={`${item.id}-${item.media_type}`} item={item} />
 //                             ))}
 //                         </div>
                         
+//                         {/* Load More Button */}
+//                         {hasMoreItems && (
+//                             <div className="flex justify-center mt-10 mb-8">
+//                                 <button
+//                                     onClick={loadMore}
+//                                     disabled={loadingMore}
+//                                     className="flex items-center gap-3 px-8 py-4 bg-dark-surface hover:bg-dark-border text-white rounded-xl font-medium transition-all border border-dark-border hover:border-brand-500 disabled:opacity-50 min-w-[180px] justify-center"
+//                                 >
+//                                     {loadingMore ? (
+//                                         <>
+//                                             <Loader2 className="animate-spin" size={20} />
+//                                             Loading...
+//                                         </>
+//                                     ) : (
+//                                         <>
+//                                             Load More
+//                                             <ChevronDown size={20} />
+//                                         </>
+//                                     )}
+//                                 </button>
+//                             </div>
+//                         )}
+                        
+//                         {/* Show loaded count */}
+//                         <div className="text-center text-gray-400 text-sm mb-4">
+//                             Showing {displayedItems.length} of {allItems.length} titles
+//                         </div>
+                        
 //                         {/* Navigation - Bottom */}
-//                         <div className="mt-12 pt-8 border-t border-dark-border">
+//                         <div className="mt-8 pt-8 border-t border-dark-border">
 //                             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
 //                                 <button 
 //                                     onClick={() => navigate(-1)} 
@@ -349,7 +391,6 @@
 // };
 
 // export default App;
-
 
 
 
@@ -523,7 +564,13 @@ const WatchPage = () => {
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-center py-3 border-b border-gray-800">
                                             <span className="text-gray-400">Type</span>
-                                            <span className="text-white font-medium">{type === 'movie' ? 'Movie' : 'TV Show'}</span>
+                                            <span className="text-white font-medium">
+                                                {type === 'movie' ? 'Movie' : 
+                                                 (item.title.toLowerCase().includes('sport') || 
+                                                  item.title.toLowerCase().includes('game') ||
+                                                  (item.genres && item.genres.some(g => g.toLowerCase().includes('sport'))) ? 
+                                                  'Live Game' : 'TV Show')}
+                                            </span>
                                         </div>
                                         {item.duration && (
                                             <div className="flex justify-between items-center py-3 border-b border-gray-800">
@@ -749,3 +796,6 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+
+
