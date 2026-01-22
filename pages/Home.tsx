@@ -476,7 +476,7 @@ const Home: React.FC = () => {
                       };
                       const hours = gmtDate.getUTCHours().toString().padStart(2, '0');
                       const minutes = gmtDate.getUTCMinutes().toString().padStart(2, '0');
-                      return `${dayName} ${date}${getOrdinal(date)} ${month} ${year} - Schedule Time UK GMT Live Sports Games`;
+                      return `Live Sports Games -  ${dayName} ${date}${getOrdinal(date)} ${month} ${year} - Schedule Time UK GMT`;
                     })()}
                   </h2>
                 </div>
