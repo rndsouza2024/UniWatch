@@ -565,7 +565,7 @@ const UNIQUE_TV_SHOWS = [
       "Server 1": "https://zxcstream.xyz/player/tv/100088/s=1/e=1/english?autoplay=false&back=true&server=0",
       "Server 2": "https://vidsrc-embed.ru/embed/tv/100088",
       "Server 3": "https://xprime.today/watch/100088/2/1",
-      "Server 4": "https://cinemaos.tech/player/100088/2/7",
+      "Server 4": "https://cinemaos.tech/player/100088/2/1",
       "Server 5": "https://api.cinezo.net/embed/tmdb-tv-100088/2/1",
       "Server 6 ": "https://www.cinezo.net/watch/tv/100088?season=2&episode=1",
       "Server 7- HINDI": ""
