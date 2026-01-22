@@ -1,214 +1,206 @@
 import React, { useEffect, useState } from 'react';
-import Hero from '../components/Hero';
-import MediaCard from '../components/MediaCard';
+import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { ChevronRight, RefreshCw } from 'lucide-react';
-import { fetchTrending, fetchMovies, fetchTVShows, fetchSports, fetchTVLive } from '../services/tmdb';
+import MediaCard from '../components/MediaCard';
+import { fetchTrending } from '../services/tmdb';
 import { MediaItem } from '../types';
+import { Play, TrendingUp, Film, Tv, Zap, Wifi, Loader2 } from 'lucide-react';
+import { SITE_NAME, SITE_DESCRIPTION } from '../constants';
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const [trending, setTrending] = useState<MediaItem[]>([]);
   const [movies, setMovies] = useState<MediaItem[]>([]);
-  const [tvShows, setTVShows] = useState<MediaItem[]>([]);
-  const [sports, setSports] = useState<MediaItem[]>([]);
-  const [tvLive, setTVLive] = useState<MediaItem[]>([]);
+  const [tvShows, setTvShows] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const loadData = async () => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      console.log('Fetching data...');
-      
-      const [trendingData, moviesData, tvData, sportsData, tvLiveData] = await Promise.all([
-        fetchTrending(),
-        fetchMovies(),
-        fetchTVShows(),
-        fetchSports(),
-        fetchTVLive()
-      ]);
-      
-      console.log('Data fetched:', { 
-        trending: trendingData.length, 
-        movies: moviesData.length, 
-        tvShows: tvData.length,
-        sports: sportsData.length,
-        tvLive: tvLiveData.length
-      });
-      
-      setTrending(trendingData);
-      setMovies(moviesData);
-      setTVShows(tvData);
-      setSports(sportsData);
-      setTVLive(tvLiveData);
-      
-      if (trendingData.length === 0 && moviesData.length === 0 && tvData.length === 0) {
-        setError('No content available. Trying mock data...');
-      }
-    } catch (error) {
-      console.error('Failed to load data:', error);
-      setError('Error loading content. Please check your internet connection.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
-    loadData();
+    setLoading(true);
+    Promise.all([
+      fetchTrending('all'),
+      fetchTrending('movie'),
+      fetchTrending('tv')
+    ]).then(([trendingData, moviesData, tvData]) => {
+      setTrending(trendingData.slice(0, 12));
+      setMovies(moviesData.slice(0, 12));
+      setTvShows(tvData.slice(0, 12));
+      setLoading(false);
+    }).catch(() => {
+      setLoading(false);
+    });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-dark-bg flex flex-col items-center justify-center p-4">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-brand-500 mb-4"></div>
-        <p className="text-gray-400 text-lg">Loading UniWatch...</p>
-        <p className="text-gray-500 text-sm mt-2">Fetching the latest content</p>
-      </div>
-    );
-  }
-
-  const heroItem = trending[0] || movies[0] || tvShows[0] || sports[0] || tvLive[0];
-
-  const Section = ({ 
-    title, 
-    items, 
-    viewAllPath 
-  }: { 
-    title: string; 
-    items: MediaItem[]; 
-    viewAllPath?: string 
-  }) => {
-    if (items.length === 0) return null;
-    
-    return (
-      <div className="mb-12 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
-            <span className="w-2 h-8 bg-brand-500 rounded-full"></span>
-            {title}
-          </h2>
-          {viewAllPath && (
-            <button 
-              onClick={() => window.location.hash = viewAllPath}
-              className="text-sm font-semibold text-brand-400 hover:text-brand-300 flex items-center gap-1 transition-colors hover:bg-brand-500/10 px-3 py-1 rounded-lg"
-            >
-              VIEW ALL <ChevronRight size={16} />
-            </button>
-          )}
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
-          {items.slice(0, 12).map((item) => (
-            <MediaCard key={`${item.id}-${item.media_type}`} item={item} />
-          ))}
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <div className="min-h-screen bg-dark-bg">
+    <>
       <SEO 
-        title="UniWatch - Watch Movies, TV, Sports & IPTV Free"
-        description="UniWatch is your ultimate destination for free streaming. Watch the latest movies, trending TV shows, live sports events, and thousands of IPTV channels."
-        keywords={['free movies', 'streaming', 'watch sports', 'iptv', 'tv shows', 'live tv']}
+        title="UniWatch™ - Ultimate Media Experience"
+        description={SITE_DESCRIPTION}
+        type="website"
+        keywords={['streaming', 'free streaming,', 'free movies', 'live sports', 'tv shows', 'live sports', 'iptv', 'hd movies']}
       />
       
-      {error && (
-        <div className="bg-yellow-900/30 border border-yellow-700 text-yellow-200 px-4 py-3 rounded-lg mx-4 mt-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span>⚠️</span>
-            <span>{error}</span>
-          </div>
-          <button 
-            onClick={loadData}
-            className="flex items-center gap-1 text-sm bg-yellow-700/30 hover:bg-yellow-700/50 px-3 py-1 rounded"
-          >
-            <RefreshCw size={14} /> Retry
-          </button>
-        </div>
-      )}
-      
-      {heroItem ? (
-        <>
-          <Hero item={heroItem} />
-          
-          <div className="mt-8 space-y-12 pb-20">
-            {trending.length > 0 && (
-              <Section 
-                title="🔥 Trending Now" 
-                items={trending} 
-                viewAllPath="#/trending"
-              />
-            )}
-            
-            {movies.length > 0 && (
-              <Section 
-                title="🎬 Popular Movies" 
-                items={movies} 
-                viewAllPath="#/movies"
-              />
-            )}
-            
-            {tvShows.length > 0 && (
-              <Section 
-                title="📺 Popular TV Shows" 
-                items={tvShows} 
-                viewAllPath="#/tv"
-              />
-            )}
-            
-            {sports.length > 0 && (
-              <Section 
-                title="⚽ Live Sports" 
-                items={sports} 
-                viewAllPath="#/sports"
-              />
-            )}
-            
-            {tvLive.length > 0 && (
-              <Section 
-                title="📡 Live TV Channels" 
-                items={tvLive} 
-                viewAllPath="#/live"
-              />
-            )}
-            
-            {trending.length > 0 && (
-              <Section 
-                title="⭐ Top Rated" 
-                items={[...trending].sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0))} 
-              />
-            )}
-          </div>
-        </>
-      ) : (
-        // Fallback when no hero item
-        <div className="min-h-screen flex flex-col items-center justify-center p-4">
-          <div className="text-center max-w-2xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Welcome to <span className="text-brand-500">UniWatch</span>
-            </h1>
-            <p className="text-gray-400 text-lg mb-8">
-              Your ultimate streaming destination is almost ready...
-            </p>
-            <button 
-              onClick={loadData}
-              className="bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 mx-auto"
-            >
-              <RefreshCw size={20} /> Load Content
-            </button>
-            
-            <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="aspect-[2/3] bg-gray-800/50 rounded-lg animate-pulse"></div>
-              ))}
+      <div className="min-h-screen bg-dark-bg pt-20">
+        {/* Hero Section */}
+        <div className="relative overflow-hidden bg-gradient-to-br from-dark-bg via-brand-950 to-dark-bg">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            <div className="text-center">
+              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                Stream Everything in <span className="text-brand-400">One Place</span>
+              </h1>
+              <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+                Unlimited access to movies, TV shows, live sports, and IPTV channels. 
+                No subscriptions, no credit card required.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <button 
+                  onClick={() => navigate('/movies')}
+                  className="group flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105"
+                >
+                  <Film size={18} />
+                  <span>Browse Movies</span>
+                </button>
+                <button 
+                  onClick={() => navigate('/tv')}
+                  className="group flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105"
+                >
+                  <Tv size={18} />
+                  <span>TV Shows</span>
+                </button>
+                <button 
+                  onClick={() => navigate('/sports')}
+                  className="group flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105"
+                >
+                  <Zap size={18} />
+                  <span>Live Sports</span>
+                </button>
+                  <button 
+                  onClick={() => navigate('/iptv')}
+                className="group flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105"
+                >
+                  <Wifi size={19} />
+                  <span>Live IPTv</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      )}
-    </div>
+
+        {/* Content Sections */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Trending Section */}
+          <div className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <TrendingUp className="text-brand-400" size={24} />
+                <h2 className="text-2xl font-bold text-white">Trending Now</h2>
+              </div>
+              <button 
+                onClick={() => navigate('/movies')}
+                className="text-brand-400 hover:text-brand-300 font-medium"
+              >
+                View All →
+              </button>
+            </div>
+            
+            {loading ? (
+              <div className="flex justify-center items-center h-64">
+                <Loader2 className="animate-spin text-brand-500" size={40} />
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {trending.map((item) => (
+                  <MediaCard key={`trending-${item.id}`} item={item} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Movies Section */}
+          <div className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <Film className="text-brand-400" size={24} />
+                <h2 className="text-2xl font-bold text-white">Popular Movies</h2>
+              </div>
+              <button 
+                onClick={() => navigate('/movies')}
+                className="text-brand-400 hover:text-brand-300 font-medium"
+              >
+                View All →
+              </button>
+            </div>
+            
+            {loading ? (
+              <div className="flex justify-center items-center h-64">
+                <Loader2 className="animate-spin text-brand-500" size={40} />
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {movies.map((item) => (
+                  <MediaCard key={`movie-${item.id}`} item={item} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* TV Shows Section */}
+          <div className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <Tv className="text-brand-400" size={24} />
+                <h2 className="text-2xl font-bold text-white">TV Shows</h2>
+              </div>
+              <button 
+                onClick={() => navigate('/tv')}
+                className="text-brand-400 hover:text-brand-300 font-medium"
+              >
+                View All →
+              </button>
+            </div>
+            
+            {loading ? (
+              <div className="flex justify-center items-center h-64">
+                <Loader2 className="animate-spin text-brand-500" size={40} />
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {tvShows.map((item) => (
+                  <MediaCard key={`tv-${item.id}`} item={item} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Features Section */}
+          <div className="bg-dark-surface rounded-2xl p-8 border border-dark-border">
+            <h2 className="text-2xl font-bold text-white text-center mb-8">Why Choose {SITE_NAME}?</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="bg-brand-900/30 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Play className="text-brand-400" size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">Free Streaming</h3>
+                <p className="text-gray-400">Watch thousands of movies and TV shows completely free, no subscriptions required.</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-brand-900/30 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Zap className="text-brand-400" size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">Live Sports</h3>
+                <p className="text-gray-400">Never miss a match with live streaming of major sports events from around the world.</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-brand-900/30 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Tv className="text-brand-400" size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">IPTV Channels</h3>
+                <p className="text-gray-400">Access hundreds of live TV channels from various categories including news, sports, and entertainment.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

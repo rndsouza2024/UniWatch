@@ -10,7 +10,7 @@
 // import { fetchByGenre, fetchById } from './services/tmdb';
 // import { MediaItem } from './types';
 // import MediaCard from './components/MediaCard';
-// import { ArrowLeft, Loader2 } from 'lucide-react';
+// import { ArrowLeft, Home as HomeIcon, Loader2 } from 'lucide-react';
 // import SocialShare from './components/SocialShare';
 
 // const WatchPage = () => {
@@ -59,15 +59,24 @@
 //             />
             
 //             <div className="max-w-7xl mx-auto">
-//                 {/* Navigation */}
-//                 <div className="flex justify-between items-center mb-6">
-//                     <button 
-//                         onClick={() => navigate(-1)} 
-//                         className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5"
-//                     >
-//                         <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
-//                         <span className="font-medium">Back</span>
-//                     </button>
+//                 {/* Navigation - Top */}
+//                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+//                     <div className="flex flex-wrap gap-3">
+//                         <button 
+//                             onClick={() => navigate(-1)} 
+//                             className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5 border border-dark-border"
+//                         >
+//                             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
+//                             <span className="font-medium">Go Back</span>
+//                         </button>
+//                         <button 
+//                             onClick={() => navigate('/')} 
+//                             className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5 border border-dark-border"
+//                         >
+//                             <HomeIcon size={20} className="group-hover:scale-110 transition-transform" /> 
+//                             <span className="font-medium">Home</span>
+//                         </button>
+//                     </div>
                     
 //                     {item && (
 //                         <div className="flex items-center gap-4">
@@ -196,6 +205,26 @@
 //                         </div>
 //                     )}
 //                 </div>
+
+//                 {/* Navigation - Bottom */}
+//                 <div className="mt-12 pt-8 border-t border-dark-border">
+//                     <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+//                         <button 
+//                             onClick={() => navigate(-1)} 
+//                             className="group flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors px-5 py-3 rounded-xl hover:bg-white/5 border border-dark-border w-full sm:w-auto"
+//                         >
+//                             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
+//                             <span className="font-medium">Go Back</span>
+//                         </button>
+//                         <button 
+//                             onClick={() => navigate('/')} 
+//                             className="group flex items-center justify-center gap-2 bg-brand-500 text-white hover:bg-brand-600 transition-colors px-5 py-3 rounded-xl border border-brand-600 w-full sm:w-auto"
+//                         >
+//                             <HomeIcon size={20} className="group-hover:scale-110 transition-transform" /> 
+//                             <span className="font-medium">Back to Home</span>
+//                         </button>
+//                     </div>
+//                 </div>
 //             </div>
 //         </div>
 //     );
@@ -229,13 +258,14 @@
 //             />
             
 //             <div className="max-w-7xl mx-auto">
-//                 <div className="flex items-center justify-between mb-8">
+//                 {/* Navigation - Top */}
+//                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
 //                     <div className="flex items-center gap-4">
 //                         <button 
 //                             onClick={() => navigate('/')} 
 //                             className="p-3 rounded-xl bg-dark-surface text-gray-400 hover:text-white hover:bg-white/10 transition-all border border-dark-border"
 //                         >
-//                             <ArrowLeft size={24} />
+//                             <HomeIcon size={24} />
 //                         </button>
 //                         <div>
 //                             <h1 className="text-3xl font-bold text-white">{title}</h1>
@@ -244,6 +274,14 @@
 //                             </p>
 //                         </div>
 //                     </div>
+                    
+//                     <button 
+//                         onClick={() => navigate(-1)} 
+//                         className="hidden sm:flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/5 border border-dark-border"
+//                     >
+//                         <ArrowLeft size={20} />
+//                         <span className="font-medium">Go Back</span>
+//                     </button>
 //                 </div>
 
 //                 {loading ? (
@@ -251,11 +289,33 @@
 //                         <Loader2 className="animate-spin text-brand-500" size={40} />
 //                     </div>
 //                 ) : (
-//                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 sm:gap-6">
-//                         {items.map((item) => (
-//                             <MediaCard key={`${item.id}-${item.media_type}`} item={item} />
-//                         ))}
-//                     </div>
+//                     <>
+//                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 sm:gap-6">
+//                             {items.map((item) => (
+//                                 <MediaCard key={`${item.id}-${item.media_type}`} item={item} />
+//                             ))}
+//                         </div>
+                        
+//                         {/* Navigation - Bottom */}
+//                         <div className="mt-12 pt-8 border-t border-dark-border">
+//                             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+//                                 <button 
+//                                     onClick={() => navigate(-1)} 
+//                                     className="group flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors px-5 py-3 rounded-xl hover:bg-white/5 border border-dark-border w-full sm:w-auto"
+//                                 >
+//                                     <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
+//                                     <span className="font-medium">Go Back</span>
+//                                 </button>
+//                                 <button 
+//                                     onClick={() => navigate('/')} 
+//                                     className="group flex items-center justify-center gap-2 bg-brand-500 text-white hover:bg-brand-600 transition-colors px-5 py-3 rounded-xl border border-brand-600 w-full sm:w-auto"
+//                                 >
+//                                     <HomeIcon size={20} className="group-hover:scale-110 transition-transform" /> 
+//                                     <span className="font-medium">Back to Home</span>
+//                                 </button>
+//                             </div>
+//                         </div>
+//                     </>
 //                 )}
 //             </div>
 //         </div>
@@ -308,7 +368,7 @@ import SEO from './components/SEO';
 import { fetchByGenre, fetchById } from './services/tmdb';
 import { MediaItem } from './types';
 import MediaCard from './components/MediaCard';
-import { ArrowLeft, Home as HomeIcon, Loader2 } from 'lucide-react';
+import { ArrowLeft, Home as HomeIcon, Loader2, ChevronDown } from 'lucide-react';
 import SocialShare from './components/SocialShare';
 
 const WatchPage = () => {
@@ -529,21 +589,35 @@ const WatchPage = () => {
 };
 
 const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' }) => {
-    const [items, setItems] = useState<MediaItem[]>([]);
+    const [allItems, setAllItems] = useState<MediaItem[]>([]);
     const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [displayCount, setDisplayCount] = useState(18);
     const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
         fetchByGenre(type).then(data => {
-            setItems(data);
+            setAllItems(data);
             setLoading(false);
         });
     }, [type]);
 
+    const loadMore = () => {
+        setLoadingMore(true);
+        // Simulate loading delay
+        setTimeout(() => {
+            setDisplayCount(prev => prev + 18);
+            setLoadingMore(false);
+        }, 500);
+    };
+
+    const displayedItems = allItems.slice(0, displayCount);
+    const hasMoreItems = displayCount < allItems.length;
+
     const pageTitle = `${title} - Free Streaming | UniWatch`;
     const pageDesc = `Browse our collection of ${title.toLowerCase()}. Watch free in HD quality on UniWatch.`;
-    const pageImage = items[0]?.poster_path;
+    const pageImage = allItems[0]?.poster_path;
 
     return (
         <div className="min-h-screen bg-dark-bg pt-20 px-4 sm:px-6 lg:px-8 pb-12">
@@ -568,7 +642,7 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' }) =
                         <div>
                             <h1 className="text-3xl font-bold text-white">{title}</h1>
                             <p className="text-gray-400 text-sm mt-1">
-                                {items.length} titles available • HD Streaming
+                                {allItems.length} titles available • HD Streaming
                             </p>
                         </div>
                     </div>
@@ -589,13 +663,41 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' }) =
                 ) : (
                     <>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 sm:gap-6">
-                            {items.map((item) => (
+                            {displayedItems.map((item) => (
                                 <MediaCard key={`${item.id}-${item.media_type}`} item={item} />
                             ))}
                         </div>
                         
+                        {/* Load More Button */}
+                        {hasMoreItems && (
+                            <div className="flex justify-center mt-10 mb-8">
+                                <button
+                                    onClick={loadMore}
+                                    disabled={loadingMore}
+                                    className="flex items-center gap-3 px-8 py-4 bg-dark-surface hover:bg-dark-border text-white rounded-xl font-medium transition-all border border-dark-border hover:border-brand-500 disabled:opacity-50 min-w-[180px] justify-center"
+                                >
+                                    {loadingMore ? (
+                                        <>
+                                            <Loader2 className="animate-spin" size={20} />
+                                            Loading...
+                                        </>
+                                    ) : (
+                                        <>
+                                            Load More
+                                            <ChevronDown size={20} />
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        )}
+                        
+                        {/* Show loaded count */}
+                        <div className="text-center text-gray-400 text-sm mb-4">
+                            Showing {displayedItems.length} of {allItems.length} titles
+                        </div>
+                        
                         {/* Navigation - Bottom */}
-                        <div className="mt-12 pt-8 border-t border-dark-border">
+                        <div className="mt-8 pt-8 border-t border-dark-border">
                             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                                 <button 
                                     onClick={() => navigate(-1)} 
