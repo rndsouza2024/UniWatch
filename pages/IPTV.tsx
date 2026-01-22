@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { MOCK_CHANNELS, getCurrentTimeGMT530, formatTimeGMT530, Channel } from '../constants';
 import { Search, Tv, Globe, Film, Activity, Star, Menu, X, Share2, Clock, Calendar, ChevronLeft, Users, AlertCircle, Server } from 'lucide-react';
@@ -1260,10 +1258,10 @@ const IPTV: React.FC = () => {
           </div>
         </nav>
 
-        {/* Mobile Back and Switch Server Buttons - Bottom - FIXED SIDE BY SIDE */}
+        {/* Mobile Back and Switch Server Buttons - FIXED SIDE BY SIDE */}
         {mobileView === 'player' && selectedChannel && (
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-         <div className="text-gray-400 text-sm font-bold">
+          <div className="fixed bottom-16 left-4 right-4 z-20">
+            <div className="flex gap-2 w-full">
               <button
                 onClick={handleBackToList}
                 className="flex-1 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors flex items-center justify-center gap-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
@@ -1272,6 +1270,17 @@ const IPTV: React.FC = () => {
                 <ChevronLeft size={18} aria-hidden="true" />
                 Back
               </button>
+              
+              {selectedChannel.streams && selectedChannel.streams.length > 1 && (
+                <button
+                  onClick={handleSwitchServer}
+                  className="flex-1 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                  aria-label="Switch server"
+                >
+                  <Server size={18} aria-hidden="true" />
+                  Switch Server
+                </button>
+              )}
             </div>
           </div>
         )}
