@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
-import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from '../constants';
+import { 
+  SITE_URL, 
+  SITE_NAME, 
+  DEFAULT_OG_IMAGE, 
+  TWITTER_HANDLE,
+  SITE_DESCRIPTION 
+} from '../constants';
 
 interface SEOProps {
   title: string;
-  description: string;
+  description?: string;
   image?: string;
   type?: 'website' | 'video.movie' | 'video.tv_show' | 'article';
   keywords?: string[];
@@ -12,11 +18,12 @@ interface SEOProps {
   videoReleaseDate?: string;
   articlePublishedTime?: string;
   articleModifiedTime?: string;
+  canonicalUrl?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({ 
   title, 
-  description, 
+  description = SITE_DESCRIPTION,
   image = DEFAULT_OG_IMAGE,
   type = 'website',
   keywords = [],
@@ -24,129 +31,198 @@ const SEO: React.FC<SEOProps> = ({
   videoDuration,
   videoReleaseDate,
   articlePublishedTime,
-  articleModifiedTime
+  articleModifiedTime,
+  canonicalUrl
 }) => {
   useEffect(() => {
-    // Update Title
-    const fullTitle = `${title} | ${SITE_NAME}`;
+    // Document title
+    const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
     document.title = fullTitle;
 
-    // Helper to update or create meta tag
-    const setMeta = (name: string, content: string) => {
-      let element = document.querySelector(`meta[name="${name}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute('name', name);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    const setProperty = (property: string, content: string) => {
-      let element = document.querySelector(`meta[property="${property}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute('property', property);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    // Get current URL
+    // Current URL
     const currentUrl = typeof window !== 'undefined' ? window.location.href : SITE_URL;
+    const canonical = canonicalUrl || currentUrl;
+    const pageDescription = description.substring(0, 155);
+    const allKeywords = ['streaming', 'free movies', 'tv shows', 'live sports', 'iptv', 'HD quality', ...keywords];
+    
+    // Helper function to update meta tags
+    const updateMetaTag = (propertyOrName: string, content: string, isProperty = false) => {
+      let element: HTMLMetaElement | null = null;
+      
+      if (isProperty) {
+        element = document.querySelector(`meta[property="${propertyOrName}"]`);
+        if (!element) {
+          element = document.createElement('meta');
+          element.setAttribute('property', propertyOrName);
+          document.head.appendChild(element);
+        }
+      } else {
+        element = document.querySelector(`meta[name="${propertyOrName}"]`);
+        if (!element) {
+          element = document.createElement('meta');
+          element.setAttribute('name', propertyOrName);
+          document.head.appendChild(element);
+        }
+      }
+      element.setAttribute('content', content);
+    };
 
-    // Basic Meta Tags
-    setMeta('description', description);
-    setMeta('keywords', keywords.join(', '));
-    setMeta('author', SITE_NAME);
-    setMeta('robots', 'index, follow');
-    setMeta('theme-color', '#0f172a');
-    
-    // Open Graph
-    setProperty('og:title', fullTitle);
-    setProperty('og:description', description);
-    setProperty('og:image', image);
-    setProperty('og:image:width', '1200');
-    setProperty('og:image:height', '630');
-    setProperty('og:type', type);
-    setProperty('og:url', currentUrl);
-    setProperty('og:site_name', SITE_NAME);
-    setProperty('og:locale', 'en_US');
-    
-    // Twitter
-    setMeta('twitter:card', type.includes('video') ? 'player' : 'summary_large_image');
-    setMeta('twitter:title', fullTitle);
-    setMeta('twitter:description', description);
-    setMeta('twitter:image', image);
-    setMeta('twitter:site', TWITTER_HANDLE);
-    setMeta('twitter:creator', TWITTER_HANDLE);
-    
-    // Video specific meta
+    // ===== BASIC META TAGS =====
+    updateMetaTag('description', pageDescription);
+    updateMetaTag('keywords', allKeywords.join(', '));
+    updateMetaTag('author', SITE_NAME);
+    updateMetaTag('robots', 'index, follow');
+
+    // ===== OPEN GRAPH =====
+    updateMetaTag('og:title', fullTitle, true);
+    updateMetaTag('og:description', pageDescription, true);
+    updateMetaTag('og:image', image, true);
+    updateMetaTag('og:image:width', '1200', true);
+    updateMetaTag('og:image:height', '630', true);
+    updateMetaTag('og:type', type, true);
+    updateMetaTag('og:url', canonical, true);
+    updateMetaTag('og:site_name', SITE_NAME, true);
+    updateMetaTag('og:locale', 'en_US', true);
+
+    // ===== TWITTER =====
+    updateMetaTag('twitter:card', type.includes('video') ? 'player' : 'summary_large_image');
+    updateMetaTag('twitter:title', fullTitle);
+    updateMetaTag('twitter:description', pageDescription);
+    updateMetaTag('twitter:image', image);
+    updateMetaTag('twitter:site', TWITTER_HANDLE);
+    updateMetaTag('twitter:creator', TWITTER_HANDLE);
+
+    // ===== VIDEO SPECIFIC =====
     if (type.includes('video')) {
-      setProperty('og:video:url', videoUrl || currentUrl);
-      setProperty('og:video:type', 'video/mp4');
-      setProperty('og:video:width', '1280');
-      setProperty('og:video:height', '720');
-      setProperty('og:video:secure_url', videoUrl || currentUrl);
+      updateMetaTag('og:video:url', videoUrl || canonical, true);
+      updateMetaTag('og:video:type', 'video/mp4', true);
+      updateMetaTag('og:video:width', '1280', true);
+      updateMetaTag('og:video:height', '720', true);
+      updateMetaTag('og:video:secure_url', videoUrl || canonical, true);
       
       if (videoDuration) {
-        setProperty('video:duration', videoDuration.toString());
+        updateMetaTag('video:duration', videoDuration.toString(), true);
       }
       if (videoReleaseDate) {
-        setProperty('video:release_date', videoReleaseDate);
+        updateMetaTag('video:release_date', videoReleaseDate, true);
       }
     }
-    
-    // Article specific meta
+
+    // ===== ARTICLE SPECIFIC =====
     if (type === 'article') {
       if (articlePublishedTime) {
-        setProperty('article:published_time', articlePublishedTime);
+        updateMetaTag('article:published_time', articlePublishedTime, true);
       }
       if (articleModifiedTime) {
-        setProperty('article:modified_time', articleModifiedTime);
+        updateMetaTag('article:modified_time', articleModifiedTime, true);
       }
     }
-    
-    // Structured Data (JSON-LD)
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': type === 'video.movie' ? 'Movie' : 
-               type === 'video.tv_show' ? 'TVSeries' : 
-               type === 'article' ? 'Article' : 'WebSite',
-      name: fullTitle,
-      description: description,
-      url: currentUrl,
-      image: image,
-      ...(type.includes('video') && {
-        duration: videoDuration ? `PT${videoDuration}M` : undefined,
-        datePublished: videoReleaseDate,
-        contentUrl: videoUrl,
-        embedUrl: videoUrl
-      })
+
+    // ===== CANONICAL LINK =====
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonical);
+
+    // ===== STRUCTURED DATA =====
+    const generateStructuredData = () => {
+      let schemaType = 'WebSite';
+      if (type === 'video.movie') schemaType = 'Movie';
+      else if (type === 'video.tv_show') schemaType = 'TVSeries';
+      else if (type === 'article') schemaType = 'Article';
+      
+      const structuredData: any = {
+        '@context': 'https://schema.org',
+        '@type': schemaType,
+        name: fullTitle,
+        description: pageDescription,
+        url: canonical,
+        image: image,
+        publisher: {
+          '@type': 'Organization',
+          name: SITE_NAME,
+          url: SITE_URL,
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://uniwatchfree.vercel.app/favicon-32x32.png'
+          }
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': canonical
+        }
+      };
+      
+      if (type.includes('video')) {
+        structuredData.duration = videoDuration ? `PT${videoDuration}M` : undefined;
+        structuredData.datePublished = videoReleaseDate;
+        structuredData.contentUrl = videoUrl;
+        structuredData.embedUrl = videoUrl;
+        structuredData.thumbnailUrl = image;
+        
+        if (type === 'video.movie') {
+          structuredData.genre = keywords.length > 0 ? keywords[0] : 'Entertainment';
+        }
+      }
+      
+      if (type === 'article') {
+        structuredData.datePublished = articlePublishedTime;
+        structuredData.dateModified = articleModifiedTime;
+        structuredData.author = {
+          '@type': 'Organization',
+          name: SITE_NAME
+        };
+      }
+      
+      return structuredData;
     };
-    
+
     // Remove existing schema
-    const existingSchema = document.querySelector('script[type="application/ld+json"]');
-    if (existingSchema) {
-      existingSchema.remove();
-    }
-    
-    // Add new schema
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(structuredData);
-    document.head.appendChild(script);
+    const existingSchemas = document.querySelectorAll('script[type="application/ld+json"]');
+    existingSchemas.forEach(schema => schema.remove());
 
-    // Add canonical link
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', currentUrl);
+    // Add main schema
+    const mainSchema = document.createElement('script');
+    mainSchema.type = 'application/ld+json';
+    mainSchema.text = JSON.stringify(generateStructuredData());
+    document.head.appendChild(mainSchema);
 
-  }, [title, description, image, type, keywords, videoUrl, videoDuration, videoReleaseDate, articlePublishedTime, articleModifiedTime]);
+    // Add Website schema (for all pages)
+    const websiteSchema = document.createElement('script');
+    websiteSchema.type = 'application/ld+json';
+    websiteSchema.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": SITE_NAME,
+      "description": SITE_DESCRIPTION,
+      "url": SITE_URL,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": `${SITE_URL}/#/search?q={search_term_string}`,
+        "query-input": "required name=search_term_string"
+      }
+    });
+    document.head.appendChild(websiteSchema);
+
+    // Add Organization schema
+    const organizationSchema = document.createElement('script');
+    organizationSchema.type = 'application/ld+json';
+    organizationSchema.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": SITE_NAME,
+      "url": SITE_URL,
+      "logo": "https://uniwatchfree.vercel.app/favicon-32x32.png",
+      "sameAs": [
+        `https://twitter.com/${TWITTER_HANDLE.replace('@', '')}`
+      ]
+    });
+    document.head.appendChild(organizationSchema);
+
+  }, [title, description, image, type, keywords, videoUrl, videoDuration, videoReleaseDate, articlePublishedTime, articleModifiedTime, canonicalUrl]);
 
   return null;
 };
