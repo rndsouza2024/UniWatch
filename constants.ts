@@ -1,7 +1,7 @@
 import { MediaItem, Channel, SportMatch, StreamSource } from './types';
 
 // Social sharing base URL
-export const SITE_URL = 'https://streamos.app';
+export const SITE_URL = 'https://uniwatchfree.vercel.app';
 export const SITE_NAME = 'UniWatch™';
 export const DEFAULT_OG_IMAGE = 'https://images.unsplash.com/photo-1595769812728-6b0017a3c68d?w=1200&h=630&fit=crop';
 export const TWITTER_HANDLE = '@UniWatch';
