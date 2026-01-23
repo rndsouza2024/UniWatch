@@ -1118,7 +1118,7 @@ const IPTV: React.FC = () => {
               />
             </section>
 
-            {/* SERVER SWITCHER - VideoPlayer.tsx Style */}
+            {/* SERVER SWITCHER - VideoPlayer.tsx Style
             {selectedChannel.streams && selectedChannel.streams.length > 1 && (
               <div className="px-4">
                 <div className="bg-[#0f172a] p-4 border-t border-dark-border">
@@ -1161,7 +1161,7 @@ const IPTV: React.FC = () => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Program Info */}
             <section className="px-4">
