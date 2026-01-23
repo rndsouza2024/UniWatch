@@ -1,3 +1,4 @@
+
 // import React, { useState, useEffect, useMemo, useRef } from 'react';
 // import { Server, ShieldCheck, AlertCircle, Settings, Zap, Eye, Palette } from 'lucide-react';
 // import { StreamSource } from '../types';
@@ -606,19 +607,19 @@
           
 //           {videoEnhancement && (
 //             <div className="mt-4 pt-4 border-t border-gray-800">
-//               <div className="flex items-center justify-between">
+//               <div className="flex flex-col gap-3 mb-4">
 //                 <div className="flex items-center gap-2">
 //                   <Palette size={14} className="text-brand-400" />
 //                   <span className="text-sm text-gray-300">Active Filter Preset:</span>
 //                 </div>
-//                 <div className="flex gap-2">
+//                 <div className="flex flex-wrap gap-2">
 //                   {Object.keys(filterPresets)
 //                     .filter(preset => preset !== 'off')
 //                     .map(preset => (
 //                       <button
 //                         key={preset}
 //                         onClick={() => setVideoFilter(preset)}
-//                         className={`px-3 py-1 text-xs rounded-full border transition-all ${
+//                         className={`px-3 py-1.5 text-xs rounded-full border transition-all flex-shrink-0 ${
 //                           videoFilter === preset
 //                             ? 'bg-gradient-to-r from-brand-500/20 to-purple-500/20 text-brand-300 border-brand-500/30'
 //                             : 'bg-gray-800/50 text-gray-400 border-gray-700 hover:bg-gray-800'
@@ -631,7 +632,7 @@
 //                 </div>
 //               </div>
               
-//               <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+//               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
 //                 <div className="bg-gray-900/50 p-2 rounded">
 //                   <div className="text-gray-500">Brightness</div>
 //                   <div className="text-brand-300 font-medium">
@@ -696,7 +697,6 @@
 
 
 
-
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Server, ShieldCheck, AlertCircle, Settings, Zap, Eye, Palette } from 'lucide-react';
 import { StreamSource } from '../types';
@@ -726,10 +726,24 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const [videoFilter, setVideoFilter] = useState('standard');
   const [playerError, setPlayerError] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   const filterPresets = {
     standard: 'brightness(1.05) contrast(1.1) saturate(1.08)',
@@ -852,7 +866,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     setPlayerError(false);
     setActiveServer(0);
     
-    // Clean up previous HLS instance
     if (hlsRef.current) {
       hlsRef.current.destroy();
       hlsRef.current = null;
@@ -904,7 +917,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         setIsLoading(false);
         setPlayerError(false);
         videoRef.current?.play().catch(() => {
-          // Autoplay blocked, show controls
           if (videoRef.current) {
             videoRef.current.controls = true;
           }
@@ -928,7 +940,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         }
       });
     } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
-      // Safari native HLS support
       videoRef.current.src = url;
       videoRef.current.addEventListener('loadedmetadata', () => {
         setIsLoading(false);
@@ -980,13 +991,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     
     const currentStream = streams[activeServer];
     
-    // Determine stream type
     if (isM3U8Url(currentStream.url)) {
       loadHLSStream(currentStream.url);
     } else if (isDirectVideoUrl(currentStream.url)) {
       loadDirectVideo(currentStream.url);
     } else {
-      // For iframe sources, we'll let the iframe handle loading
       setIsLoading(false);
     }
   }, [activeServer, streams]);
@@ -995,26 +1004,39 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     if (!containerRef.current) return;
     
     if (!document.fullscreenElement) {
-      containerRef.current.requestFullscreen().then(() => {
-        setIsFullscreen(true);
-      }).catch(err => {
-        console.log(`Error attempting to enable fullscreen: ${err.message}`);
-      });
+      if (containerRef.current.requestFullscreen) {
+        containerRef.current.requestFullscreen();
+      } else if ((containerRef.current as any).webkitRequestFullscreen) {
+        (containerRef.current as any).webkitRequestFullscreen();
+      } else if ((containerRef.current as any).msRequestFullscreen) {
+        (containerRef.current as any).msRequestFullscreen();
+      }
     } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      } else if ((document as any).msExitFullscreen) {
+        (document as any).msExitFullscreen();
+      }
     }
   };
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      setIsFullscreen(!!document.fullscreenElement || 
+                     !!(document as any).webkitFullscreenElement || 
+                     !!(document as any).msFullscreenElement);
     };
     
     document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
     
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
     };
   }, []);
 
@@ -1046,7 +1068,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         />
       );
     } else {
-      // For embedded iframe sources
       return (
         <iframe
           src={currentStream.url}
@@ -1059,7 +1080,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             setPlayerError(true);
             setIsLoading(false);
           }}
-          title={`${title || 'Video'} Player - UniWatch`}
+          title={`${title || 'Video'} Player`}
           referrerPolicy="strict-origin-when-cross-origin"
         />
       );
@@ -1090,20 +1111,113 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         box-shadow: 0 0 15px rgba(59, 130, 246, 0.3) !important;
       }
       
-      /* Fullscreen styles */
-      :fullscreen .video-player-container {
-        background: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      :fullscreen video,
-      :fullscreen iframe {
+      /* Fullscreen styles for all devices */
+      :fullscreen .video-player-container,
+      :-webkit-full-screen .video-player-container,
+      :-moz-full-screen .video-player-container,
+      :-ms-fullscreen .video-player-container {
+        background: #000 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         width: 100vw !important;
         height: 100vh !important;
         max-width: 100vw !important;
         max-height: 100vh !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 999999 !important;
+        border-radius: 0 !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+      }
+      
+      :fullscreen .video-player-container > div,
+      :-webkit-full-screen .video-player-container > div,
+      :-moz-full-screen .video-player-container > div,
+      :-ms-fullscreen .video-player-container > div {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      
+      :fullscreen .video-player-container .relative,
+      :-webkit-full-screen .video-player-container .relative,
+      :-moz-full-screen .video-player-container .relative,
+      :-ms-fullscreen .video-player-container .relative {
+        width: 100% !important;
+        height: 100% !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        aspect-ratio: unset !important;
+      }
+      
+      :fullscreen video,
+      :fullscreen iframe,
+      :-webkit-full-screen video,
+      :-webkit-full-screen iframe,
+      :-moz-full-screen video,
+      :-moz-full-screen iframe,
+      :-ms-fullscreen video,
+      :-ms-fullscreen iframe {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important;
+        position: relative !important;
+      }
+      
+      /* Mobile-specific fullscreen optimizations */
+      @media (max-width: 768px) {
+        .video-player-container {
+          border-radius: 0 !important;
+        }
+        
+        :fullscreen .video-player-container,
+        :-webkit-full-screen .video-player-container {
+          width: 100% !important;
+          height: 100% !important;
+        }
+        
+        :fullscreen video,
+        :fullscreen iframe,
+        :-webkit-full-screen video,
+        :-webkit-full-screen iframe {
+          object-fit: contain !important;
+        }
+        
+        /* Force landscape orientation handling */
+        @media (orientation: landscape) {
+          :fullscreen .video-player-container .relative,
+          :-webkit-full-screen .video-player-container .relative {
+            padding-bottom: 0 !important;
+            padding-top: 0 !important;
+          }
+        }
+      }
+      
+      /* iOS Safari specific fixes */
+      @supports (-webkit-touch-callout: none) {
+        :fullscreen .video-player-container,
+        :-webkit-full-screen .video-player-container {
+          -webkit-overflow-scrolling: touch !important;
+          overflow: hidden !important;
+        }
+        
+        :fullscreen video,
+        :-webkit-full-screen video {
+          -webkit-transform: translateZ(0) !important;
+          transform: translateZ(0) !important;
+        }
       }
     `;
     document.head.appendChild(style);
@@ -1126,14 +1240,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       <div className="bg-dark-surface px-4 py-2 flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-dark-border gap-3">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-          <span className="text-white font-medium text-sm">Playing: {title || 'Unknown Title'}</span>
+          <span className="text-white font-medium text-sm truncate max-w-[200px] sm:max-w-none">
+            {title || 'Unknown Title'}
+          </span>
         </div>
         
         <div className="flex flex-wrap gap-3 items-center">
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5">
               <Palette size={14} className="text-brand-400" />
-              <span className="text-xs text-gray-300">Enhance:</span>
+              <span className="text-xs text-gray-300 hidden sm:inline">Enhance:</span>
             </div>
             <div className="flex items-center">
               <button
@@ -1186,14 +1302,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           </div>
           
           <div className="flex gap-2">
-            <span className="text-xs bg-brand-900 text-brand-200 px-2 py-0.5 rounded flex items-center gap-1">
+            <span className="text-xs bg-brand-900 text-brand-200 px-2 py-0.5 rounded hidden sm:flex items-center gap-1">
               <ShieldCheck size={10} /> Secure
             </span>
             <span className="text-xs bg-green-900/30 text-green-300 px-2 py-0.5 rounded flex items-center gap-1">
               <Zap size={10} /> {streams[activeServer]?.quality || 'HD'}
             </span>
             {videoEnhancement && (
-              <span className="text-xs bg-purple-900/30 text-purple-300 px-2 py-0.5 rounded flex items-center gap-1">
+              <span className="text-xs bg-purple-900/30 text-purple-300 px-2 py-0.5 rounded hidden sm:flex items-center gap-1">
                 <Eye size={10} /> Enhanced
               </span>
             )}
@@ -1202,7 +1318,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded hover:bg-gray-700 flex items-center gap-1"
               title="Toggle fullscreen"
             >
-              {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+              {isFullscreen ? 'Exit' : 'Full'}
             </button>
           </div>
         </div>
@@ -1269,18 +1385,17 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 <button
                   key={server.id || idx}
                   onClick={() => setActiveServer(idx)}
-                  className={`px-4 py-2 rounded text-xs font-bold uppercase tracking-wider transition-all relative overflow-hidden group ${
+                  className={`px-3 py-2 rounded text-xs font-bold uppercase tracking-wider transition-all relative overflow-hidden group ${
                     activeServer === idx
-                      ? 'bg-gradient-to-r from-brand-600 to-purple-600 text-white shadow-lg shadow-brand-500/20 transform scale-105'
+                      ? 'bg-gradient-to-r from-brand-600 to-purple-600 text-white shadow-lg shadow-brand-500/20'
                       : 'bg-dark-surface text-gray-400 hover:bg-white/10 hover:text-white border border-dark-border'
-                  }`}
+                  } ${isMobile ? 'flex-1 min-w-[100px]' : ''}`}
                   aria-label={`Switch to ${server.name}`}
                 >
-                  <span className="relative z-10">{server.name}</span>
+                  <span className="relative z-10 truncate">{server.name}</span>
                   {activeServer === idx && videoEnhancement && (
                     <span className="absolute inset-0 bg-gradient-to-r from-brand-500/20 to-purple-500/20"></span>
                   )}
-                  <span className="absolute -right-2 -top-2 w-4 h-4 bg-brand-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 </button>
               ))}
             </div>
