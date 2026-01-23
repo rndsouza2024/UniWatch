@@ -8,34 +8,35 @@ const BACKDROP_BASE = 'https://image.tmdb.org/t/p/original';
 // Sports content
 const UNIQUE_SPORTS = [
   {
-    id: 'sports-1',
-    title: 'Live Premier League',
-    poster_path: '/images/sports/premier-league.jpg',
-    backdrop_path: '/images/sports/premier-league.jpg',
-    release_date: '2024-01-20',
+    id: 'bbl2025-26-challenger',
+    title: 'BBL 2025-26 Challenger : Sixers vs Hurricanes',
+    poster_path: '/images/sports/bbl_1.jpg',
+    backdrop_path: '/images/sports/bbl_1.jpg',
+    release_date: '2026-01-23',
     vote_average: 8.5,
     duration: 'Live',
-    genres: ['Sports', 'Live', 'Soccer'],
+    genres: ['Cricket', 'Live', 'Sports'],
     streams: {
-      "Server 1": "https://embedsports.top/embed/admin/ppv-philadelphia-flyers-vs-vegas-golden-knights/1",
-      "Server 2 - Under Maintenance": ""
+      "Server 1": "https://embedsports.top/embed/echo/bbl-challenger-sydney-sixers-vs-hobart-hurricanes-game-126262/2",
+      "Server 2": "https://embedsports.top/embed/echo/bbl-challenger-sydney-sixers-vs-hobart-hurricanes-game-126262/4",
+      "Server 3- Under Maintenance": ""
     },
-    overview: 'Live Premier League match featuring top teams. Watch all the action live with multiple server options for uninterrupted streaming.'
+    overview: 'BBL 2025-26 Challenger : Sixers vs Hurricanes Live matches'
   },
   {
-    id: 'sports-2',
-    title: 'Tennis Live',
+    id: 'australian-open-live',
+    title: 'Australian Open Live',
     poster_path: '/images/sports/tennis.jpg',
     backdrop_path: '/images/sports/tennis.jpg',
-    release_date: '2024-01-20',
+    release_date: '2026-01-23',
     vote_average: 5.5,
     duration: 'Live',
-    genres: ['Sports', 'Live', 'Tennis'],
+    genres: ['Tennis', 'Live', 'Sports'],
     streams: {
       "Server 1": "https://amg01444-tennischannelth-tennischannelnl-samsungnl-x3dq1.amagi.tv/ts-eu-w1-n2/playlist/amg01444-tennischannelth-tennischannelnl-samsungnl/cb553d1e786c648a9dd43e61d4ef42a0dc243dfc087a8d6933fb4b926bc10f41e2e5af97b20cac7822fb0fdf61146d5a4d009247d8780ad7967cac48240d5734c6cdd52e8be24b4daddd0c2d34b07c0e49857671ad594f32d5e0110dc51ab07a0e1ca1494d5e2082b00cb27756c69e0a957f378bbdbe306f2c180680585ee2be5da5edf5084d8c64a9e3194f887943e1835fc8d54abb9d865e97169b24a041cc93a2d88612808e9101ec6d8d5c9f870f07fba957d1ac74b8de93684bf31b4a672d252d270e9c3458a7544a5d8293a314eed261a8a4308c6236b242ed2746c6a719c8248f9b258dacb3de50402aacd049606dc88fc6deab6563ea36a9e081b802b94457633e349a4da1d91ec75b309326a48979b7a52a84fb421234cb90519aa77fe285bfa045862cc6cbf5d7680c1e234c358f53a6957ac869f34ce89f436f0c16049a935b92d2821e28341bcfc07fc40317bcec8e81f4072f8535480da6338f1b4d47e4004150a96df5933769c9010f863e32b218168850f3b529baf68fb6486bfb8e8912bf5ceeb30bc0ff4dfc3e6b1751e58059352f7b74deea691a2339921596b4e4d5375850a2a7b7bdaa351f0836105e09f192c4788981cd2c5d5b81642f6e701f008546b14dda13421421d914b1f85c94e4d4808d4dc11257f3ab196e438f8579b98298a56edb/45/1920x1080_5288800/index.m3u8",
-      "Server 2 - Under Maintenance": ""
+      "Server 2- Under Maintenance": ""
     },
-    overview: 'Live NBA basketball action. Watch the best teams compete with high-definition streaming.'
+    overview: 'Tennis Channel Live at the Australian Open Live matches'
   },
   {
     id: 'sports-3',
