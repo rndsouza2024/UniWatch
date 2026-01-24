@@ -352,31 +352,103 @@ export const MOCK_CHANNELS: Channel[] = [
   },
   { 
     id: 'c8', 
-    name: 'Sky Sports Main Event', 
-    logo: '/images/channels/sky-sports-main-event.png', 
+    name: 'Soccer', 
+    logo: '/images/channels/soccer.png', 
     category: 'Sports', 
-    currentProgram: 'Premier League: MCY vs LIV', 
+    currentProgram: 'Premier: Soccer', 
     progress: 45, 
     streams: [
-        { id: 'c8-s1', name: 'Server 1', url: 'https://daddyhd.com/stream/stream-35.php', quality: 'HD' },
-                  { id: 'c8-s2', name: 'Server 2 - Under Maintenance', url: '', quality: 'HD' }
+         { id: 'c8-s1', name: 'Server 1', url: 'https://daddyhd.com/stream/stream-35.php', quality: 'HD' },
+        { id: 'c8-s2', name: 'Server 2', url: 'https://daddyhd.com/stream/stream-463.php', quality: 'HD' },
+        { id: 'c8-s3', name: 'Server 3', url: 'https://daddyhd.com/stream/stream-56.php', quality: 'HD' },
+        { id: 'c8-s4', name: 'Server 4', url: 'https://daddyhd.com/stream/stream-276.php', quality: 'HD' },
+        { id: 'c8-s5', name: 'Server 5', url: 'https://daddyhd.com/stream/stream-756.php', quality: 'HD' },
+        { id: 'c8-s6', name: 'Server 6', url: 'https://daddyhd.com/stream/stream-68.php', quality: 'HD' }
     ],
     schedule: [
       {
         id: 'prog1',
-        title: 'Premier League: MCY vs LIV',
+        title: 'All Games as per the Broadcaster Channel',
         startTime: new Date(Date.now() - 45 * 60000), // Started 45 mins ago
         endTime: new Date(Date.now() + 45 * 60000), // Ends in 45 mins
-        description: 'Live coverage of Manchester City vs Liverpool'
-      },
-      {
-        id: 'prog2',
-        title: 'Post-Match Analysis',
-        startTime: new Date(Date.now() + 45 * 60000),
-        endTime: new Date(Date.now() + 105 * 60000),
-        description: 'Expert analysis and highlights'
+        description: 'Live coverage of All Matches'
       }
-    ]
+   ]
+  },
+  { 
+    id: 'c8', 
+    name: 'Cricket', 
+    logo: '/images/channels/cricket.png', 
+    category: 'Sports', 
+    currentProgram: 'Cricket', 
+    progress: 45, 
+    streams: [
+        { id: 'c8-s1', name: 'Server 1', url: 'https://daddyhd.com/stream/stream-369.php', quality: 'HD' },
+        { id: 'c8-s2', name: 'Server 2', url: 'https://daddyhd.com/stream/stream-379.php', quality: 'HD' },
+        { id: 'c8-s3', name: 'Server 3', url: 'https://daddyhd.com/stream/stream-65.php', quality: 'HD' },
+        { id: 'c8-s4', name: 'Server 4', url: 'https://daddyhd.com/stream/stream-368.php', quality: 'HD' },
+        { id: 'c8-s5', name: 'Server 5', url: 'https://daddyhd.com/stream/stream-546.php', quality: 'HD' },
+        { id: 'c8-s6', name: 'Server 6', url: 'https://daddyhd.com/stream/stream-598.php', quality: 'HD' }
+    ],
+    schedule: [
+      {
+        id: 'prog1',
+        title: 'All Games as per the Broadcaster Channel',
+        startTime: new Date(Date.now() - 45 * 60000), // Started 45 mins ago
+        endTime: new Date(Date.now() + 45 * 60000), // Ends in 45 mins
+        description: 'Live coverage of All Matches'
+      }
+   ]
+  },
+  { 
+    id: 'c9', 
+    name: 'Golf', 
+    logo: '/images/channels/golf.png', 
+    category: 'Sports', 
+    currentProgram: 'Premier: Golf', 
+    progress: 45, 
+    streams: [
+        { id: 'c9-s1', name: 'Server 1', url: 'https://daddyhd.com/stream/stream-70.php', quality: 'HD' },
+        { id: 'c9-s2', name: 'Server 2', url: 'https://daddyhd.com/stream/stream-318.php', quality: 'HD' },
+        { id: 'c9-s3', name: 'Server 3', url: 'https://daddyhd.com/stream/stream-422.php', quality: 'HD' },
+        { id: 'c9-s4', name: 'Server 4', url: 'https://daddyhd.com/stream/stream-710.php', quality: 'HD' },
+        { id: 'c9-s5', name: 'Server 5', url: 'https://daddyhd.com/stream/stream-574.php', quality: 'HD' },
+        { id: 'c9-s6', name: 'Server 6', url: 'https://daddyhd.com/stream/stream-785.php', quality: 'HD' }
+    ],
+    schedule: [
+      {
+        id: 'prog1',
+        title: 'All Games as per the Broadcaster Channel',
+        startTime: new Date(Date.now() - 45 * 60000), // Started 45 mins ago
+        endTime: new Date(Date.now() + 45 * 60000), // Ends in 45 mins
+        description: 'Live coverage of All Matches'
+      }
+   ]
+  },
+  { 
+    id: 'c10', 
+    name: 'Tennis', 
+    logo: '/images/channels/tennis.png', 
+    category: 'Sports', 
+    currentProgram: 'Premier: Tennis', 
+    progress: 45, 
+    streams: [
+        { id: 'c10-s1', name: 'Server 1', url: 'https://daddyhd.com/stream/stream-46.php', quality: 'HD' },
+        { id: 'c10-s2', name: 'Server 2', url: 'https://daddyhd.com/stream/stream-423.php', quality: 'HD' },
+        { id: 'c10-s3', name: 'Server 3', url: 'https://daddyhd.com/stream/stream-40.php', quality: 'HD' },
+        { id: 'c10-s4', name: 'Server 4', url: 'https://daddyhd.com/stream/stream-576.php', quality: 'HD' },
+        { id: 'c10-s5', name: 'Server 5', url: 'https://daddyhd.com/stream/stream-701.php', quality: 'HD' },
+        { id: 'c10-s6', name: 'Server 6', url: 'https://daddyhd.com/stream/stream-884.php', quality: 'HD' }
+    ],
+    schedule: [
+      {
+        id: 'prog1',
+        title: 'All Games as per the Broadcaster Channel',
+        startTime: new Date(Date.now() - 45 * 60000), // Started 45 mins ago
+        endTime: new Date(Date.now() + 45 * 60000), // Ends in 45 mins
+        description: 'Live coverage of All Matches'
+      }
+   ]
   },
   { 
     id: 'e1', 
@@ -443,14 +515,18 @@ export const MOCK_CHANNELS: Channel[] = [
   },
   { 
     id: 'e4', 
-    name: 'Comedy Central', 
+    name: 'Comedy', 
     logo: '/images/channels/comedy-central.png', 
     category: 'Entertainment', 
     currentProgram: 'Comedy Biggest Fear', 
     progress: 50, 
     streams: [
         { id: 'e4-s1', name: 'Server 1', url: 'https://daddyhd.com/stream/stream-310.php', quality: 'HD' },
-          { id: 'e4-s2', name: 'Server 2 - Under Maintenance', url: '', quality: 'HD' }
+        { id: 'e4-s2', name: 'Server 2', url: 'https://daddyhd.com/stream/stream-690.php', quality: 'HD' },
+        { id: 'e4-s3', name: 'Server 3', url: 'https://daddyhd.com/stream/stream-971.php', quality: 'HD' },
+        { id: 'e4-s4', name: 'Server 4', url: 'https://daddyhd.com/stream/stream-678.php', quality: 'HD' },
+        { id: 'e4-s5', name: 'Server 5', url: 'https://daddyhd.com/stream/stream-545.php', quality: 'HD' },
+        { id: 'e4-s6', name: 'Server 6', url: 'https://daddyhd.com/stream/stream-684.php', quality: 'HD' }
     ],
     schedule: [
       {
