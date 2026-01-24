@@ -612,8 +612,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         </div>
       </div>
 
-      {/* VIDEO PLAYER CONTAINER - WITH PADDING TOP FOR FLOATING TAB */}
-      <div className="relative w-full bg-black aspect-video pt-14">
+      {/* VIDEO PLAYER CONTAINER - FULL WIDTH NO PADDING */}
+      <div className="relative w-full bg-black aspect-video">
         {isLoading && (
           <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-40">
             <div className="flex flex-col items-center gap-3">
