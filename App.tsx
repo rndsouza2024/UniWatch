@@ -1466,21 +1466,29 @@ const WatchPage = () => {
         );
     }
 
-    // FIXED: Get absolute image URL with TMDB base - CHECK FOR NULL PATHS
+    // FIXED: Get absolute image URL - HANDLES BOTH ABSOLUTE AND RELATIVE PATHS
     const getAbsoluteImageUrl = (path: string | undefined | null) => {
         if (!path || path === 'null' || path === 'undefined') {
-            // Use actual image from your site, not placeholder
+            // Use actual default image
             return window.location.origin + '/default-poster.jpg';
         }
         
         // If already full URL, return it
         if (path.startsWith('http')) return path;
         
-        // Remove leading slash if present
-        const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+        // If it starts with '/images/', it's a relative path from your public folder
+        if (path.startsWith('/images/')) {
+            return window.location.origin + path;
+        }
         
-        // TMDB images need base URL - use 'w500' for optimal size
-        return `https://image.tmdb.org/t/p/w500/${cleanPath}`;
+        // If it's a TMDB path without base URL, add it
+        if (path.startsWith('/')) {
+            // This is a TMDB path starting with /
+            return `https://image.tmdb.org/t/p/w500${path}`;
+        }
+        
+        // If it's just a filename, assume it's from TMDB
+        return `https://image.tmdb.org/t/p/w500/${path}`;
     };
 
     // FIXED: Get the best available image with PROPER FALLBACK
@@ -1491,8 +1499,8 @@ const WatchPage = () => {
         }
         
         // Check what image types are available
-        const hasBackdrop = item.backdrop_path && item.backdrop_path !== 'null';
-        const hasPoster = item.poster_path && item.poster_path !== 'null';
+        const hasBackdrop = item.backdrop_path && item.backdrop_path !== 'null' && item.backdrop_path !== '';
+        const hasPoster = item.poster_path && item.poster_path !== 'null' && item.poster_path !== '';
         
         // Priority: backdrop → poster → fallback based on type
         if (hasBackdrop) {
@@ -1502,19 +1510,19 @@ const WatchPage = () => {
             return getAbsoluteImageUrl(item.poster_path);
         }
         
-        // Type-specific fallback images (you need to add these to your public folder)
+        // Type-specific fallback images
         if (type === 'movie') {
-            return window.location.origin + '/movie-default.jpg';
+            return 'https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?w=500&h=750&fit=crop';
         } else if (type === 'tv') {
-            return window.location.origin + '/tv-default.jpg';
+            return 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=750&fit=crop';
         } else if (type === 'sports') {
-            return window.location.origin + '/sports-default.jpg';
+            return 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500&h=750&fit=crop';
         } else if (type === 'tv_live') {
-            return window.location.origin + '/live-tv-default.jpg';
+            return 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&h=750&fit=crop';
         }
         
-        // Ultimate fallback
-        return window.location.origin + '/default-backdrop.jpg';
+        // Ultimate fallback - ACTUAL IMAGE, NOT PLACEHOLDER
+        return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop';
     };
 
     // FIXED: Get proper display title
