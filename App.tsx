@@ -1426,7 +1426,7 @@ const WatchPage = () => {
         if (id && type) {
             setLoading(true);
             
-            // FIX: Get item from correct source based on type
+            // Get item from correct source based on type
             let foundItem: MediaItem | null = null;
             
             if (type === 'movie') {
@@ -1466,24 +1466,22 @@ const WatchPage = () => {
         );
     }
 
-    // FIXED: Get absolute image URL - HANDLES BOTH ABSOLUTE AND RELATIVE PATHS
+    // Get absolute image URL - handles both absolute and relative paths
     const getAbsoluteImageUrl = (path: string | undefined | null) => {
         if (!path || path === 'null' || path === 'undefined') {
-            // Use actual default image
-            return window.location.origin + '/default-poster.jpg';
+            return 'https://uniwatchfree.vercel.app/og-image.jpg';
         }
         
         // If already full URL, return it
         if (path.startsWith('http')) return path;
         
-        // If it starts with '/images/', it's a relative path from your public folder
+        // If it starts with '/images/', it's a relative path from public folder
         if (path.startsWith('/images/')) {
             return window.location.origin + path;
         }
         
         // If it's a TMDB path without base URL, add it
         if (path.startsWith('/')) {
-            // This is a TMDB path starting with /
             return `https://image.tmdb.org/t/p/w500${path}`;
         }
         
@@ -1491,11 +1489,10 @@ const WatchPage = () => {
         return `https://image.tmdb.org/t/p/w500/${path}`;
     };
 
-    // FIXED: Get the best available image with PROPER FALLBACK
+    // Get the best available image with proper fallback
     const getBestImage = () => {
         if (!item) {
-            // Default site image
-            return window.location.origin + '/default-backdrop.jpg';
+            return 'https://uniwatchfree.vercel.app/og-image.jpg';
         }
         
         // Check what image types are available
@@ -1510,27 +1507,26 @@ const WatchPage = () => {
             return getAbsoluteImageUrl(item.poster_path);
         }
         
-        // Type-specific fallback images
+        // Type-specific fallback images - ACTUAL IMAGES, NO PLACEHOLDERS
         if (type === 'movie') {
-            return 'https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?w=500&h=750&fit=crop';
+            return 'https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?w=500&h=750&fit=crop&q=80';
         } else if (type === 'tv') {
-            return 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=750&fit=crop';
+            return 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=750&fit=crop&q=80';
         } else if (type === 'sports') {
-            return 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500&h=750&fit=crop';
+            return 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500&h=750&fit=crop&q=80';
         } else if (type === 'tv_live') {
-            return 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&h=750&fit=crop';
+            return 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&h=750&fit=crop&q=80';
         }
         
-        // Ultimate fallback - ACTUAL IMAGE, NOT PLACEHOLDER
-        return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop';
+        return 'https://uniwatchfree.vercel.app/og-image.jpg';
     };
 
-    // FIXED: Get proper display title
+    // Get proper display title
     const getDisplayTitle = () => {
         if (!item) return 'Watch Content';
         
         if (type === 'movie') {
-            return `Watch ${item.title}`;
+            return `${item.title}`;
         } else if (type === 'tv') {
             return `${item.title} - Season ${season}, Episode ${episode}`;
         } else if (type === 'sports') {
@@ -1542,12 +1538,12 @@ const WatchPage = () => {
         return item.title;
     };
 
-    // FIXED: Proper share title
+    // Proper share title
     const shareTitle = item 
-        ? `${getDisplayTitle()} | UniWatch` 
-        : 'Watch Free Content | UniWatch';
+        ? `Watch "${item.title}" Free Online | UniWatch` 
+        : 'Watch Free Online | UniWatch';
     
-    // FIXED: Proper description with actual content
+    // Proper description with actual content
     const shareDescription = item?.overview 
         ? `${item.overview.substring(0, 150)}...`
         : type === 'movie' 
@@ -1558,21 +1554,20 @@ const WatchPage = () => {
                     ? `Watch live sports: ${item?.title || 'Live Game'} on UniWatch. Free HD streaming.`
                     : `Watch ${item?.title || 'Live TV'} on UniWatch. Free streaming.`;
     
-    // FIXED: Absolute image URL - TESTED AND WORKING
+    // Absolute image URL
     const shareImage = getBestImage();
     
-    // FIXED: Proper URL for HashRouter
+    // Proper URL for HashRouter
     const shareUrl = `watch?id=${id}&type=${type}` + 
         (type === 'tv' ? `&season=${season}&episode=${episode}` : '');
     
-    // FIXED: Get full absolute URL for sharing
+    // Get full absolute URL for sharing
     const getFullShareUrl = () => {
         const baseUrl = window.location.origin;
-        // For HashRouter: base + # + path
         return `${baseUrl}/#${shareUrl}`;
     };
 
-    const pageTitle = getDisplayTitle() + ' | UniWatch';
+    const pageTitle = `${getDisplayTitle()} | UniWatch`;
     const pageDesc = shareDescription;
     const pageImage = shareImage;
     

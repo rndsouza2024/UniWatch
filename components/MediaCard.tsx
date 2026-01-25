@@ -177,31 +177,27 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
   };
 
   const getShareUrl = () => {
-    return `#/watch?id=${item.id}&type=${item.media_type}`;
+    return `watch?id=${item.id}&type=${item.media_type}`;
   };
 
-  // FIXED: Get absolute image URL
+  // Get absolute image URL
   const getAbsoluteImageUrl = (path: string) => {
     if (!path) return 'https://uniwatchfree.vercel.app/og-image.jpg';
     
-    // If already full URL, return it
     if (path.startsWith('http')) return path;
     
-    // If it starts with '/images/', it's a relative path from public folder
     if (path.startsWith('/images/')) {
       return window.location.origin + path;
     }
     
-    // If it's a TMDB path starting with /, add base URL
     if (path.startsWith('/')) {
       return `https://image.tmdb.org/t/p/w500${path}`;
     }
     
-    // Default fallback
     return 'https://uniwatchfree.vercel.app/og-image.jpg';
   };
 
-  // FIXED: Get share image
+  // Get share image
   const getShareImage = () => {
     return getAbsoluteImageUrl(item.poster_path || item.backdrop_path || '');
   };
@@ -222,9 +218,9 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
             alt={`Poster for ${item.title}`}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
-             style={{
-             filter: 'brightness(1.12) contrast(1.08) saturate(1.03)',
-              }}
+            style={{
+              filter: 'brightness(1.12) contrast(1.08) saturate(1.03)',
+            }}
           />
           
           {/* Overlay Gradient */}
@@ -237,7 +233,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
             </div>
           </div>
           
-          {/* Action Buttons */}
+          {/* Share Button */}
           <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button 
               onClick={handleShareClick}
@@ -294,21 +290,23 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
           {showShare && (
             <div className="absolute left-0 right-0 top-full mt-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl z-50 border border-dark-border animate-fadeIn">
               <div className="flex items-center justify-between mb-3">
-                <h4 className="text-white font-bold">Share "{item.title}"</h4>
+                <h4 className="text-white font-bold text-sm">Share "{item.title}"</h4>
                 <button 
                   onClick={() => setShowShare(false)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-400 hover:text-white text-sm"
                 >
                   ✕
                 </button>
               </div>
-              <SocialShare
-                title={`Watch ${item.title}`}
-                description={item.overview || `Stream ${item.title} in HD quality`}
-                image={getShareImage()}
-                url={getShareUrl()}
-                type={item.media_type}
-              />
+              <div className="max-h-60 overflow-y-auto">
+                <SocialShare
+                  title={`Watch ${item.title}`}
+                  description={item.overview || `Watch ${item.title} in HD quality on UniWatch.`}
+                  image={getShareImage()}
+                  url={getShareUrl()}
+                  type={item.media_type}
+                />
+              </div>
             </div>
           )}
           
