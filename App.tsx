@@ -1338,7 +1338,7 @@ import SocialShare from './components/SocialShare';
 // Helper function to get absolute image URL - FIXED
 const getAbsoluteImageUrl = (imgPath: string) => {
   if (!imgPath || imgPath.trim() === '') {
-    return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
+    return 'https://uniwatchfree.vercel.app/og-image.jpg';
   }
   
   if (imgPath.startsWith('http')) {
