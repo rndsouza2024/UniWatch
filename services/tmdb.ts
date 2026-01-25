@@ -165,6 +165,126 @@ const UNIQUE_TV_LIVE = [
 // 15 UNIQUE MOVIES (ALL FROM TMDB)
 const UNIQUE_MOVIES = [
    {
+    id: '1614077',
+    title: 'Sulutan (2025)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/kd11696ab32WhHUeq5ZkWi9k09Y.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/kd11696ab32WhHUeq5ZkWi9k09Y.jpg',
+    release_date: '2026-01-26',
+    vote_average: 5.1,
+    duration: '1h 19m',
+    genres: ['Adult', 'Romance', 'Drama'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1614077",
+      "Server 2": "https://cinemaos.tech/player/1614077",
+      "Server 3": "https://zxcstream.xyz/player/movie/1614077/tagalog?autoplay=false&back=true&server=0",
+      "Server 4": "https://byseqekaho.com/e/ytxpdjdt2sqb",
+      "Server 5": "https://www.cinezo.net/watch/movie/1614077",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1614077",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1614077"
+    },
+    overview: 'Lena and Mara are drawn into a secret affair that defies boundaries and threatens everything they’ve built. When Mara uncovers her groom’s betrayal, she finds solace in Lena, a newfound friend who soon becomes something more. As passion and secrecy collide, their choices endanger careers, fracture relationships, and lead to devastating consequences.'
+  },
+  {
+    id: '1555917',
+    title: 'The Secret of Maria Makinang (2025)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/aaIyWoyk13wp2SmzVTA1X2VSLaz.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/aaIyWoyk13wp2SmzVTA1X2VSLaz.jpg',
+    release_date: '2025-10-22',
+    vote_average: 5.1,
+    duration: '1h 19m',
+    genres: ['Adult', 'Romance', 'Drama'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1555917",
+      "Server 2": "https://cinemaos.tech/player/1555917",
+      "Server 3": "https://zxcstream.xyz/player/movie/1555917/tagalog?autoplay=false&back=true&server=0",
+      "Server 4": "https://byseqekaho.com/e/h4zfrz9rchim",
+      "Server 5": "https://www.cinezo.net/watch/movie/1555917",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1555917",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1555917"
+    },
+    overview: 'It tells the story of Maria, a young woman who appears only during the full moon. She falls for a man named Danilo, and their love is tested through time, because for Danilo, decades have passed, but for Maria, it has only been a few moments.'
+  },
+  {
+    id: '1597538',
+    title: 'Angkinin Mo Ako (2025)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/2YZ24F49pRkNb45YWI6yckrTYE.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/2YZ24F49pRkNb45YWI6yckrTYE.jpg',
+    release_date: '2025-10-23',
+    vote_average: 5.1,
+    duration: '1h 10m',
+    genres: ['Adult', 'Romance', 'Drama'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1597538",
+      "Server 2": "https://cinemaos.tech/player/1597538",
+      "Server 3": "https://zxcstream.xyz/player/movie/1597538/tagalog?autoplay=false&back=true&server=0",
+      "Server 4": "https://byseqekaho.com/e/7j7jdm0pcl8o",
+      "Server 5": "https://www.cinezo.net/watch/movie/1597538",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1597538",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1597538"
+    },
+    overview: 'Cess Garcia and VMX’s next big thing Dara Lima star in a steamy drama about two sisters and the man who sparks their sensual awakening. A female lawyer hires a young man as tutor for her younger sister but unknown to her, their review sessions are becoming wild'
+  },
+  {
+    id: '1213898',
+    title: 'Border 2 (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/hju9XncHxUxUS1GAJ4YqpdFCa5t.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/hju9XncHxUxUS1GAJ4YqpdFCa5t.jpg',
+    release_date: '2026-01-23',
+    vote_average: 5.1,
+    duration: '3h 19m',
+    genres: ['War', 'Action', 'Drama'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1213898",
+      "Server 2": "https://cinemaos.tech/player/1213898",
+      "Server 3": "https://zxcstream.xyz/player/movie/1213898/hindi?autoplay=false&back=true&server=0",
+      "Server 4": "https://byseqekaho.com/e/arek24r0hs1i",
+      "Server 5": "https://www.cinezo.net/watch/movie/1213898",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1213898",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1213898"
+    },
+    overview: 'During the events of the 1971 Indo-Pak war, a new generation of young Indian warriors were getting ready to defend the nation from an even bigger threat to the Indian motherland.'
+  },
+  {
+    id: '1617536',
+    title: 'One Two Cha Cha Chaa (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/cWfX0Pog0ZHgTKY3glhIjvkWxgB.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/cWfX0Pog0ZHgTKY3glhIjvkWxgB.jpg',
+    release_date: '2026-01-16',
+    vote_average: 5.1,
+    duration: '2h 40m',
+    genres: ['Action ', 'Adventure', 'Comedy'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1617536",
+      "Server 2": "https://cinemaos.tech/player/1617536",
+      "Server 3": "https://zxcstream.xyz/player/movie/1617536/hindi?autoplay=false&back=true&server=0",
+      "Server 4": "https://byseqekaho.com/e/c9foe0i6blcn",
+      "Server 5": "https://www.cinezo.net/watch/movie/1617536",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1617536",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1617536"
+    },
+    overview: 'So, Fuel Up, Gear Up, Level Up and Fasten your seat belts for the wildest and wackiest road trip of all time.'
+  },
+  {
+    id: '1282440',
+    title: 'Happy Patel: Khatarnak Jasoos (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/vsCkxiY2c26C6y4RyTVkpdXIfCW.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/vsCkxiY2c26C6y4RyTVkpdXIfCW.jpg',
+    release_date: '2026-01-23',
+    vote_average: 5.1,
+    duration: '2h 02m',
+    genres: ['Comedy ', 'Action', 'Romance'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1282440",
+      "Server 2": "https://cinemaos.tech/player/1282440",
+      "Server 3": "https://zxcstream.xyz/player/movie/1282440/hindi?autoplay=false&back=true&server=0",
+      "Server 4": "https://byseqekaho.com/e/encokgewcj88",
+      "Server 5": "https://www.cinezo.net/watch/movie/1282440",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1282440",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1282440"
+    },
+    overview: 'Happy Patel, a chronically unsuccessful MI7 operative, is finally assigned a mission in Goa, where he uncovers his Indian roots and must rescue a high-profile scientist from crime lord Mama. Unaware of his Indian heritage and armed with a comically British accent, Happy’s blunders trigger a string of chaotic mishaps that could lead him to expose a criminal network.'
+  },
+    {
     id: '1599099',
     title: 'Azad Bharat (2026)',
     poster_path: 'https://image.tmdb.org/t/p/w500/zeUHs0NACraRyOPlUyuuBC0Iarz.jpg',
@@ -178,11 +298,46 @@ const UNIQUE_MOVIES = [
       "Server 2": "https://cinemaos.tech/player/1599099",
       "Server 3": "https://zxcstream.xyz/player/movie/1599099/hindi?autoplay=false&back=true&server=0",
       "Server 4": "https://byseqekaho.com/e/cmmjdn01dvbu",
-      "Server 5 - Use Videasy": "https://www.cinezo.net/watch/movie/1599099",
+      "Server 5": "https://www.cinezo.net/watch/movie/1599099",
       "Server 6": "https://vidsrc-embed.ru/embed/movie/1599099",
       "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1599099"
     },
     overview: 'Rahu Ketu (2026) In the magical world of writer Churu Lal Sharma, his unlucky creations Rahu and Ketu spring to life, causing hilarious chaos instead of fighting corruption. When the mischievous Meenu Taxi steals Churus mystical notebook, the bumbling duo are dragged into absurd adventures that land them in the middle of a drug mafia.'
+  },
+   {
+    id: '1382160',
+    title: '45 (2025)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/luDTygZ6uAwaknc2isXZcz8YMvE.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/luDTygZ6uAwaknc2isXZcz8YMvE.jpg',
+    release_date: '2025-12-25',
+    vote_average: 5.1,
+    duration: '2h 24m',
+    genres: ['Action', 'Drama', 'Thriller'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1382160",
+      "Server 2": "https://cinemaos.tech/player/1382160",
+      "Server 3": "https://zxcstream.xyz/player/movie/1382160/hindi?autoplay=false&back=true&server=0",
+      "Server 4 (Kannada)": "https://byseqekaho.com/e/eo0jjw0mwg9t",
+      "Server 5 (Hindi)": "https://byseqekaho.com/e/rfifotoan62n"
+     },
+    overview: 'A captivating new project by Suraj Production and the Magical Composer’s Debut film, #45Themovie is set to redefine the cinema-watching experience with its unique narrative and compelling performances.'
+  },
+     {
+    id: '1510339',
+    title: 'Mark (2025)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/6LTDv6XHiHN0N77QIFg2tidVvhh.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/6LTDv6XHiHN0N77QIFg2tidVvhh.jpg',
+    release_date: '2025-12-25',
+    vote_average: 5.1,
+    duration: '2h 24m',
+    genres: ['Action', 'Drama', 'Thriller'],
+    streams: {
+      "Server 1(Telugu)": "https://xprime.today/watch/1510339",
+      "Server 3": "https://zxcstream.xyz/player/movie/1510339/hindi?autoplay=false&back=true&server=0",
+      "Server 4 (Kannada)": "https://byseqekaho.com/e/se2m96qhd0jh",
+      "Server 5 (Hindi)": "https://byseqekaho.com/e/7g36yabhfauq"
+    },
+    overview: 'Mark is suspended from his police duties for his unruly yet effective ways of operating, but when 18 children are abducted and found dead, races to catch the criminals. With only 18 hours left, he must confront powerful foes and use unconventional tactics to succeed.'
   },
   {
     id: '1457939',
@@ -198,7 +353,7 @@ const UNIQUE_MOVIES = [
       "Server 2": "https://cinemaos.tech/player/1457939",
       "Server 3": "https://zxcstream.xyz/player/movie/1457939/hindi?autoplay=false&back=true&server=0",
       "Server 4": "https://byseqekaho.com/e/mecoep0szpat",
-      "Server 5 - Use Videasy": "https://www.cinezo.net/watch/movie/1457939",
+      "Server 5": "https://www.cinezo.net/watch/movie/1457939",
       "Server 6": "https://vidsrc-embed.ru/embed/movie/1457939",
       "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1599099"
     },
@@ -218,7 +373,7 @@ const UNIQUE_MOVIES = [
       "Server 2": "https://cinemaos.tech/player/1594670",
       "Server 3": "https://zxcstream.xyz/player/movie/1594670/hindi?autoplay=false&back=true&server=0",
       "Server 4": "",
-      "Server 5 - Use Videasy": "https://www.cinezo.net/watch/movie/1594670",
+      "Server 5": "https://www.cinezo.net/watch/movie/1594670",
       "Server 6": "https://vidsrc-embed.ru/embed/movie/1594670",
       "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1594670"
     },
@@ -238,7 +393,7 @@ const UNIQUE_MOVIES = [
       "Server 2": "https://cinemaos.tech/player/1196946",
       "Server 3": "https://zxcstream.xyz/player/movie/1196946/hindi?autoplay=false&back=true&server=0",
       "Server 4": "https://be2719.rcr22.ams01.r66nv9ed.com/hls2/04/10676/4ti3fkm5oiok_h/index-v1-a1.m3u8?t=PybnbX8vVf1N88tPgT62lx9zv6hFhMK7_THcXW5YI4c&s=1769050786&e=10800&f=53380330&srv=1065&asn=13335&sp=4000&p=0",
-      "Server 5 - Use Videasy": "https://www.cinezo.net/watch/movie/1196946",
+      "Server 5": "https://www.cinezo.net/watch/movie/1196946",
       "Server 6": "https://vidsrc-embed.ru/embed/movie/1196946",
       "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1196946"
     },
@@ -514,6 +669,74 @@ const UNIQUE_MOVIES = [
 // 15 UNIQUE TV SHOWS (ALL FROM TMDB)
 const UNIQUE_TV_SHOWS = [
   {
+    id: '308482',
+    title: 'Taskaree: The Smuggler"s Web S01 (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/25fKRXvQLBq4nXu9vjOVJcvCiiD.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/25fKRXvQLBq4nXu9vjOVJcvCiiD.jpg',
+    release_date: '2026-01-08',
+    vote_average: 7.2,
+    duration: '45m',
+    streams: {
+      "Server 1": "https://zxcstream.xyz/player/tv/308482/s=1/e=1/hindi?autoplay=false&back=true&server=0",
+      "Server 2": "https://xprime.today/watch/308482/1/1",
+      "Server 3": "https://byseqekaho.com/e/wrnmbynqqeyk",
+      "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-308482/1/1",
+      "Server 5 ": "https://www.cinezo.net/watch/tv/308482?season=1&episode=1",
+     },
+    genres: ['Crime', 'Drama', 'Mystery'],
+    overview: 'A dedicated customs officer and his team take on a notorious smuggler leading a powerful syndicate, but unexpected obstacles threaten their mission.'
+  },
+  {
+    id: '297594',
+    title: 'Bindiya Ke Bahubali S02 (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/eSJGKRff52Pg2SfOiIdC4IlMMQR.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/eSJGKRff52Pg2SfOiIdC4IlMMQR.jpg',
+    release_date: '2026-01-08',
+    vote_average: 7.2,
+    duration: '45m',
+    streams: {
+      "Server 1": "https://zxcstream.xyz/player/tv/297594/s=2/e=1/hindi?autoplay=false&back=true&server=0",
+      "Server 2": "https://xprime.today/watch/297594/2/1",
+      "Server 3": "https://byseqekaho.com/e/hv81w9p30urb",
+      "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-297594/2/1",
+      "Server 5 ": "https://www.cinezo.net/watch/tv/297594?season=2&episode=1",
+     },
+    genres: ['Drama', 'Crime', 'Mystery'],
+    overview: 'With humour, absurdity and family cat and mouse at its center, this is a tale of family gangsters in a fictitious madhouse city, Bindiya. As the current Don is put behind bars, the gangster familys alliances shift, new love, friendships, and betrayals explode until Bindiya becomes a full-blown circus-where love is a deal, power is personal, and every one has a card and blood on their hands.'
+  },
+  {
+    id: '311171',
+    title: 'Bhootiyapa (2025)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/4NGdzyuffqhb1jMEvTfri3jn5Fj.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/4NGdzyuffqhb1jMEvTfri3jn5Fj.jpg',
+    release_date: '2025-01-08',
+    vote_average: 7.2,
+    duration: '45m',
+    streams: {
+      "Server 1": "https://zxcstream.xyz/player/tv/311171/s=1/e=1/hindi?autoplay=false&back=true&server=0",
+      "Server 2": "https://xprime.today/watch/311171/1/1",
+      "Server 3": "https://byseqekaho.com/e/f1i18ua20w0r"     
+     },
+    genres: ['Drama', 'Crime', 'Mystery'],
+    overview: 'Bhootiyapa revolves around a film crew documenting the untold stories of these ghosts, who, despite their spectral existence, have tales to tell about love, loss and laughter. Each ghost, from a different era, adds a layer of mystery and mirth to the story, revealing how life after death can be as vibrant and surprising as mortal life itself.'
+  },
+  {
+    id: '243826',
+    title: 'Pharma (2025)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/hQWT47GFQyvO1tFqx6IgCOvrrr8.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/hQWT47GFQyvO1tFqx6IgCOvrrr8.jpg',
+    release_date: '2025-01-08',
+    vote_average: 7.2,
+    duration: '45m',
+    streams: {
+      "Server 1": "https://zxcstream.xyz/player/tv/243826/s=1/e=1/hindi?autoplay=false&back=true&server=0",
+      "Server 2 (Malayalam)": "https://xprime.today/watch/243826/1/1",
+      "Server 3 (Hindi)": "https://byseqekaho.com/e/zfelms1l4bx9"     
+     },
+    genres: ['Drama', 'Crime', 'Mystery'],
+    overview: 'A young medical representative struggles against the pharma game, masters it and eventually fights against it.'
+  },
+  {
     id: '61859',
     title: 'The Night Manager S02 (2026)',
     poster_path: 'https://image.tmdb.org/t/p/w500/1MccRnw41qQjREuZkovqP2UX1i3.jpg',
@@ -530,7 +753,7 @@ const UNIQUE_TV_SHOWS = [
       "Server 4 - Hindi": "https://byseqekaho.com/e/p9vhhvpow8rk",
            
      },
-    genres: ['Drama', 'Crime', 'Mystery'],
+    genres: ['Spy', 'Crime', 'Mystery'],
     overview: 'Former British soldier Jonathan Pine navigates the shadowy recesses of Whitehall and Washington where an unholy alliance operates between the intelligence community and the secret arms trade. To infiltrate the inner circle of lethal arms dealer Richard Onslow Roper, Pine must himself become a criminal.'
   },
   {
