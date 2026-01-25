@@ -182,7 +182,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
 
   // FIXED: Get absolute image URL
   const getAbsoluteImageUrl = (path: string) => {
-    if (!path) return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop';
+    if (!path) return 'https://uniwatchfree.vercel.app/og-image.jpg';
     
     // If already full URL, return it
     if (path.startsWith('http')) return path;
@@ -198,7 +198,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
     }
     
     // Default fallback
-    return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop';
+    return 'https://uniwatchfree.vercel.app/og-image.jpg';
   };
 
   // FIXED: Get share image
