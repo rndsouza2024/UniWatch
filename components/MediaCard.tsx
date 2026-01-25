@@ -183,18 +183,25 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
     return `watch?id=${item.id}&type=${item.media_type}`;
   };
 
-  // Get absolute image URL
+  // Get absolute image URL - SIMPLIFIED
   const getAbsoluteImageUrl = (imgPath: string) => {
-    if (!imgPath || imgPath.trim() === '') {
+    if (!imgPath || imgPath === 'undefined' || imgPath.trim() === '') {
       return 'https://uniwatchfree.vercel.app/og-image.jpg';
     }
     
+    // Already absolute URL
     if (imgPath.startsWith('http')) {
       return imgPath;
     }
     
+    // Local image
     if (imgPath.startsWith('/')) {
       return `https://uniwatchfree.vercel.app${imgPath}`;
+    }
+    
+    // TMDB image without protocol
+    if (imgPath.includes('image.tmdb.org')) {
+      return `https:${imgPath}`;
     }
     
     return imgPath;
@@ -210,7 +217,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && handleWatch()}
     >
-      <div className="relative rounded-xl overflow-hidden bg-dark-surface border border-dark-border transition-all duration-300 group-hover:border-brand-500 group-hover:shadow-2xl group-hover:shadow-brand-500/20">
+      <div className="relative rounded-xl overflow-hidden bg-gray-900 border border-gray-800 transition-all duration-300 group-hover:border-brand-500 group-hover:shadow-2xl group-hover:shadow-brand-500/20">
         {/* Image Container */}
         <div className="aspect-[2/3] relative overflow-hidden">
           <img 
@@ -219,6 +226,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
             onError={(e) => {
+              console.error('MediaCard image failed:', absoluteImage);
               e.currentTarget.src = 'https://uniwatchfree.vercel.app/og-image.jpg';
             }}
           />
@@ -239,6 +247,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
               onClick={handleShareClick}
               className="p-2 bg-black/80 backdrop-blur-sm rounded-full hover:bg-brand-600 transition-colors shadow-lg"
               title="Share"
+              aria-label="Share"
             >
               <Share2 size={16} className="text-white" />
             </button>
@@ -290,12 +299,13 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
           
           {/* Share Modal */}
           {showShare && (
-            <div className="absolute left-0 right-0 top-full mt-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl z-50 border border-dark-border animate-fadeIn">
+            <div className="absolute left-0 right-0 top-full mt-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl z-50 border border-gray-800 animate-fadeIn">
               <div className="flex items-center justify-between mb-3">
-                <h4 className="text-white font-bold">Share "{item.title}"</h4>
+                <h4 className="text-white font-bold text-sm">Share "{item.title}"</h4>
                 <button 
                   onClick={() => setShowShare(false)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-400 hover:text-white text-lg"
+                  aria-label="Close"
                 >
                   ✕
                 </button>
@@ -311,7 +321,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
           )}
           
           {/* Hover Info */}
-          <div className="absolute left-0 right-0 bottom-full mb-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-dark-border">
+          <div className="absolute left-0 right-0 bottom-full mb-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-gray-800">
             <p className="text-gray-200 text-sm line-clamp-3">{item.overview}</p>
             <div className="mt-3 pt-3 border-t border-gray-700">
               <button 
