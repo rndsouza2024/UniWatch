@@ -175,6 +175,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
 
   const handleShareClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
     setShowShare(!showShare);
   };
 
@@ -182,9 +183,11 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
     return `watch?id=${item.id}&type=${item.media_type}`;
   };
 
-  // Get absolute image URL
+  // Get absolute image URL - FIXED
   const getAbsoluteImageUrl = (imgPath: string) => {
-    if (!imgPath) return '';
+    if (!imgPath || imgPath.trim() === '') {
+      return 'https://uniwatchfree.vercel.app/og-image.jpg';
+    }
     
     if (imgPath.startsWith('http')) {
       return imgPath;
@@ -216,7 +219,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
             onError={(e) => {
-              e.currentTarget.src = 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
+              e.currentTarget.src = 'https://uniwatchfree.vercel.app/og-image.jpg';
             }}
           />
           

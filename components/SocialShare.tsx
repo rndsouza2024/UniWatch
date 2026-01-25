@@ -44,41 +44,56 @@ const SocialShare: React.FC<SocialShareProps> = ({
   const [absolutePageUrl, setAbsolutePageUrl] = useState('');
 
   useEffect(() => {
-    // Get absolute image URL
+    // Get absolute image URL - FIXED
     const getAbsoluteImageUrl = (imgPath: string) => {
-      if (!imgPath) return '';
+      if (!imgPath || imgPath.trim() === '') {
+        // Return actual image placeholder instead of fallback
+        return 'https://uniwatchfree.vercel.app/og-image.jpg';
+      }
       
       // If it's already an absolute URL (starts with http), return as is
       if (imgPath.startsWith('http')) {
         return imgPath;
       }
       
-      // If it's a relative path starting with /images/, prepend base URL
+      // If it's a relative path starting with /images/
+      if (imgPath.startsWith('/images/')) {
+        return `https://uniwatchfree.vercel.app${imgPath}`;
+      }
+      
+      // If it's a relative path starting with /
       if (imgPath.startsWith('/')) {
         return `https://uniwatchfree.vercel.app${imgPath}`;
       }
       
-      // For TMDB images
+      // For TMDB images (they usually start with image.tmdb.org)
       if (imgPath.includes('image.tmdb.org')) {
         return imgPath;
       }
       
-      return imgPath;
+      // If none of the above, assume it's a full URL that was missing http
+      return `https://${imgPath}`;
     };
 
     // Get absolute page URL
     const getAbsolutePageUrl = () => {
       const baseUrl = 'https://uniwatchfree.vercel.app';
       
-      // Remove any leading # from the URL
-      const cleanUrl = url.replace(/^#+/, '');
+      // Remove any leading # or / from the URL
+      const cleanUrl = url.replace(/^[#/]+/, '');
       
-      // For HashRouter: baseUrl + # + path
+      // For HashRouter: baseUrl/#/path
       return `${baseUrl}/#/${cleanUrl}`;
     };
 
-    setAbsoluteImageUrl(getAbsoluteImageUrl(image));
-    setAbsolutePageUrl(getAbsolutePageUrl());
+    const imgUrl = getAbsoluteImageUrl(image);
+    const pageUrl = getAbsolutePageUrl();
+    
+    console.log('Image URL for sharing:', imgUrl); // Debug
+    console.log('Page URL for sharing:', pageUrl); // Debug
+    
+    setAbsoluteImageUrl(imgUrl);
+    setAbsolutePageUrl(pageUrl);
   }, [image, url]);
 
   // Copy URL to clipboard
@@ -100,9 +115,82 @@ const SocialShare: React.FC<SocialShareProps> = ({
   };
 
   const shareUrl = absolutePageUrl;
-  const shareTitle = `Watch "${title}" on UniWatch`;
-  const shareDescription = description.length > 120 ? `${description.substring(0, 120)}...` : description;
+  const shareTitle = title;
+  const shareDescription = description.length > 100 ? `${description.substring(0, 100)}...` : description;
   const hashtags = ['UniWatch', 'Streaming', type.charAt(0).toUpperCase() + type.slice(1)];
+
+  // Social media buttons data
+  const socialButtons = [
+    {
+      name: 'Facebook',
+      component: FacebookShareButton,
+      icon: FacebookIcon,
+      props: {
+        url: shareUrl,
+        quote: `${shareTitle}\n\n${shareDescription}`,
+        hashtag: '#UniWatch'
+      }
+    },
+    {
+      name: 'Twitter',
+      component: TwitterShareButton,
+      icon: TwitterIcon,
+      props: {
+        url: shareUrl,
+        title: `${shareTitle} - Watch Now`,
+        hashtags: hashtags
+      }
+    },
+    {
+      name: 'WhatsApp',
+      component: WhatsappShareButton,
+      icon: WhatsappIcon,
+      props: {
+        url: shareUrl,
+        title: `${shareTitle} - Watch Now`,
+        separator: ' '
+      }
+    },
+    {
+      name: 'Telegram',
+      component: TelegramShareButton,
+      icon: TelegramIcon,
+      props: {
+        url: shareUrl,
+        title: `${shareTitle} - Watch Now`
+      }
+    },
+    {
+      name: 'Email',
+      component: EmailShareButton,
+      icon: EmailIcon,
+      props: {
+        url: shareUrl,
+        subject: `${shareTitle} - Watch on UniWatch`,
+        body: `${shareDescription}\n\nWatch now: ${shareUrl}`
+      }
+    },
+    {
+      name: 'Reddit',
+      component: RedditShareButton,
+      icon: RedditIcon,
+      props: {
+        url: shareUrl,
+        title: `${shareTitle} - Watch on UniWatch`
+      }
+    },
+    {
+      name: 'LinkedIn',
+      component: LinkedinShareButton,
+      icon: LinkedinIcon,
+      props: {
+        url: shareUrl,
+        title: shareTitle,
+        summary: shareDescription,
+        source: 'UniWatch'
+      }
+    }
+  ];
 
   return (
     <>
@@ -120,7 +208,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-dark-border">
               <div>
-                <h3 className="text-xl font-bold text-white">Share "{title}"</h3>
+                <h3 className="text-xl font-bold text-white">Share "{shareTitle}"</h3>
                 <p className="text-gray-400 text-sm mt-1">Share with friends and family</p>
               </div>
               <button
@@ -134,14 +222,15 @@ const SocialShare: React.FC<SocialShareProps> = ({
             {/* Content Preview */}
             <div className="p-6 border-b border-dark-border">
               <div className="flex gap-4">
-                {/* IMAGE */}
+                {/* IMAGE - FIXED */}
                 <div className="relative flex-shrink-0">
                   <img
-                    src={absoluteImageUrl || 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80'}
-                    alt={title}
+                    src={absoluteImageUrl}
+                    alt={shareTitle}
                     className="w-20 h-28 object-cover rounded-lg border border-dark-border shadow-lg"
                     onError={(e) => {
-                      e.currentTarget.src = 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
+                      // Only use fallback if the image fails to load
+                      e.currentTarget.src = 'https://uniwatchfree.vercel.app/og-image.jpg';
                     }}
                   />
                   <div className="absolute top-1 left-1 bg-red-600 text-white text-xs px-2 py-1 rounded">
@@ -150,11 +239,11 @@ const SocialShare: React.FC<SocialShareProps> = ({
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                  {/* TITLE */}
-                  <h4 className="text-white font-semibold text-lg line-clamp-2 mb-2">{title}</h4>
+                  {/* TITLE - FIXED */}
+                  <h4 className="text-white font-semibold text-lg line-clamp-2 mb-2">{shareTitle}</h4>
                   
-                  {/* DESCRIPTION */}
-                  <p className="text-gray-400 text-sm line-clamp-3 mb-3">{description}</p>
+                  {/* DESCRIPTION - FIXED */}
+                  <p className="text-gray-400 text-sm line-clamp-3 mb-3">{shareDescription}</p>
                   
                   {/* LINK PREVIEW */}
                   <div className="flex items-center gap-2">
@@ -201,140 +290,44 @@ const SocialShare: React.FC<SocialShareProps> = ({
               </div>
             </div>
 
-            {/* React Share Buttons - RESPONSIVE GRID */}
+            {/* React Share Buttons - FULLY RESPONSIVE */}
             <div className="p-6">
               <h4 className="text-white font-bold mb-4 text-center">Share On Social Media</h4>
               <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-7 gap-3 sm:gap-4">
-                {/* Facebook */}
-                <div className="flex flex-col items-center">
-                  <FacebookShareButton
-                    url={shareUrl}
-                    quote={`${shareTitle}\n\n${shareDescription}`}
-                    hashtag="#UniWatch"
-                    className="rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    <FacebookIcon 
-                      size={40} 
-                      round 
-                      bgStyle={{ fill: 'transparent' }}
-                      iconFillColor="white"
-                    />
-                  </FacebookShareButton>
-                  <span className="text-white text-xs mt-2 text-center">Facebook</span>
-                </div>
-
-                {/* Twitter */}
-                <div className="flex flex-col items-center">
-                  <TwitterShareButton
-                    url={shareUrl}
-                    title={shareTitle}
-                    hashtags={hashtags}
-                    className="rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    <TwitterIcon 
-                      size={40} 
-                      round 
-                      bgStyle={{ fill: 'transparent' }}
-                      iconFillColor="white"
-                    />
-                  </TwitterShareButton>
-                  <span className="text-white text-xs mt-2 text-center">Twitter</span>
-                </div>
-
-                {/* WhatsApp */}
-                <div className="flex flex-col items-center">
-                  <WhatsappShareButton
-                    url={shareUrl}
-                    title={shareTitle}
-                    separator=" "
-                    className="rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    <WhatsappIcon 
-                      size={40} 
-                      round 
-                      bgStyle={{ fill: 'transparent' }}
-                      iconFillColor="white"
-                    />
-                  </WhatsappShareButton>
-                  <span className="text-white text-xs mt-2 text-center">WhatsApp</span>
-                </div>
-
-                {/* Telegram */}
-                <div className="flex flex-col items-center">
-                  <TelegramShareButton
-                    url={shareUrl}
-                    title={shareTitle}
-                    className="rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    <TelegramIcon 
-                      size={40} 
-                      round 
-                      bgStyle={{ fill: 'transparent' }}
-                      iconFillColor="white"
-                    />
-                  </TelegramShareButton>
-                  <span className="text-white text-xs mt-2 text-center">Telegram</span>
-                </div>
-
-                {/* Email */}
-                <div className="flex flex-col items-center">
-                  <EmailShareButton
-                    url={shareUrl}
-                    subject={shareTitle}
-                    body={`${description}\n\nWatch now: ${shareUrl}`}
-                    className="rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    <EmailIcon 
-                      size={40} 
-                      round 
-                      bgStyle={{ fill: 'transparent' }}
-                      iconFillColor="white"
-                    />
-                  </EmailShareButton>
-                  <span className="text-white text-xs mt-2 text-center">Email</span>
-                </div>
-
-                {/* Reddit */}
-                <div className="flex flex-col items-center">
-                  <RedditShareButton
-                    url={shareUrl}
-                    title={shareTitle}
-                    className="rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    <RedditIcon 
-                      size={40} 
-                      round 
-                      bgStyle={{ fill: 'transparent' }}
-                      iconFillColor="white"
-                    />
-                  </RedditShareButton>
-                  <span className="text-white text-xs mt-2 text-center">Reddit</span>
-                </div>
-
-                {/* LinkedIn */}
-                <div className="flex flex-col items-center">
-                  <LinkedinShareButton
-                    url={shareUrl}
-                    title={shareTitle}
-                    summary={description}
-                    source="UniWatch"
-                    className="rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    <LinkedinIcon 
-                      size={40} 
-                      round 
-                      bgStyle={{ fill: 'transparent' }}
-                      iconFillColor="white"
-                    />
-                  </LinkedinShareButton>
-                  <span className="text-white text-xs mt-2 text-center">LinkedIn</span>
-                </div>
-
+                {socialButtons.map((social, index) => {
+                  const ShareButton = social.component;
+                  const Icon = social.icon;
+                  
+                  return (
+                    <div key={index} className="flex flex-col items-center">
+                      <ShareButton
+                        {...social.props}
+                        className="rounded-full hover:opacity-90 transition-opacity w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12"
+                      >
+                        <Icon 
+                          size={40} 
+                          round 
+                          style={{
+                            width: '100%',
+                            height: '100%'
+                          }}
+                        />
+                      </ShareButton>
+                      <span className="text-white text-xs mt-2 text-center hidden sm:block">
+                        {social.name}
+                      </span>
+                      <span className="text-white text-[10px] mt-1 text-center block sm:hidden">
+                        {social.name}
+                      </span>
+                    </div>
+                  );
+                })}
+                
                 {/* Copy Link Button */}
-                <div className="flex flex-col items-center col-span-4 md:col-span-1 mt-2 md:mt-0">
+                <div className="flex flex-col items-center">
                   <button
                     onClick={copyToClipboard}
-                    className={`w-10 h-10 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-colors ${
+                    className={`w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors ${
                       copySuccess 
                         ? 'bg-green-600 hover:bg-green-700' 
                         : 'bg-gray-600 hover:bg-gray-700'
@@ -346,7 +339,12 @@ const SocialShare: React.FC<SocialShareProps> = ({
                       <Copy size={20} className="text-white" />
                     )}
                   </button>
-                  <span className="text-white text-xs mt-2 text-center">Copy Link</span>
+                  <span className="text-white text-xs mt-2 text-center hidden sm:block">
+                    Copy Link
+                  </span>
+                  <span className="text-white text-[10px] mt-1 text-center block sm:hidden">
+                    Copy
+                  </span>
                 </div>
               </div>
             </div>

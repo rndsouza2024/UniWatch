@@ -1335,9 +1335,11 @@ import MediaCard from './components/MediaCard';
 import { ArrowLeft, Home as HomeIcon, Loader2, ChevronDown } from 'lucide-react';
 import SocialShare from './components/SocialShare';
 
-// Helper function to get absolute image URL
+// Helper function to get absolute image URL - FIXED
 const getAbsoluteImageUrl = (imgPath: string) => {
-  if (!imgPath) return '';
+  if (!imgPath || imgPath.trim() === '') {
+    return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
+  }
   
   if (imgPath.startsWith('http')) {
     return imgPath;
@@ -1364,6 +1366,8 @@ const WatchPage = () => {
             fetchById(id, type).then(data => {
                 setItem(data);
                 setLoading(false);
+            }).catch(() => {
+                setLoading(false);
             });
         }
     }, [id, type]);
@@ -1378,16 +1382,20 @@ const WatchPage = () => {
         );
     }
 
-    const pageTitle = item ? `Watch ${item.title} Free Online | UniWatch` : 'Watch Online';
-    const pageDesc = item?.overview ? `${item.overview.substring(0, 160)}...` : `Watch ${item?.title || 'movies and shows'} in HD on UniWatch.`;
-    const pageImage = getAbsoluteImageUrl(item?.backdrop_path || item?.poster_path || '');
+    if (!item) {
+        return <Navigate to="/" />;
+    }
+
+    const pageTitle = `Watch ${item.title} Free Online | UniWatch`;
+    const pageDesc = item.overview ? `${item.overview.substring(0, 160)}...` : `Watch ${item.title} in HD on UniWatch.`;
+    const pageImage = getAbsoluteImageUrl(item.backdrop_path || item.poster_path);
     const pageUrl = `watch?id=${id}&type=${type}`;
     
     // Check if the item is sports content
     const isSportsContent = type === 'sports' || (
-        item?.title?.toLowerCase().includes('sport') || 
-        item?.title?.toLowerCase().includes('game') ||
-        (item?.genres && item.genres.some(g => g.toLowerCase().includes('sport')))
+        item.title.toLowerCase().includes('sport') || 
+        item.title.toLowerCase().includes('game') ||
+        (item.genres && item.genres.some(g => g.toLowerCase().includes('sport')))
     );
 
     const mediaType = isSportsContent ? 'sports' : 
@@ -1400,9 +1408,9 @@ const WatchPage = () => {
                 description={pageDesc}
                 image={pageImage}
                 type={type === 'movie' ? 'video.movie' : type === 'tv' ? 'video.tv_show' : 'website'}
-                keywords={[item?.title || '', type, 'streaming', 'free movies']}
+                keywords={[item.title, type, 'streaming', 'free movies']}
                 videoUrl={window.location.href}
-                videoReleaseDate={item?.release_date}
+                videoReleaseDate={item.release_date}
             />
             
             <div className="max-w-7xl mx-auto">
@@ -1425,17 +1433,15 @@ const WatchPage = () => {
                         </button>
                     </div>
                     
-                    {item && (
-                        <div className="flex items-center gap-4">
-                            <SocialShare
-                                title={item.title}
-                                description={item.overview || pageDesc}
-                                image={getAbsoluteImageUrl(item.poster_path)}
-                                url={pageUrl}
-                                type={mediaType}
-                            />
-                        </div>
-                    )}
+                    <div className="flex items-center gap-4">
+                        <SocialShare
+                            title={item.title}
+                            description={item.overview || pageDesc}
+                            image={getAbsoluteImageUrl(item.poster_path)}
+                            url={pageUrl}
+                            type={mediaType}
+                        />
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -1444,45 +1450,116 @@ const WatchPage = () => {
                         <VideoPlayer 
                             tmdbId={id} 
                             type={type} 
-                            title={item ? item.title : `Loading ${type}...`} 
-                            customStreams={item?.streams}
+                            title={item.title} 
+                            customStreams={item.streams}
                         />
                     </div>
                     
                     {/* Content Info */}
-                    {item && (
-                        <div className="lg:col-span-3 bg-dark-surface p-6 rounded-xl border border-dark-border shadow-lg">
-                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-                                <div>
-                                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{item.title}</h1>
-                                    <div className="flex flex-wrap gap-2">
-                                        {item.vote_average > 0 && (
-                                            <span className="px-3 py-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm font-bold">
-                                                ⭐ {item.vote_average.toFixed(1)} Rating
-                                            </span>
-                                        )}
-                                        <span className="px-3 py-1.5 bg-gray-700/50 border border-gray-600 rounded-lg text-sm text-gray-300">
-                                            📅 {item.release_date || item.first_air_date || 'N/A'}
+                    <div className="lg:col-span-3 bg-dark-surface p-6 rounded-xl border border-dark-border shadow-lg">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                            <div>
+                                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{item.title}</h1>
+                                <div className="flex flex-wrap gap-2">
+                                    {item.vote_average > 0 && (
+                                        <span className="px-3 py-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm font-bold">
+                                            ⭐ {item.vote_average.toFixed(1)} Rating
                                         </span>
-                                        <span className="px-3 py-1.5 bg-brand-900/30 border border-brand-500/30 text-brand-300 rounded-lg text-sm font-bold uppercase">
-                                            {isSportsContent ? '🏈 Live Game' : 
-                                             type === 'movie' ? '🎬 Movie' : 
-                                             type === 'tv' ? '📺 TV Series' :
-                                             type === 'tv_live' ? '📡 Live TV' : '🎥 Content'}
+                                    )}
+                                    <span className="px-3 py-1.5 bg-gray-700/50 border border-gray-600 rounded-lg text-sm text-gray-300">
+                                        📅 {item.release_date || item.first_air_date || 'N/A'}
+                                    </span>
+                                    <span className="px-3 py-1.5 bg-brand-900/30 border border-brand-500/30 text-brand-300 rounded-lg text-sm font-bold uppercase">
+                                        {isSportsContent ? '🏈 Live Game' : 
+                                         type === 'movie' ? '🎬 Movie' : 
+                                         type === 'tv' ? '📺 TV Series' :
+                                         type === 'tv_live' ? '📡 Live TV' : '🎥 Content'}
+                                    </span>
+                                    {isSportsContent ? (
+                                        <span className="px-3 py-1.5 bg-red-600/30 border border-red-500/30 text-red-300 rounded-lg text-sm font-bold">
+                                            🔴 Live
                                         </span>
-                                        {isSportsContent ? (
-                                            <span className="px-3 py-1.5 bg-red-600/30 border border-red-500/30 text-red-300 rounded-lg text-sm font-bold">
-                                                🔴 Live
-                                            </span>
-                                        ) : item.duration && (
-                                            <span className="px-3 py-1.5 bg-gray-800/50 border border-gray-700 rounded-lg text-sm text-gray-300">
-                                                ⏱️ {item.duration}
-                                            </span>
-                                        )}
+                                    ) : item.duration && (
+                                        <span className="px-3 py-1.5 bg-gray-800/50 border border-gray-700 rounded-lg text-sm text-gray-300">
+                                            ⏱️ {item.duration}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center gap-3">
+                                <SocialShare
+                                    title={item.title}
+                                    description={item.overview || ''}
+                                    image={getAbsoluteImageUrl(item.poster_path)}
+                                    url={pageUrl}
+                                    type={mediaType}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-2">
+                                <h3 className="text-xl font-bold text-white mb-4">
+                                    {isSportsContent ? 'Match Details' : 'Synopsis'}
+                                </h3>
+                                <p className="text-gray-300 leading-relaxed text-lg">
+                                    {item.overview || `No ${isSportsContent ? 'match details' : 'description'} available for this ${isSportsContent ? 'game' : 'title'}.`}
+                                </p>
+                                
+                                {item.genres && item.genres.length > 0 && (
+                                    <div className="mt-8">
+                                        <h4 className="text-white font-bold mb-3">
+                                            {isSportsContent ? 'Game Categories' : 'Genres'}
+                                        </h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {item.genres.map((genre, index) => (
+                                                <span key={index} className="px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-gray-300 hover:bg-brand-500/20 hover:border-brand-500/30 hover:text-brand-300 transition-colors cursor-pointer">
+                                                    {genre}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
+                                )}
+                            </div>
+                            
+                            <div className="bg-dark-bg p-5 rounded-xl border border-dark-border">
+                                <h4 className="text-white font-bold mb-4">Quick Info</h4>
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center py-3 border-b border-gray-800">
+                                        <span className="text-gray-400">Type</span>
+                                        <span className="text-white font-medium">
+                                            {type === 'movie' ? 'Movie' : 
+                                             type === 'tv' ? 'TV Show' :
+                                             type === 'sports' ? 'Live Sports' : 
+                                             type === 'tv_live' ? 'Live TV' : 'Content'}
+                                        </span>
+                                    </div>
+                                    {item.duration && (
+                                        <div className="flex justify-between items-center py-3 border-b border-gray-800">
+                                            <span className="text-gray-400">Duration</span>
+                                            <span className="text-white font-medium">{item.duration}</span>
+                                        </div>
+                                    )}
+                                    {item.release_date && (
+                                        <div className="flex justify-between items-center py-3 border-b border-gray-800">
+                                            <span className="text-gray-400">Release Date</span>
+                                            <span className="text-white font-medium">{item.release_date}</span>
+                                        </div>
+                                    )}
+                                    {item.vote_average > 0 && (
+                                        <div className="flex justify-between items-center py-3">
+                                            <span className="text-gray-400">Rating</span>
+                                            <span className="text-green-400 font-bold">{item.vote_average.toFixed(1)}/10</span>
+                                        </div>
+                                    )}
                                 </div>
                                 
-                                <div className="flex items-center gap-3">
+                                <div className="mt-6 pt-5 border-t border-dark-border">
+                                    <h4 className="text-white font-bold mb-4">Share This</h4>
+                                    <p className="text-gray-400 text-sm mb-4">
+                                        Share this {isSportsContent ? 'game' : type} with friends and family
+                                    </p>
                                     <SocialShare
                                         title={item.title}
                                         description={item.overview || ''}
@@ -1492,81 +1569,8 @@ const WatchPage = () => {
                                     />
                                 </div>
                             </div>
-
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                                <div className="lg:col-span-2">
-                                    <h3 className="text-xl font-bold text-white mb-4">
-                                        {isSportsContent ? 'Match Details' : 'Synopsis'}
-                                    </h3>
-                                    <p className="text-gray-300 leading-relaxed text-lg">
-                                        {item.overview || `No ${isSportsContent ? 'match details' : 'description'} available for this ${isSportsContent ? 'game' : 'title'}.`}
-                                    </p>
-                                    
-                                    {item.genres && item.genres.length > 0 && (
-                                        <div className="mt-8">
-                                            <h4 className="text-white font-bold mb-3">
-                                                {isSportsContent ? 'Game Categories' : 'Genres'}
-                                            </h4>
-                                            <div className="flex flex-wrap gap-2">
-                                                {item.genres.map((genre, index) => (
-                                                    <span key={index} className="px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-gray-300 hover:bg-brand-500/20 hover:border-brand-500/30 hover:text-brand-300 transition-colors cursor-pointer">
-                                                        {genre}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                                
-                                <div className="bg-dark-bg p-5 rounded-xl border border-dark-border">
-                                    <h4 className="text-white font-bold mb-4">Quick Info</h4>
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between items-center py-3 border-b border-gray-800">
-                                            <span className="text-gray-400">Type</span>
-                                            <span className="text-white font-medium">
-                                                {type === 'movie' ? 'Movie' : 
-                                                 type === 'tv' ? 'TV Show' :
-                                                 type === 'sports' ? 'Live Sports' : 
-                                                 type === 'tv_live' ? 'Live TV' : 'Content'}
-                                            </span>
-                                        </div>
-                                        {item.duration && (
-                                            <div className="flex justify-between items-center py-3 border-b border-gray-800">
-                                                <span className="text-gray-400">Duration</span>
-                                                <span className="text-white font-medium">{item.duration}</span>
-                                            </div>
-                                        )}
-                                        {item.release_date && (
-                                            <div className="flex justify-between items-center py-3 border-b border-gray-800">
-                                                <span className="text-gray-400">Release Date</span>
-                                                <span className="text-white font-medium">{item.release_date}</span>
-                                            </div>
-                                        )}
-                                        {item.vote_average > 0 && (
-                                            <div className="flex justify-between items-center py-3">
-                                                <span className="text-gray-400">Rating</span>
-                                                <span className="text-green-400 font-bold">{item.vote_average.toFixed(1)}/10</span>
-                                            </div>
-                                        )}
-                                    </div>
-                                    
-                                    <div className="mt-6 pt-5 border-t border-dark-border">
-                                        <h4 className="text-white font-bold mb-4">Share This</h4>
-                                        <p className="text-gray-400 text-sm mb-4">
-                                            Share this {isSportsContent ? 'game' : type} with friends and family
-                                        </p>
-                                        <SocialShare
-                                            title={item.title}
-                                            description={item.overview || ''}
-                                            image={getAbsoluteImageUrl(item.poster_path)}
-                                            url={pageUrl}
-                                            type={mediaType}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 {/* Navigation - Bottom */}
@@ -1605,12 +1609,13 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' | 's
         fetchByGenre(type).then(data => {
             setAllItems(data);
             setLoading(false);
+        }).catch(() => {
+            setLoading(false);
         });
     }, [type]);
 
     const loadMore = () => {
         setLoadingMore(true);
-        // Simulate loading delay
         setTimeout(() => {
             setDisplayCount(prev => prev + 18);
             setLoadingMore(false);
