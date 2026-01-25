@@ -381,12 +381,16 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              UniWatch™ - Ultimate Media Experience
               Stream Everything in <span className="text-brand-400">One Place</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+            {/* <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
               Unlimited access to movies, TV shows, live sports, and IPTV channels. 
               No subscriptions, no credit card required.
-            </p>
+            </p> */}
+            <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+              UniWatch provides access to free movies, TV shows, and live sports streaming through a fast, lightweight web player, designed for seamless online viewing across devices.</p>
+
             <div className="flex flex-wrap gap-4 justify-center">
               <button 
                 onClick={() => window.location.hash = '#/movies'}
