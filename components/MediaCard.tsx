@@ -155,6 +155,9 @@
 
 
 
+
+
+
 import React, { useState } from 'react';
 import { Play, Star, Share2 } from 'lucide-react';
 import { MediaItem } from '../types';
@@ -181,26 +184,21 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
   };
 
   // Get absolute image URL
-  const getAbsoluteImageUrl = (path: string) => {
-    if (!path) return 'https://uniwatchfree.vercel.app/og-image.jpg';
+  const getAbsoluteImageUrl = (imgPath: string) => {
+    if (!imgPath) return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
     
-    if (path.startsWith('http')) return path;
-    
-    if (path.startsWith('/images/')) {
-      return window.location.origin + path;
+    if (imgPath.startsWith('http')) {
+      return imgPath;
     }
     
-    if (path.startsWith('/')) {
-      return `https://image.tmdb.org/t/p/w500${path}`;
+    if (imgPath.startsWith('/')) {
+      return `https://uniwatchfree.vercel.app${imgPath}`;
     }
     
-    return 'https://uniwatchfree.vercel.app/og-image.jpg';
+    return imgPath;
   };
 
-  // Get share image
-  const getShareImage = () => {
-    return getAbsoluteImageUrl(item.poster_path || item.backdrop_path || '');
-  };
+  const absoluteImage = getAbsoluteImageUrl(item.poster_path);
 
   return (
     <div 
@@ -214,12 +212,12 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
         {/* Image Container */}
         <div className="aspect-[2/3] relative overflow-hidden">
           <img 
-            src={getAbsoluteImageUrl(item.poster_path)} 
+            src={absoluteImage} 
             alt={`Poster for ${item.title}`}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
-            style={{
-              filter: 'brightness(1.12) contrast(1.08) saturate(1.03)',
+            onError={(e) => {
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
             }}
           />
           
@@ -233,7 +231,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
             </div>
           </div>
           
-          {/* Share Button */}
+          {/* Action Buttons */}
           <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button 
               onClick={handleShareClick}
@@ -256,7 +254,9 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
           
           {/* Type Badge */}
           <div className="absolute bottom-3 left-3 bg-black/80 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-white border border-white/20">
-            {item.media_type === 'movie' ? 'MOVIE' : 'TV'}
+            {item.media_type === 'movie' ? 'MOVIE' : 
+             item.media_type === 'tv' ? 'TV SHOW' : 
+             item.media_type === 'sports' ? 'SPORTS' : 'LIVE TV'}
           </div>
         </div>
         
@@ -290,23 +290,21 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
           {showShare && (
             <div className="absolute left-0 right-0 top-full mt-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl z-50 border border-dark-border animate-fadeIn">
               <div className="flex items-center justify-between mb-3">
-                <h4 className="text-white font-bold text-sm">Share "{item.title}"</h4>
+                <h4 className="text-white font-bold">Share "{item.title}"</h4>
                 <button 
                   onClick={() => setShowShare(false)}
-                  className="text-gray-400 hover:text-white text-sm"
+                  className="text-gray-400 hover:text-white"
                 >
                   ✕
                 </button>
               </div>
-              <div className="max-h-60 overflow-y-auto">
-                <SocialShare
-                  title={`Watch ${item.title}`}
-                  description={item.overview || `Watch ${item.title} in HD quality on UniWatch.`}
-                  image={getShareImage()}
-                  url={getShareUrl()}
-                  type={item.media_type}
-                />
-              </div>
+              <SocialShare
+                title={`Watch ${item.title}`}
+                description={item.overview || `Stream ${item.title} in HD quality`}
+                image={item.poster_path}
+                url={getShareUrl()}
+                type={item.media_type}
+              />
             </div>
           )}
           

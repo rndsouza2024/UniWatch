@@ -897,72 +897,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState, useEffect } from 'react';
 // import { HashRouter, Routes, Route, Navigate, useSearchParams, useNavigate } from 'react-router-dom';
 // import Navbar from './components/Navbar';
@@ -1386,17 +1320,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Navigate, useSearchParams, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -1406,55 +1329,44 @@ import IPTV from './pages/IPTV';
 import AIChat from './pages/AIChat';
 import VideoPlayer from './components/VideoPlayer';
 import SEO from './components/SEO';
-import { fetchByGenre, fetchById, UNIQUE_MOVIES, UNIQUE_TV_SHOWS, UNIQUE_SPORTS, UNIQUE_TV_LIVE } from './services/tmdb';
+import { fetchByGenre, fetchById } from './services/tmdb';
 import { MediaItem } from './types';
 import MediaCard from './components/MediaCard';
 import { ArrowLeft, Home as HomeIcon, Loader2, ChevronDown } from 'lucide-react';
 import SocialShare from './components/SocialShare';
+
+// Helper function to get absolute image URL
+const getAbsoluteImageUrl = (imgPath: string) => {
+  if (!imgPath) return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
+  
+  if (imgPath.startsWith('http')) {
+    return imgPath;
+  }
+  
+  if (imgPath.startsWith('/')) {
+    return `https://uniwatchfree.vercel.app${imgPath}`;
+  }
+  
+  return imgPath;
+};
 
 const WatchPage = () => {
     const [params] = useSearchParams();
     const navigate = useNavigate();
     const id = params.get('id');
     const type = params.get('type') as 'movie' | 'tv' | 'sports' | 'tv_live';
-    const season = params.get('season') ? parseInt(params.get('season')!) : 1;
-    const episode = params.get('episode') ? parseInt(params.get('episode')!) : 1;
     const [item, setItem] = useState<MediaItem | null>(null);
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         if (id && type) {
             setLoading(true);
-            
-            // Get item from correct source based on type
-            let foundItem: MediaItem | null = null;
-            
-            if (type === 'movie') {
-                foundItem = UNIQUE_MOVIES.find(m => m.id === id) as MediaItem || null;
-            } else if (type === 'tv') {
-                foundItem = UNIQUE_TV_SHOWS.find(tv => tv.id === id) as MediaItem || null;
-            } else if (type === 'sports') {
-                foundItem = UNIQUE_SPORTS.find(s => s.id === id) as MediaItem || null;
-            } else if (type === 'tv_live') {
-                foundItem = UNIQUE_TV_LIVE.find(tv => tv.id === id) as MediaItem || null;
-            }
-            
-            if (foundItem) {
-                setItem(foundItem);
+            fetchById(id, type).then(data => {
+                setItem(data);
                 setLoading(false);
-            } else {
-                // Fallback to API for movies/tv
-                if (type === 'movie' || type === 'tv') {
-                    fetchById(id, type).then(data => {
-                        setItem(data);
-                        setLoading(false);
-                    });
-                } else {
-                    setLoading(false);
-                }
-            }
+            });
         }
-    }, [id, type, season, episode]);
+    }, [id, type]);
 
     if (!id || !type) return <Navigate to="/" />;
 
@@ -1466,119 +1378,20 @@ const WatchPage = () => {
         );
     }
 
-    // Get absolute image URL - handles both absolute and relative paths
-    const getAbsoluteImageUrl = (path: string | undefined | null) => {
-        if (!path || path === 'null' || path === 'undefined') {
-            return 'https://uniwatchfree.vercel.app/og-image.jpg';
-        }
-        
-        // If already full URL, return it
-        if (path.startsWith('http')) return path;
-        
-        // If it starts with '/images/', it's a relative path from public folder
-        if (path.startsWith('/images/')) {
-            return window.location.origin + path;
-        }
-        
-        // If it's a TMDB path without base URL, add it
-        if (path.startsWith('/')) {
-            return `https://image.tmdb.org/t/p/w500${path}`;
-        }
-        
-        // If it's just a filename, assume it's from TMDB
-        return `https://image.tmdb.org/t/p/w500/${path}`;
-    };
-
-    // Get the best available image with proper fallback
-    const getBestImage = () => {
-        if (!item) {
-            return 'https://uniwatchfree.vercel.app/og-image.jpg';
-        }
-        
-        // Check what image types are available
-        const hasBackdrop = item.backdrop_path && item.backdrop_path !== 'null' && item.backdrop_path !== '';
-        const hasPoster = item.poster_path && item.poster_path !== 'null' && item.poster_path !== '';
-        
-        // Priority: backdrop → poster → fallback based on type
-        if (hasBackdrop) {
-            return getAbsoluteImageUrl(item.backdrop_path);
-        }
-        if (hasPoster) {
-            return getAbsoluteImageUrl(item.poster_path);
-        }
-        
-        // Type-specific fallback images - ACTUAL IMAGES, NO PLACEHOLDERS
-        if (type === 'movie') {
-            return 'https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?w=500&h=750&fit=crop&q=80';
-        } else if (type === 'tv') {
-            return 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=750&fit=crop&q=80';
-        } else if (type === 'sports') {
-            return 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500&h=750&fit=crop&q=80';
-        } else if (type === 'tv_live') {
-            return 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&h=750&fit=crop&q=80';
-        }
-        
-        return 'https://uniwatchfree.vercel.app/og-image.jpg';
-    };
-
-    // Get proper display title
-    const getDisplayTitle = () => {
-        if (!item) return 'Watch Content';
-        
-        if (type === 'movie') {
-            return `${item.title}`;
-        } else if (type === 'tv') {
-            return `${item.title} - Season ${season}, Episode ${episode}`;
-        } else if (type === 'sports') {
-            return `Live: ${item.title}`;
-        } else if (type === 'tv_live') {
-            return `Live TV: ${item.title}`;
-        }
-        
-        return item.title;
-    };
-
-    // Proper share title
-    const shareTitle = item 
-        ? `Watch "${item.title}" Free Online | UniWatch` 
-        : 'Watch Free Online | UniWatch';
-    
-    // Proper description with actual content
-    const shareDescription = item?.overview 
-        ? `${item.overview.substring(0, 150)}...`
-        : type === 'movie' 
-            ? `Watch "${item?.title || 'this movie'}" in HD quality for free on UniWatch. No registration required.`
-            : type === 'tv'
-                ? `Watch "${item?.title || 'this TV show'}" Season ${season}, Episode ${episode} in HD quality for free on UniWatch.`
-                : type === 'sports'
-                    ? `Watch live sports: ${item?.title || 'Live Game'} on UniWatch. Free HD streaming.`
-                    : `Watch ${item?.title || 'Live TV'} on UniWatch. Free streaming.`;
-    
-    // Absolute image URL
-    const shareImage = getBestImage();
-    
-    // Proper URL for HashRouter
-    const shareUrl = `watch?id=${id}&type=${type}` + 
-        (type === 'tv' ? `&season=${season}&episode=${episode}` : '');
-    
-    // Get full absolute URL for sharing
-    const getFullShareUrl = () => {
-        const baseUrl = window.location.origin;
-        return `${baseUrl}/#${shareUrl}`;
-    };
-
-    const pageTitle = `${getDisplayTitle()} | UniWatch`;
-    const pageDesc = shareDescription;
-    const pageImage = shareImage;
+    const pageTitle = item ? `Watch ${item.title} Free Online | UniWatch` : 'Watch Online';
+    const pageDesc = item?.overview ? `${item.overview.substring(0, 160)}...` : `Watch ${item?.title || 'movies and shows'} in HD on UniWatch.`;
+    const pageImage = getAbsoluteImageUrl(item?.backdrop_path || item?.poster_path || '');
+    const pageUrl = `watch?id=${id}&type=${type}`;
     
     // Check if the item is sports content
     const isSportsContent = type === 'sports' || (
-        type !== 'movie' && (
-            item?.title?.toLowerCase().includes('sport') || 
-            item?.title?.toLowerCase().includes('game') ||
-            (item?.genres && item.genres.some(g => g.toLowerCase().includes('sport')))
-        )
+        item?.title?.toLowerCase().includes('sport') || 
+        item?.title?.toLowerCase().includes('game') ||
+        (item?.genres && item.genres.some(g => g.toLowerCase().includes('sport')))
     );
+
+    const mediaType = isSportsContent ? 'sports' : 
+                     type === 'tv_live' ? 'tv_live' : type;
 
     return (
         <div className="min-h-screen bg-dark-bg pt-20 px-4 sm:px-6 lg:px-8 pb-12">
@@ -1586,9 +1399,9 @@ const WatchPage = () => {
                 title={pageTitle}
                 description={pageDesc}
                 image={pageImage}
-                type={type === 'movie' ? 'video.movie' : 'video.tv_show'}
-                keywords={[item?.title || '', type, 'streaming', 'free']}
-                videoUrl={getFullShareUrl()}
+                type={type === 'movie' ? 'video.movie' : type === 'tv' ? 'video.tv_show' : 'website'}
+                keywords={[item?.title || '', type, 'streaming', 'free movies']}
+                videoUrl={window.location.href}
                 videoReleaseDate={item?.release_date}
             />
             
@@ -1615,11 +1428,11 @@ const WatchPage = () => {
                     {item && (
                         <div className="flex items-center gap-4">
                             <SocialShare
-                                title={shareTitle}
-                                description={shareDescription}
-                                image={shareImage}
-                                url={shareUrl}
-                                type={type}
+                                title={`Watch ${item.title}`}
+                                description={pageDesc}
+                                image={pageImage}
+                                url={pageUrl}
+                                type={mediaType}
                             />
                         </div>
                     )}
@@ -1631,9 +1444,7 @@ const WatchPage = () => {
                         <VideoPlayer 
                             tmdbId={id} 
                             type={type} 
-                            season={season}
-                            episode={episode}
-                            title={getDisplayTitle()} 
+                            title={item ? item.title : `Loading ${type}...`} 
                             customStreams={item?.streams}
                         />
                     </div>
@@ -1643,9 +1454,9 @@ const WatchPage = () => {
                         <div className="lg:col-span-3 bg-dark-surface p-6 rounded-xl border border-dark-border shadow-lg">
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                                 <div>
-                                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{getDisplayTitle()}</h1>
+                                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{item.title}</h1>
                                     <div className="flex flex-wrap gap-2">
-                                        {item.vote_average && item.vote_average > 0 && (
+                                        {item.vote_average > 0 && (
                                             <span className="px-3 py-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm font-bold">
                                                 ⭐ {item.vote_average.toFixed(1)} Rating
                                             </span>
@@ -1657,7 +1468,7 @@ const WatchPage = () => {
                                             {isSportsContent ? '🏈 Live Game' : 
                                              type === 'movie' ? '🎬 Movie' : 
                                              type === 'tv' ? '📺 TV Series' :
-                                             type === 'tv_live' ? '📡 Live TV' : 'Content'}
+                                             type === 'tv_live' ? '📡 Live TV' : '🎥 Content'}
                                         </span>
                                         {isSportsContent ? (
                                             <span className="px-3 py-1.5 bg-red-600/30 border border-red-500/30 text-red-300 rounded-lg text-sm font-bold">
@@ -1673,11 +1484,11 @@ const WatchPage = () => {
                                 
                                 <div className="flex items-center gap-3">
                                     <SocialShare
-                                        title={shareTitle}
-                                        description={shareDescription}
-                                        image={shareImage}
-                                        url={shareUrl}
-                                        type={type}
+                                        title={`Watch ${item.title}`}
+                                        description={item.overview || ''}
+                                        image={getAbsoluteImageUrl(item.poster_path)}
+                                        url={pageUrl}
+                                        type={mediaType}
                                     />
                                 </div>
                             </div>
@@ -1685,16 +1496,16 @@ const WatchPage = () => {
                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                 <div className="lg:col-span-2">
                                     <h3 className="text-xl font-bold text-white mb-4">
-                                        {isSportsContent ? 'Game Details' : 'Synopsis'}
+                                        {isSportsContent ? 'Match Details' : 'Synopsis'}
                                     </h3>
                                     <p className="text-gray-300 leading-relaxed text-lg">
-                                        {item.overview || `No details available for this ${isSportsContent ? 'game' : 'content'}.`}
+                                        {item.overview || `No ${isSportsContent ? 'match details' : 'description'} available for this ${isSportsContent ? 'game' : 'title'}.`}
                                     </p>
                                     
                                     {item.genres && item.genres.length > 0 && (
                                         <div className="mt-8">
                                             <h4 className="text-white font-bold mb-3">
-                                                {isSportsContent ? 'Categories' : 'Genres'}
+                                                {isSportsContent ? 'Game Categories' : 'Genres'}
                                             </h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {item.genres.map((genre, index) => (
@@ -1715,8 +1526,8 @@ const WatchPage = () => {
                                             <span className="text-white font-medium">
                                                 {type === 'movie' ? 'Movie' : 
                                                  type === 'tv' ? 'TV Show' :
-                                                 type === 'sports' ? 'Live Sports' :
-                                                 'Live TV'}
+                                                 type === 'sports' ? 'Live Sports' : 
+                                                 type === 'tv_live' ? 'Live TV' : 'Content'}
                                             </span>
                                         </div>
                                         {item.duration && (
@@ -1725,13 +1536,13 @@ const WatchPage = () => {
                                                 <span className="text-white font-medium">{item.duration}</span>
                                             </div>
                                         )}
-                                        {(item.release_date || item.first_air_date) && (
+                                        {item.release_date && (
                                             <div className="flex justify-between items-center py-3 border-b border-gray-800">
-                                                <span className="text-gray-400">{type === 'movie' ? 'Release Date' : 'First Air Date'}</span>
-                                                <span className="text-white font-medium">{item.release_date || item.first_air_date}</span>
+                                                <span className="text-gray-400">Release Date</span>
+                                                <span className="text-white font-medium">{item.release_date}</span>
                                             </div>
                                         )}
-                                        {item.vote_average && item.vote_average > 0 && (
+                                        {item.vote_average > 0 && (
                                             <div className="flex justify-between items-center py-3">
                                                 <span className="text-gray-400">Rating</span>
                                                 <span className="text-green-400 font-bold">{item.vote_average.toFixed(1)}/10</span>
@@ -1745,11 +1556,11 @@ const WatchPage = () => {
                                             Share this {isSportsContent ? 'game' : type} with friends and family
                                         </p>
                                         <SocialShare
-                                            title={shareTitle}
-                                            description={shareDescription}
-                                            image={shareImage}
-                                            url={shareUrl}
-                                            type={type}
+                                            title={`Watch ${item.title}`}
+                                            description={item.overview || ''}
+                                            image={getAbsoluteImageUrl(item.poster_path)}
+                                            url={pageUrl}
+                                            type={mediaType}
                                         />
                                     </div>
                                 </div>
@@ -1782,7 +1593,7 @@ const WatchPage = () => {
     );
 };
 
-const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' }) => {
+const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' | 'sports' | 'tv_live' }) => {
     const [allItems, setAllItems] = useState<MediaItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [loadingMore, setLoadingMore] = useState(false);
@@ -1811,7 +1622,7 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' }) =
 
     const pageTitle = `${title} - Free Streaming | UniWatch`;
     const pageDesc = `Browse our collection of ${title.toLowerCase()}. Watch free in HD quality on UniWatch.`;
-    const pageImage = allItems[0]?.poster_path;
+    const pageImage = allItems[0]?.poster_path ? getAbsoluteImageUrl(allItems[0].poster_path) : '';
 
     return (
         <div className="min-h-screen bg-dark-bg pt-20 px-4 sm:px-6 lg:px-8 pb-12">
@@ -1931,7 +1742,8 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<ListingPage title="Movies" type="movie" />} />
           <Route path="/tv" element={<ListingPage title="TV Shows" type="tv" />} />
-          <Route path="/sports" element={<Sports />} />
+          <Route path="/sports" element={<ListingPage title="Live Sports" type="sports" />} />
+          <Route path="/live-tv" element={<ListingPage title="Live TV" type="tv_live" />} />
           <Route path="/iptv" element={<IPTV />} />
           <Route path="/watch" element={<WatchPage />} />
           <Route path="/ai-chat" element={<AIChat />} />
