@@ -157,7 +157,6 @@
 
 
 
-
 import React, { useState } from 'react';
 import { Play, Star, Share2 } from 'lucide-react';
 import { MediaItem } from '../types';
@@ -185,7 +184,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
 
   // Get absolute image URL
   const getAbsoluteImageUrl = (imgPath: string) => {
-    if (!imgPath) return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
+    if (!imgPath) return '';
     
     if (imgPath.startsWith('http')) {
       return imgPath;
@@ -299,9 +298,9 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
                 </button>
               </div>
               <SocialShare
-                title={`Watch ${item.title}`}
-                description={item.overview || `Stream ${item.title} in HD quality`}
-                image={item.poster_path}
+                title={item.title}
+                description={item.overview || `Watch ${item.title} in HD quality`}
+                image={absoluteImage}
                 url={getShareUrl()}
                 type={item.media_type}
               />

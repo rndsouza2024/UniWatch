@@ -1337,7 +1337,7 @@ import SocialShare from './components/SocialShare';
 
 // Helper function to get absolute image URL
 const getAbsoluteImageUrl = (imgPath: string) => {
-  if (!imgPath) return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
+  if (!imgPath) return '';
   
   if (imgPath.startsWith('http')) {
     return imgPath;
@@ -1428,9 +1428,9 @@ const WatchPage = () => {
                     {item && (
                         <div className="flex items-center gap-4">
                             <SocialShare
-                                title={`Watch ${item.title}`}
-                                description={pageDesc}
-                                image={pageImage}
+                                title={item.title}
+                                description={item.overview || pageDesc}
+                                image={getAbsoluteImageUrl(item.poster_path)}
                                 url={pageUrl}
                                 type={mediaType}
                             />
@@ -1484,7 +1484,7 @@ const WatchPage = () => {
                                 
                                 <div className="flex items-center gap-3">
                                     <SocialShare
-                                        title={`Watch ${item.title}`}
+                                        title={item.title}
                                         description={item.overview || ''}
                                         image={getAbsoluteImageUrl(item.poster_path)}
                                         url={pageUrl}
@@ -1556,7 +1556,7 @@ const WatchPage = () => {
                                             Share this {isSportsContent ? 'game' : type} with friends and family
                                         </p>
                                         <SocialShare
-                                            title={`Watch ${item.title}`}
+                                            title={item.title}
                                             description={item.overview || ''}
                                             image={getAbsoluteImageUrl(item.poster_path)}
                                             url={pageUrl}
