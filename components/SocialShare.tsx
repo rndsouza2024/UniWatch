@@ -783,26 +783,26 @@ const SocialShare: React.FC<SocialShareProps> = ({
 
       {showShareModal && (
         <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[9999] p-4 animate-fadeIn">
-          <div className="bg-gray-900 rounded-2xl w-full max-w-lg border border-gray-800 shadow-2xl animate-slideUp">
+          <div className="bg-dark-surface rounded-2xl w-full max-w-lg border border-dark-border shadow-2xl animate-slideUp">
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-800">
+            <div className="flex items-center justify-between p-6 border-b border-dark-border">
               <div>
                 <h3 className="text-xl font-bold text-white">Share "{title}"</h3>
                 <p className="text-gray-400 text-sm mt-1">Share with friends and family</p>
               </div>
               <button
                 onClick={() => setShowShareModal(false)}
-                className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors"
               >
                 <X size={24} className="text-gray-400" />
               </button>
             </div>
 
             {/* Content Preview */}
-            <div className="p-6 border-b border-gray-800">
+            <div className="p-6 border-b border-dark-border">
               <div className="flex gap-4">
                 <div className="relative flex-shrink-0">
-                  <div className="relative w-32 h-48 rounded-lg overflow-hidden border-2 border-gray-700">
+                  <div className="relative w-32 h-48 rounded-lg overflow-hidden border-2 border-dark-border">
                     <img
                       src={absoluteImageUrl}
                       alt={title}
@@ -824,7 +824,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                     {description}
                   </p>
                   
-                  <div className="bg-gray-800/50 rounded-lg p-3 border border-gray-700">
+                  <div className="bg-dark-bg/50 rounded-lg p-3 border border-dark-border">
                     <div className="flex items-center gap-2 mb-1">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                       <span className="text-gray-400 text-xs">Direct Link</span>
@@ -838,11 +838,11 @@ const SocialShare: React.FC<SocialShareProps> = ({
             </div>
 
             {/* Copy Link Section */}
-            <div className="p-6 border-b border-gray-800">
+            <div className="p-6 border-b border-dark-border">
               <div className="mb-4">
                 <label className="text-gray-300 text-sm font-medium mb-2 block">Copy this link:</label>
                 <div className="flex gap-3">
-                  <div className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3">
+                  <div className="flex-1 bg-dark-bg border border-dark-border rounded-lg px-4 py-3">
                     <div className="text-white text-sm truncate font-medium" title={shareUrl}>
                       {shareUrl}
                     </div>
@@ -871,11 +871,11 @@ const SocialShare: React.FC<SocialShareProps> = ({
               </div>
             </div>
 
-            {/* Social Share Buttons - SINGLE CLEAN GRID */}
+            {/* Social Share Buttons - SINGLE RESPONSIVE GRID (NO DUPLICATE) */}
             <div className="p-6">
               <h4 className="text-white font-bold text-lg mb-5 text-center">Share On Social Media</h4>
               
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
                 {socialPlatforms.map((platform, index) => {
                   const ShareButton = platform.component;
                   const Icon = platform.icon;
@@ -924,7 +924,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 bg-gray-800/30 border-t border-gray-800 rounded-b-2xl">
+            <div className="px-6 py-4 bg-dark-bg/30 border-t border-dark-border rounded-b-2xl">
               <p className="text-gray-500 text-xs text-center">
                 All share buttons include title, description, and direct link
               </p>
