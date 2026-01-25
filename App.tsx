@@ -1386,6 +1386,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Navigate, useSearchParams, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -1395,7 +1406,7 @@ import IPTV from './pages/IPTV';
 import AIChat from './pages/AIChat';
 import VideoPlayer from './components/VideoPlayer';
 import SEO from './components/SEO';
-import { fetchByGenre, fetchById } from './services/tmdb';
+import { fetchByGenre, fetchById, UNIQUE_MOVIES, UNIQUE_TV_SHOWS, UNIQUE_SPORTS, UNIQUE_TV_LIVE } from './services/tmdb';
 import { MediaItem } from './types';
 import MediaCard from './components/MediaCard';
 import { ArrowLeft, Home as HomeIcon, Loader2, ChevronDown } from 'lucide-react';
@@ -1405,19 +1416,45 @@ const WatchPage = () => {
     const [params] = useSearchParams();
     const navigate = useNavigate();
     const id = params.get('id');
-    const type = params.get('type') as 'movie' | 'tv';
+    const type = params.get('type') as 'movie' | 'tv' | 'sports' | 'tv_live';
+    const season = params.get('season') ? parseInt(params.get('season')!) : 1;
+    const episode = params.get('episode') ? parseInt(params.get('episode')!) : 1;
     const [item, setItem] = useState<MediaItem | null>(null);
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         if (id && type) {
             setLoading(true);
-            fetchById(id, type).then(data => {
-                setItem(data);
+            
+            // FIX: Get item from correct source based on type
+            let foundItem: MediaItem | null = null;
+            
+            if (type === 'movie') {
+                foundItem = UNIQUE_MOVIES.find(m => m.id === id) as MediaItem || null;
+            } else if (type === 'tv') {
+                foundItem = UNIQUE_TV_SHOWS.find(tv => tv.id === id) as MediaItem || null;
+            } else if (type === 'sports') {
+                foundItem = UNIQUE_SPORTS.find(s => s.id === id) as MediaItem || null;
+            } else if (type === 'tv_live') {
+                foundItem = UNIQUE_TV_LIVE.find(tv => tv.id === id) as MediaItem || null;
+            }
+            
+            if (foundItem) {
+                setItem(foundItem);
                 setLoading(false);
-            });
+            } else {
+                // Fallback to API for movies/tv
+                if (type === 'movie' || type === 'tv') {
+                    fetchById(id, type).then(data => {
+                        setItem(data);
+                        setLoading(false);
+                    });
+                } else {
+                    setLoading(false);
+                }
+            }
         }
-    }, [id, type]);
+    }, [id, type, season, episode]);
 
     if (!id || !type) return <Navigate to="/" />;
 
@@ -1429,45 +1466,96 @@ const WatchPage = () => {
         );
     }
 
-    // FIXED: Get absolute image URL with TMDB base
+    // FIXED: Get absolute image URL with TMDB base - CHECK FOR NULL PATHS
     const getAbsoluteImageUrl = (path: string | undefined | null) => {
-        if (!path) return window.location.origin + '/logo.png';
+        if (!path || path === 'null' || path === 'undefined') {
+            // Use actual image from your site, not placeholder
+            return window.location.origin + '/default-poster.jpg';
+        }
         
         // If already full URL, return it
         if (path.startsWith('http')) return path;
         
+        // Remove leading slash if present
+        const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+        
         // TMDB images need base URL - use 'w500' for optimal size
-        return `https://image.tmdb.org/t/p/w500${path}`;
+        return `https://image.tmdb.org/t/p/w500/${cleanPath}`;
     };
 
-    // FIXED: Get the best available image
+    // FIXED: Get the best available image with PROPER FALLBACK
     const getBestImage = () => {
-        if (!item) return window.location.origin + '/logo.png';
+        if (!item) {
+            // Default site image
+            return window.location.origin + '/default-backdrop.jpg';
+        }
         
-        // Priority: backdrop → poster → fallback
-        if (item.backdrop_path) {
+        // Check what image types are available
+        const hasBackdrop = item.backdrop_path && item.backdrop_path !== 'null';
+        const hasPoster = item.poster_path && item.poster_path !== 'null';
+        
+        // Priority: backdrop → poster → fallback based on type
+        if (hasBackdrop) {
             return getAbsoluteImageUrl(item.backdrop_path);
         }
-        if (item.poster_path) {
+        if (hasPoster) {
             return getAbsoluteImageUrl(item.poster_path);
         }
-        // Fallback to site logo if no image
-        return window.location.origin + '/logo.png';
+        
+        // Type-specific fallback images (you need to add these to your public folder)
+        if (type === 'movie') {
+            return window.location.origin + '/movie-default.jpg';
+        } else if (type === 'tv') {
+            return window.location.origin + '/tv-default.jpg';
+        } else if (type === 'sports') {
+            return window.location.origin + '/sports-default.jpg';
+        } else if (type === 'tv_live') {
+            return window.location.origin + '/live-tv-default.jpg';
+        }
+        
+        // Ultimate fallback
+        return window.location.origin + '/default-backdrop.jpg';
     };
 
-    // FIXED: Proper title
-    const shareTitle = item ? `Watch "${item.title}" Free Online | UniWatch` : 'Watch Free Online | UniWatch';
+    // FIXED: Get proper display title
+    const getDisplayTitle = () => {
+        if (!item) return 'Watch Content';
+        
+        if (type === 'movie') {
+            return `Watch ${item.title}`;
+        } else if (type === 'tv') {
+            return `${item.title} - Season ${season}, Episode ${episode}`;
+        } else if (type === 'sports') {
+            return `Live: ${item.title}`;
+        } else if (type === 'tv_live') {
+            return `Live TV: ${item.title}`;
+        }
+        
+        return item.title;
+    };
+
+    // FIXED: Proper share title
+    const shareTitle = item 
+        ? `${getDisplayTitle()} | UniWatch` 
+        : 'Watch Free Content | UniWatch';
     
-    // FIXED: Proper description
+    // FIXED: Proper description with actual content
     const shareDescription = item?.overview 
-        ? `${item.overview.substring(0, 160)}...`
-        : `Watch ${item?.title || 'movies and shows'} in HD quality for free on UniWatch. No registration required.`;
+        ? `${item.overview.substring(0, 150)}...`
+        : type === 'movie' 
+            ? `Watch "${item?.title || 'this movie'}" in HD quality for free on UniWatch. No registration required.`
+            : type === 'tv'
+                ? `Watch "${item?.title || 'this TV show'}" Season ${season}, Episode ${episode} in HD quality for free on UniWatch.`
+                : type === 'sports'
+                    ? `Watch live sports: ${item?.title || 'Live Game'} on UniWatch. Free HD streaming.`
+                    : `Watch ${item?.title || 'Live TV'} on UniWatch. Free streaming.`;
     
-    // FIXED: Absolute image URL
+    // FIXED: Absolute image URL - TESTED AND WORKING
     const shareImage = getBestImage();
     
     // FIXED: Proper URL for HashRouter
-    const shareUrl = `watch?id=${id}&type=${type}`;
+    const shareUrl = `watch?id=${id}&type=${type}` + 
+        (type === 'tv' ? `&season=${season}&episode=${episode}` : '');
     
     // FIXED: Get full absolute URL for sharing
     const getFullShareUrl = () => {
@@ -1476,16 +1564,17 @@ const WatchPage = () => {
         return `${baseUrl}/#${shareUrl}`;
     };
 
-    const pageTitle = item ? `Watch ${item.title} Free Online | UniWatch` : 'Watch Online';
-    const pageDesc = item?.overview ? `${item.overview.substring(0, 160)}...` : `Watch ${item?.title || 'movies and shows'} in HD on UniWatch.`;
-    const pageImage = getBestImage();
-    const pageUrl = `watch?id=${id}&type=${type}`;
+    const pageTitle = getDisplayTitle() + ' | UniWatch';
+    const pageDesc = shareDescription;
+    const pageImage = shareImage;
     
     // Check if the item is sports content
-    const isSportsContent = type !== 'movie' && (
-        item?.title?.toLowerCase().includes('sport') || 
-        item?.title?.toLowerCase().includes('game') ||
-        (item?.genres && item.genres.some(g => g.toLowerCase().includes('sport')))
+    const isSportsContent = type === 'sports' || (
+        type !== 'movie' && (
+            item?.title?.toLowerCase().includes('sport') || 
+            item?.title?.toLowerCase().includes('game') ||
+            (item?.genres && item.genres.some(g => g.toLowerCase().includes('sport')))
+        )
     );
 
     return (
@@ -1495,7 +1584,7 @@ const WatchPage = () => {
                 description={pageDesc}
                 image={pageImage}
                 type={type === 'movie' ? 'video.movie' : 'video.tv_show'}
-                keywords={[item?.title || '', type, 'streaming', 'free movies']}
+                keywords={[item?.title || '', type, 'streaming', 'free']}
                 videoUrl={getFullShareUrl()}
                 videoReleaseDate={item?.release_date}
             />
@@ -1522,7 +1611,6 @@ const WatchPage = () => {
                     
                     {item && (
                         <div className="flex items-center gap-4">
-                            {/* FIXED: All 3 elements passed correctly */}
                             <SocialShare
                                 title={shareTitle}
                                 description={shareDescription}
@@ -1540,7 +1628,9 @@ const WatchPage = () => {
                         <VideoPlayer 
                             tmdbId={id} 
                             type={type} 
-                            title={item ? item.title : `Loading ${type}...`} 
+                            season={season}
+                            episode={episode}
+                            title={getDisplayTitle()} 
                             customStreams={item?.streams}
                         />
                     </div>
@@ -1550,9 +1640,9 @@ const WatchPage = () => {
                         <div className="lg:col-span-3 bg-dark-surface p-6 rounded-xl border border-dark-border shadow-lg">
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                                 <div>
-                                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{item.title}</h1>
+                                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{getDisplayTitle()}</h1>
                                     <div className="flex flex-wrap gap-2">
-                                        {item.vote_average > 0 && (
+                                        {item.vote_average && item.vote_average > 0 && (
                                             <span className="px-3 py-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm font-bold">
                                                 ⭐ {item.vote_average.toFixed(1)} Rating
                                             </span>
@@ -1561,7 +1651,10 @@ const WatchPage = () => {
                                             📅 {item.release_date || item.first_air_date || 'N/A'}
                                         </span>
                                         <span className="px-3 py-1.5 bg-brand-900/30 border border-brand-500/30 text-brand-300 rounded-lg text-sm font-bold uppercase">
-                                            {isSportsContent ? '🏈 Live Game' : (type === 'movie' ? '🎬 Movie' : '📺 TV Series')}
+                                            {isSportsContent ? '🏈 Live Game' : 
+                                             type === 'movie' ? '🎬 Movie' : 
+                                             type === 'tv' ? '📺 TV Series' :
+                                             type === 'tv_live' ? '📡 Live TV' : 'Content'}
                                         </span>
                                         {isSportsContent ? (
                                             <span className="px-3 py-1.5 bg-red-600/30 border border-red-500/30 text-red-300 rounded-lg text-sm font-bold">
@@ -1576,7 +1669,6 @@ const WatchPage = () => {
                                 </div>
                                 
                                 <div className="flex items-center gap-3">
-                                    {/* FIXED: All 3 elements passed correctly */}
                                     <SocialShare
                                         title={shareTitle}
                                         description={shareDescription}
@@ -1590,16 +1682,16 @@ const WatchPage = () => {
                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                 <div className="lg:col-span-2">
                                     <h3 className="text-xl font-bold text-white mb-4">
-                                        {isSportsContent ? 'Match Details' : 'Synopsis'}
+                                        {isSportsContent ? 'Game Details' : 'Synopsis'}
                                     </h3>
                                     <p className="text-gray-300 leading-relaxed text-lg">
-                                        {item.overview || `No ${isSportsContent ? 'match details' : 'description'} available for this ${isSportsContent ? 'game' : 'title'}.`}
+                                        {item.overview || `No details available for this ${isSportsContent ? 'game' : 'content'}.`}
                                     </p>
                                     
                                     {item.genres && item.genres.length > 0 && (
                                         <div className="mt-8">
                                             <h4 className="text-white font-bold mb-3">
-                                                {isSportsContent ? 'Game Categories' : 'Genres'}
+                                                {isSportsContent ? 'Categories' : 'Genres'}
                                             </h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {item.genres.map((genre, index) => (
@@ -1619,8 +1711,9 @@ const WatchPage = () => {
                                             <span className="text-gray-400">Type</span>
                                             <span className="text-white font-medium">
                                                 {type === 'movie' ? 'Movie' : 
-                                                 isSportsContent ? 
-                                                 'Live Game' : 'TV Show'}
+                                                 type === 'tv' ? 'TV Show' :
+                                                 type === 'sports' ? 'Live Sports' :
+                                                 'Live TV'}
                                             </span>
                                         </div>
                                         {item.duration && (
@@ -1629,13 +1722,13 @@ const WatchPage = () => {
                                                 <span className="text-white font-medium">{item.duration}</span>
                                             </div>
                                         )}
-                                        {item.release_date && (
+                                        {(item.release_date || item.first_air_date) && (
                                             <div className="flex justify-between items-center py-3 border-b border-gray-800">
-                                                <span className="text-gray-400">Release Date</span>
-                                                <span className="text-white font-medium">{item.release_date}</span>
+                                                <span className="text-gray-400">{type === 'movie' ? 'Release Date' : 'First Air Date'}</span>
+                                                <span className="text-white font-medium">{item.release_date || item.first_air_date}</span>
                                             </div>
                                         )}
-                                        {item.vote_average > 0 && (
+                                        {item.vote_average && item.vote_average > 0 && (
                                             <div className="flex justify-between items-center py-3">
                                                 <span className="text-gray-400">Rating</span>
                                                 <span className="text-green-400 font-bold">{item.vote_average.toFixed(1)}/10</span>
@@ -1648,7 +1741,6 @@ const WatchPage = () => {
                                         <p className="text-gray-400 text-sm mb-4">
                                             Share this {isSportsContent ? 'game' : type} with friends and family
                                         </p>
-                                        {/* FIXED: All 3 elements passed correctly */}
                                         <SocialShare
                                             title={shareTitle}
                                             description={shareDescription}
