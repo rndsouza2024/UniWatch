@@ -1320,7 +1320,7 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+    import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Navigate, useSearchParams, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -1337,23 +1337,16 @@ import SocialShare from './components/SocialShare';
 
 // Helper function to get absolute image URL
 const getAbsoluteImageUrl = (imgPath: string) => {
-  if (!imgPath || imgPath === 'undefined' || imgPath.trim() === '') {
-    return 'https://uniwatchfree.vercel.app/og-image.jpg';
+  if (!imgPath || imgPath.trim() === '') {
+    return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
   }
   
-  // Already absolute URL
   if (imgPath.startsWith('http')) {
     return imgPath;
   }
   
-  // Local image
   if (imgPath.startsWith('/')) {
     return `https://uniwatchfree.vercel.app${imgPath}`;
-  }
-  
-  // TMDB image without protocol
-  if (imgPath.includes('image.tmdb.org')) {
-    return `https:${imgPath}`;
   }
   
   return imgPath;
@@ -1373,8 +1366,7 @@ const WatchPage = () => {
             fetchById(id, type).then(data => {
                 setItem(data);
                 setLoading(false);
-            }).catch((error) => {
-                console.error('Error fetching item:', error);
+            }).catch(() => {
                 setLoading(false);
             });
         }
@@ -1384,7 +1376,7 @@ const WatchPage = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+            <div className="min-h-screen bg-dark-bg flex items-center justify-center">
                 <Loader2 className="animate-spin text-brand-500" size={48} />
             </div>
         );
@@ -1399,7 +1391,6 @@ const WatchPage = () => {
     const pageImage = getAbsoluteImageUrl(item.backdrop_path || item.poster_path);
     const pageUrl = `watch?id=${id}&type=${type}`;
     
-    // Check if the item is sports content
     const isSportsContent = type === 'sports' || (
         item.title.toLowerCase().includes('sport') || 
         item.title.toLowerCase().includes('game') ||
@@ -1410,7 +1401,7 @@ const WatchPage = () => {
                      type === 'tv_live' ? 'tv_live' : type;
 
     return (
-        <div className="min-h-screen bg-gray-950 pt-20 px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="min-h-screen bg-dark-bg pt-20 px-4 sm:px-6 lg:px-8 pb-12">
             <SEO 
                 title={pageTitle}
                 description={pageDesc}
@@ -1422,22 +1413,21 @@ const WatchPage = () => {
             />
             
             <div className="max-w-7xl mx-auto">
-                {/* Navigation - Top */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <div className="flex flex-wrap gap-3">
                         <button 
                             onClick={() => navigate(-1)} 
-                            className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5 border border-gray-800"
+                            className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5 border border-dark-border"
                         >
                             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
-                            <span className="font-medium text-sm sm:text-base">Go Back</span>
+                            <span className="font-medium">Go Back</span>
                         </button>
                         <button 
                             onClick={() => navigate('/')} 
-                            className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5 border border-gray-800"
+                            className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5 border border-dark-border"
                         >
                             <HomeIcon size={20} className="group-hover:scale-110 transition-transform" /> 
-                            <span className="font-medium text-sm sm:text-base">Home</span>
+                            <span className="font-medium">Home</span>
                         </button>
                     </div>
                     
@@ -1453,7 +1443,6 @@ const WatchPage = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Video Player */}
                     <div className="lg:col-span-3">
                         <VideoPlayer 
                             tmdbId={id} 
@@ -1463,18 +1452,17 @@ const WatchPage = () => {
                         />
                     </div>
                     
-                    {/* Content Info */}
-                    <div className="lg:col-span-3 bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
+                    <div className="lg:col-span-3 bg-dark-surface p-6 rounded-xl border border-dark-border shadow-lg">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                             <div>
-                                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">{item.title}</h1>
+                                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{item.title}</h1>
                                 <div className="flex flex-wrap gap-2">
                                     {item.vote_average > 0 && (
                                         <span className="px-3 py-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm font-bold">
                                             ⭐ {item.vote_average.toFixed(1)} Rating
                                         </span>
                                     )}
-                                    <span className="px-3 py-1.5 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg text-sm">
+                                    <span className="px-3 py-1.5 bg-gray-700/50 border border-gray-600 rounded-lg text-sm text-gray-300">
                                         📅 {item.release_date || item.first_air_date || 'N/A'}
                                     </span>
                                     <span className="px-3 py-1.5 bg-brand-900/30 border border-brand-500/30 text-brand-300 rounded-lg text-sm font-bold uppercase">
@@ -1488,7 +1476,7 @@ const WatchPage = () => {
                                             🔴 Live
                                         </span>
                                     ) : item.duration && (
-                                        <span className="px-3 py-1.5 bg-gray-800 text-gray-300 border border-gray-700 rounded-lg text-sm">
+                                        <span className="px-3 py-1.5 bg-gray-800/50 border border-gray-700 rounded-lg text-sm text-gray-300">
                                             ⏱️ {item.duration}
                                         </span>
                                     )}
@@ -1511,7 +1499,7 @@ const WatchPage = () => {
                                 <h3 className="text-xl font-bold text-white mb-4">
                                     {isSportsContent ? 'Match Details' : 'Synopsis'}
                                 </h3>
-                                <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
+                                <p className="text-gray-300 leading-relaxed text-lg">
                                     {item.overview || `No ${isSportsContent ? 'match details' : 'description'} available for this ${isSportsContent ? 'game' : 'title'}.`}
                                 </p>
                                 
@@ -1522,7 +1510,7 @@ const WatchPage = () => {
                                         </h4>
                                         <div className="flex flex-wrap gap-2">
                                             {item.genres.map((genre, index) => (
-                                                <span key={index} className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-gray-300 hover:bg-brand-500/20 hover:border-brand-500/30 hover:text-brand-300 transition-colors cursor-pointer text-sm">
+                                                <span key={index} className="px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-gray-300 hover:bg-brand-500/20 hover:border-brand-500/30 hover:text-brand-300 transition-colors cursor-pointer">
                                                     {genre}
                                                 </span>
                                             ))}
@@ -1531,8 +1519,8 @@ const WatchPage = () => {
                                 )}
                             </div>
                             
-                            <div className="bg-gray-950 p-5 rounded-xl border border-gray-800">
-                                <h4 className="text-white font-bold mb-4 text-lg">Quick Info</h4>
+                            <div className="bg-dark-bg p-5 rounded-xl border border-dark-border">
+                                <h4 className="text-white font-bold mb-4">Quick Info</h4>
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-center py-3 border-b border-gray-800">
                                         <span className="text-gray-400">Type</span>
@@ -1563,42 +1551,39 @@ const WatchPage = () => {
                                     )}
                                 </div>
                                 
-                                <div className="mt-6 pt-5 border-t border-gray-800">
-                                    <h4 className="text-white font-bold mb-4 text-lg">Share This</h4>
+                                <div className="mt-6 pt-5 border-t border-dark-border">
+                                    <h4 className="text-white font-bold mb-4">Share This</h4>
                                     <p className="text-gray-400 text-sm mb-4">
                                         Share this {isSportsContent ? 'game' : type} with friends and family
                                     </p>
-                                    <div className="flex justify-center">
-                                        <SocialShare
-                                            title={item.title}
-                                            description={item.overview || ''}
-                                            image={getAbsoluteImageUrl(item.poster_path)}
-                                            url={pageUrl}
-                                            type={mediaType}
-                                        />
-                                    </div>
+                                    <SocialShare
+                                        title={item.title}
+                                        description={item.overview || ''}
+                                        image={getAbsoluteImageUrl(item.poster_path)}
+                                        url={pageUrl}
+                                        type={mediaType}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Navigation - Bottom */}
-                <div className="mt-12 pt-8 border-t border-gray-800">
+                <div className="mt-12 pt-8 border-t border-dark-border">
                     <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                         <button 
                             onClick={() => navigate(-1)} 
-                            className="group flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors px-5 py-3 rounded-xl hover:bg-white/5 border border-gray-800 w-full sm:w-auto"
+                            className="group flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors px-5 py-3 rounded-xl hover:bg-white/5 border border-dark-border w-full sm:w-auto"
                         >
                             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
-                            <span className="font-medium text-sm sm:text-base">Go Back</span>
+                            <span className="font-medium">Go Back</span>
                         </button>
                         <button 
                             onClick={() => navigate('/')} 
                             className="group flex items-center justify-center gap-2 bg-brand-500 text-white hover:bg-brand-600 transition-colors px-5 py-3 rounded-xl border border-brand-600 w-full sm:w-auto"
                         >
                             <HomeIcon size={20} className="group-hover:scale-110 transition-transform" /> 
-                            <span className="font-medium text-sm sm:text-base">Back to Home</span>
+                            <span className="font-medium">Back to Home</span>
                         </button>
                     </div>
                 </div>
@@ -1640,7 +1625,7 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' | 's
     const pageImage = allItems[0]?.poster_path ? getAbsoluteImageUrl(allItems[0].poster_path) : '';
 
     return (
-        <div className="min-h-screen bg-gray-950 pt-20 px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="min-h-screen bg-dark-bg pt-20 px-4 sm:px-6 lg:px-8 pb-12">
             <SEO 
                 title={pageTitle}
                 description={pageDesc}
@@ -1650,17 +1635,16 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' | 's
             />
             
             <div className="max-w-7xl mx-auto">
-                {/* Navigation - Top */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                     <div className="flex items-center gap-4">
                         <button 
                             onClick={() => navigate('/')} 
-                            className="p-3 rounded-xl bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 transition-all border border-gray-800"
+                            className="p-3 rounded-xl bg-dark-surface text-gray-400 hover:text-white hover:bg-white/10 transition-all border border-dark-border"
                         >
                             <HomeIcon size={24} />
                         </button>
                         <div>
-                            <h1 className="text-2xl sm:text-3xl font-bold text-white">{title}</h1>
+                            <h1 className="text-3xl font-bold text-white">{title}</h1>
                             <p className="text-gray-400 text-sm mt-1">
                                 {allItems.length} titles available • HD Streaming
                             </p>
@@ -1669,10 +1653,10 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' | 's
                     
                     <button 
                         onClick={() => navigate(-1)} 
-                        className="hidden sm:flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/5 border border-gray-800"
+                        className="hidden sm:flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/5 border border-dark-border"
                     >
                         <ArrowLeft size={20} />
-                        <span className="font-medium text-sm sm:text-base">Go Back</span>
+                        <span className="font-medium">Go Back</span>
                     </button>
                 </div>
 
@@ -1682,28 +1666,27 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' | 's
                     </div>
                 ) : (
                     <>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 sm:gap-6">
                             {displayedItems.map((item) => (
                                 <MediaCard key={`${item.id}-${item.media_type}`} item={item} />
                             ))}
                         </div>
                         
-                        {/* Load More Button */}
                         {hasMoreItems && (
                             <div className="flex justify-center mt-10 mb-8">
                                 <button
                                     onClick={loadMore}
                                     disabled={loadingMore}
-                                    className="flex items-center gap-3 px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-medium transition-all border border-gray-800 hover:border-brand-500 disabled:opacity-50 min-w-[180px] justify-center"
+                                    className="flex items-center gap-3 px-8 py-4 bg-dark-surface hover:bg-dark-border text-white rounded-xl font-medium transition-all border border-dark-border hover:border-brand-500 disabled:opacity-50 min-w-[180px] justify-center"
                                 >
                                     {loadingMore ? (
                                         <>
                                             <Loader2 className="animate-spin" size={20} />
-                                            <span className="text-sm sm:text-base">Loading...</span>
+                                            Loading...
                                         </>
                                     ) : (
                                         <>
-                                            <span className="text-sm sm:text-base">Load More</span>
+                                            Load More
                                             <ChevronDown size={20} />
                                         </>
                                     )}
@@ -1711,27 +1694,25 @@ const ListingPage = ({ title, type }: { title: string, type: 'movie' | 'tv' | 's
                             </div>
                         )}
                         
-                        {/* Show loaded count */}
                         <div className="text-center text-gray-400 text-sm mb-4">
                             Showing {displayedItems.length} of {allItems.length} titles
                         </div>
                         
-                        {/* Navigation - Bottom */}
-                        <div className="mt-8 pt-8 border-t border-gray-800">
+                        <div className="mt-8 pt-8 border-t border-dark-border">
                             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                                 <button 
                                     onClick={() => navigate(-1)} 
-                                    className="group flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors px-5 py-3 rounded-xl hover:bg-white/5 border border-gray-800 w-full sm:w-auto"
+                                    className="group flex items-center justify-center gap-2 text-gray-400 hover:text-white transition-colors px-5 py-3 rounded-xl hover:bg-white/5 border border-dark-border w-full sm:w-auto"
                                 >
                                     <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
-                                    <span className="font-medium text-sm sm:text-base">Go Back</span>
+                                    <span className="font-medium">Go Back</span>
                                 </button>
                                 <button 
                                     onClick={() => navigate('/')} 
                                     className="group flex items-center justify-center gap-2 bg-brand-500 text-white hover:bg-brand-600 transition-colors px-5 py-3 rounded-xl border border-brand-600 w-full sm:w-auto"
                                 >
                                     <HomeIcon size={20} className="group-hover:scale-110 transition-transform" /> 
-                                    <span className="font-medium text-sm sm:text-base">Back to Home</span>
+                                    <span className="font-medium">Back to Home</span>
                                 </button>
                             </div>
                         </div>
@@ -1747,7 +1728,7 @@ const App: React.FC = () => {
 
   return (
     <HashRouter>
-      <div className="min-h-screen bg-gray-950 text-white font-sans">
+      <div className="min-h-screen bg-dark-bg text-white font-sans">
         <Navbar 
             isAuthenticated={isAuthenticated} 
             onAuthToggle={() => setIsAuthenticated(!isAuthenticated)} 
