@@ -606,13 +606,6 @@ import {
   EmailShareButton,
   RedditShareButton,
   LinkedinShareButton,
-  FacebookIcon,
-  TwitterIcon,
-  WhatsappIcon,
-  TelegramIcon,
-  EmailIcon,
-  RedditIcon,
-  LinkedinIcon,
 } from 'react-share';
 import {
   Share2,
@@ -651,7 +644,6 @@ const SocialShare: React.FC<SocialShareProps> = ({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -659,43 +651,28 @@ const SocialShare: React.FC<SocialShareProps> = ({
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Get absolute image URL - FIXED LOGIC
+    // Get absolute image URL
     const getAbsoluteImageUrl = (imgPath: string) => {
-      console.log('Original image path:', imgPath); // Debug
-      
       if (!imgPath || imgPath.trim() === '' || imgPath === 'undefined') {
-        console.log('No image path, using placeholder');
-        return 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
+        return '';
       }
       
-      // If it's already a full URL
       if (imgPath.startsWith('http://') || imgPath.startsWith('https://')) {
-        console.log('Already absolute URL:', imgPath);
         return imgPath;
       }
       
-      // If it's a local path starting with /images/
       if (imgPath.startsWith('/images/')) {
-        const fullUrl = `https://uniwatchfree.vercel.app${imgPath}`;
-        console.log('Converted local to absolute:', fullUrl);
-        return fullUrl;
+        return `https://uniwatchfree.vercel.app${imgPath}`;
       }
       
-      // If it's a relative path
       if (imgPath.startsWith('/')) {
-        const fullUrl = `https://uniwatchfree.vercel.app${imgPath}`;
-        console.log('Converted relative to absolute:', fullUrl);
-        return fullUrl;
+        return `https://uniwatchfree.vercel.app${imgPath}`;
       }
       
-      // If it's a TMDB path (they sometimes don't have protocol)
       if (imgPath.includes('image.tmdb.org')) {
-        const fullUrl = `https:${imgPath}`;
-        console.log('Added protocol to TMDB:', fullUrl);
-        return fullUrl;
+        return `https:${imgPath}`;
       }
       
-      console.log('Returning as-is after checks:', imgPath);
       return imgPath;
     };
 
@@ -703,27 +680,20 @@ const SocialShare: React.FC<SocialShareProps> = ({
     const getAbsolutePageUrl = () => {
       const baseUrl = 'https://uniwatchfree.vercel.app';
       
-      // Remove any leading # from URL
       let cleanUrl = url;
       if (url.startsWith('#')) {
         cleanUrl = url.substring(1);
       }
       
-      // Remove leading / if present
       if (cleanUrl.startsWith('/')) {
         cleanUrl = cleanUrl.substring(1);
       }
       
-      const fullUrl = `${baseUrl}/#/${cleanUrl}`;
-      console.log('Page URL for sharing:', fullUrl);
-      return fullUrl;
+      return `${baseUrl}/#/${cleanUrl}`;
     };
 
     const imgUrl = getAbsoluteImageUrl(image);
     const pageUrl = getAbsolutePageUrl();
-    
-    console.log('Final image URL:', imgUrl);
-    console.log('Final page URL:', pageUrl);
     
     setAbsoluteImageUrl(imgUrl);
     setAbsolutePageUrl(pageUrl);
@@ -880,15 +850,25 @@ const SocialShare: React.FC<SocialShareProps> = ({
                 {/* Image */}
                 <div className="relative flex-shrink-0 self-center sm:self-start">
                   <div className="relative w-32 h-48 sm:w-40 sm:h-60 rounded-xl overflow-hidden border-2 border-gray-700 shadow-xl">
-                    <img
-                      src={absoluteImageUrl}
-                      alt={title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        console.error('Image failed to load:', absoluteImageUrl);
-                        e.currentTarget.src = 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&h=750&fit=crop&q=80';
-                      }}
-                    />
+                    {absoluteImageUrl ? (
+                      <img
+                        src={absoluteImageUrl}
+                        alt={title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.parentElement!.innerHTML = `
+                            <div class="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                              <span class="text-gray-500 font-medium">No Image</span>
+                            </div>
+                          `;
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                        <span className="text-gray-500 font-medium">No Image</span>
+                      </div>
+                    )}
                   </div>
                   <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
                     {type.toUpperCase()}
@@ -953,12 +933,12 @@ const SocialShare: React.FC<SocialShareProps> = ({
               </div>
             </div>
 
-            {/* Social Share Buttons - FULLY RESPONSIVE */}
+            {/* Social Share Buttons - RESPONSIVE WITHOUT SCROLL */}
             <div className="p-5 sm:p-6">
               <h4 className="text-white font-bold text-lg mb-5 text-center">Share On Social Media</h4>
               
-              {/* Desktop Grid (7 columns) */}
-              <div className="hidden md:grid md:grid-cols-7 gap-3">
+              {/* Desktop Grid (7 columns) - Hidden on mobile */}
+              <div className="hidden md:grid md:grid-cols-7 gap-4">
                 {socialPlatforms.map((platform, index) => {
                   const ShareButton = platform.component;
                   const Icon = platform.icon;
@@ -967,7 +947,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                     <div key={index} className="flex flex-col items-center">
                       <ShareButton
                         {...platform.props}
-                        className="rounded-2xl hover:scale-105 transition-transform duration-300"
+                        className="rounded-2xl hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-500"
                       >
                         <div className={`w-14 h-14 ${platform.color} rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl`}>
                           <Icon size={24} className={platform.iconColor} />
@@ -980,11 +960,11 @@ const SocialShare: React.FC<SocialShareProps> = ({
                   );
                 })}
                 
-                {/* Copy Link Button */}
+                {/* Copy Link Button for Desktop */}
                 <div className="flex flex-col items-center">
                   <button
                     onClick={copyToClipboard}
-                    className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg ${
+                    className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-500 ${
                       copySuccess 
                         ? 'bg-green-600 hover:bg-green-700' 
                         : 'bg-gray-700 hover:bg-gray-800'
@@ -1002,7 +982,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                 </div>
               </div>
 
-              {/* Mobile Grid (4 columns) */}
+              {/* Mobile Grid (4 columns) - Shows only on mobile, NO SCROLL */}
               <div className="grid grid-cols-4 gap-4 md:hidden">
                 {/* Row 1 */}
                 <div className="flex flex-col items-center">
@@ -1010,7 +990,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                     url={shareUrl}
                     quote={`${shareTitle}\n\n${shareDescription}`}
                     hashtag="#UniWatch"
-                    className="rounded-2xl hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-600"
                   >
                     <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
                       <Facebook size={26} className="text-white" />
@@ -1024,7 +1004,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                     url={shareUrl}
                     title={shareTitle}
                     hashtags={hashtags}
-                    className="rounded-2xl hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-sky-500"
                   >
                     <div className="w-16 h-16 bg-sky-500 rounded-2xl flex items-center justify-center shadow-lg">
                       <Twitter size={26} className="text-white" />
@@ -1038,7 +1018,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                     url={shareUrl}
                     title={shareTitle}
                     separator=" - "
-                    className="rounded-2xl hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-green-600"
                   >
                     <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center shadow-lg">
                       <MessageCircle size={26} className="text-white" />
@@ -1051,7 +1031,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                   <TelegramShareButton
                     url={shareUrl}
                     title={shareTitle}
-                    className="rounded-2xl hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500"
                   >
                     <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
                       <MessageSquare size={26} className="text-white" />
@@ -1066,7 +1046,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                     url={shareUrl}
                     subject={shareTitle}
                     body={`${shareDescription}\n\nWatch now: ${shareUrl}`}
-                    className="rounded-2xl hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-700"
                   >
                     <div className="w-16 h-16 bg-gray-700 rounded-2xl flex items-center justify-center shadow-lg">
                       <Mail size={26} className="text-white" />
@@ -1079,7 +1059,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                   <RedditShareButton
                     url={shareUrl}
                     title={shareTitle}
-                    className="rounded-2xl hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-orange-600"
                   >
                     <div className="w-16 h-16 bg-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
                       <Globe size={26} className="text-white" />
@@ -1094,7 +1074,7 @@ const SocialShare: React.FC<SocialShareProps> = ({
                     title={shareTitle}
                     summary={shareDescription}
                     source="UniWatch"
-                    className="rounded-2xl hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-700"
                   >
                     <div className="w-16 h-16 bg-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
                       <Linkedin size={26} className="text-white" />
@@ -1103,10 +1083,11 @@ const SocialShare: React.FC<SocialShareProps> = ({
                   <span className="text-white text-xs mt-2 text-center">LinkedIn</span>
                 </div>
 
+                {/* Copy Link Button for Mobile */}
                 <div className="flex flex-col items-center">
                   <button
                     onClick={copyToClipboard}
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg ${
+                    className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-500 ${
                       copySuccess 
                         ? 'bg-green-600 hover:bg-green-700' 
                         : 'bg-gray-700 hover:bg-gray-800'
@@ -1119,57 +1100,6 @@ const SocialShare: React.FC<SocialShareProps> = ({
                     )}
                   </button>
                   <span className="text-white text-xs mt-2 text-center">Copy Link</span>
-                </div>
-              </div>
-
-              {/* Mobile Scroll View for 7 items */}
-              <div className="md:hidden mt-6">
-                <div className="flex gap-4 overflow-x-auto pb-4 -mx-5 px-5">
-                  {socialPlatforms.map((platform, index) => {
-                    const ShareButton = platform.component;
-                    const Icon = platform.icon;
-                    
-                    return (
-                      <div key={index} className="flex-shrink-0">
-                        <div className="flex flex-col items-center">
-                          <ShareButton
-                            {...platform.props}
-                            className="rounded-2xl hover:scale-105 transition-transform duration-300"
-                          >
-                            <div className={`w-16 h-16 ${platform.color} rounded-2xl flex items-center justify-center shadow-lg`}>
-                              <Icon size={26} className={platform.iconColor} />
-                            </div>
-                          </ShareButton>
-                          <span className="text-white text-xs mt-2 text-center min-w-[70px]">
-                            {platform.name}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                  
-                  {/* Copy Link for mobile scroll */}
-                  <div className="flex-shrink-0">
-                    <div className="flex flex-col items-center">
-                      <button
-                        onClick={copyToClipboard}
-                        className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg ${
-                          copySuccess 
-                            ? 'bg-green-600 hover:bg-green-700' 
-                            : 'bg-gray-700 hover:bg-gray-800'
-                        }`}
-                      >
-                        {copySuccess ? (
-                          <Check size={26} className="text-white" />
-                        ) : (
-                          <Link2 size={26} className="text-white" />
-                        )}
-                      </button>
-                      <span className="text-white text-xs mt-2 text-center min-w-[70px]">
-                        Copy Link
-                      </span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
