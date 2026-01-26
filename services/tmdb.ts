@@ -213,16 +213,16 @@ const UNIQUE_TV_LIVE = [
       "Watch the Latest world news updates Channel live in high definition. Enjoy a wide range of news updates from various genres, all in stunning HD quality.",
   },
   {
-    id: "baywatch-live-channel",
-    title: "Baywatch Live Channel",
-    poster_path: "https://media.themoviedb.org/t/p/w500/1qH2LDjKKvDRllQdqtQ0fNS4Bs4.jpg",
-    backdrop_path: "https://media.themoviedb.org/t/p/w500/1qH2LDjKKvDRllQdqtQ0fNS4Bs4.jpg",
+    id: "go2travel-live-channel",
+    title: "Go2Travel Live Channel",
+    poster_path: "https://play-lh.googleusercontent.com/fAQewlj4O6OWRCReMV-ysG2Ip3i7Yz3TBxhFEeipV0BqK9nQk_siCt36ksBIZGmglGUt",
+    backdrop_path: "https://play-lh.googleusercontent.com/fAQewlj4O6OWRCReMV-ysG2Ip3i7Yz3TBxhFEeipV0BqK9nQk_siCt36ksBIZGmglGUt",
     release_date: "2026-01-20",
     vote_average: 8.3,
     duration: "24/7",
-    genres: ["Drama", "Live", "Entertainment"],
+    genres: ["Go2Travel", "Live", "Entertainment"],
     streams: {
-      "Server 1": "https://amg00145-fremantlemedian-baywatch-samsungau-gtsd6.amagi.tv/playlist/amg00145-fremantlemedian-baywatch-samsungau/playlist.m3u8"
+      "Server 1": "https://go2thls.wns.live/hls/stream.m3u8"
      
     },
     overview: "Live comedy shows, stand-up specials, and funny content 24/7.",
