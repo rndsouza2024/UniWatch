@@ -1396,14 +1396,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, []);
 
   const filterPresets = {
-    standard: 'brightness(1.05) contrast(1.1) saturate(1.08)',
+    standard: 'brightness(1.02) contrast(1.05) saturate(1.0)',
     hdr: 'brightness(1.15) contrast(1.25) saturate(1.25)',
     vivid: 'brightness(1.12) contrast(1.35) saturate(1.45)',
     cinema: 'brightness(0.98) contrast(1.25) saturate(0.95) hue-rotate(-2deg)',
     sharp: 'brightness(1.2) contrast(1.4) saturate(1.1)',
     gaming: 'brightness(1.08) contrast(1.28) saturate(1.25) hue-rotate(1.5deg)',
     sports: 'brightness(1.1) contrast(1.3) saturate(1.4)',
-    natural: 'brightness(1.02) contrast(1.05) saturate(1.0)',
+    natural: 'brightness(1.05) contrast(1.1) saturate(1.08)',
     off: 'none',
   };
 
