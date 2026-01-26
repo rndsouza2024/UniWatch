@@ -16,12 +16,39 @@
 
 //   const handleShareClick = (e: React.MouseEvent) => {
 //     e.stopPropagation();
+//     e.preventDefault();
 //     setShowShare(!showShare);
 //   };
 
 //   const getShareUrl = () => {
-//     return `#/watch?id=${item.id}&type=${item.media_type}`;
+//     return `watch?id=${item.id}&type=${item.media_type}`;
 //   };
+
+//   // Get absolute image URL - SIMPLIFIED
+//   const getAbsoluteImageUrl = (imgPath: string) => {
+//     if (!imgPath || imgPath === 'undefined' || imgPath.trim() === '') {
+//       return '';
+//     }
+    
+//     // Already absolute URL
+//     if (imgPath.startsWith('http')) {
+//       return imgPath;
+//     }
+    
+//     // Local image
+//     if (imgPath.startsWith('/')) {
+//       return `https://uniwatchfree.vercel.app${imgPath}`;
+//     }
+    
+//     // TMDB image without protocol
+//     if (imgPath.includes('image.tmdb.org')) {
+//       return `https:${imgPath}`;
+//     }
+    
+//     return imgPath;
+//   };
+
+//   const absoluteImage = getAbsoluteImageUrl(item.poster_path);
 
 //   return (
 //     <div 
@@ -31,17 +58,18 @@
 //       tabIndex={0}
 //       onKeyDown={(e) => e.key === 'Enter' && handleWatch()}
 //     >
-//       <div className="relative rounded-xl overflow-hidden bg-dark-surface border border-dark-border transition-all duration-300 group-hover:border-brand-500 group-hover:shadow-2xl group-hover:shadow-brand-500/20">
+//       <div className="relative rounded-xl overflow-hidden bg-gray-900 border border-gray-800 transition-all duration-300 group-hover:border-brand-500 group-hover:shadow-2xl group-hover:shadow-brand-500/20">
 //         {/* Image Container */}
 //         <div className="aspect-[2/3] relative overflow-hidden">
 //           <img 
-//             src={item.poster_path} 
+//             src={absoluteImage} 
 //             alt={`Poster for ${item.title}`}
 //             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
 //             loading="lazy"
-//              style={{
-//              filter: 'brightness(1.12) contrast(1.08) saturate(1.03)',
-//               }}
+//             onError={(e) => {
+//               console.error('MediaCard image failed:', absoluteImage);
+//               e.currentTarget.src = 'https://uniwatchfree.vercel.app/og-image.jpg';
+//             }}
 //           />
           
 //           {/* Overlay Gradient */}
@@ -60,6 +88,7 @@
 //               onClick={handleShareClick}
 //               className="p-2 bg-black/80 backdrop-blur-sm rounded-full hover:bg-brand-600 transition-colors shadow-lg"
 //               title="Share"
+//               aria-label="Share"
 //             >
 //               <Share2 size={16} className="text-white" />
 //             </button>
@@ -77,7 +106,9 @@
           
 //           {/* Type Badge */}
 //           <div className="absolute bottom-3 left-3 bg-black/80 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-white border border-white/20">
-//             {item.media_type === 'movie' ? 'MOVIE' : 'TV'}
+//             {item.media_type === 'movie' ? 'MOVIE' : 
+//              item.media_type === 'tv' ? 'TV SHOW' : 
+//              item.media_type === 'sports' ? 'SPORTS' : 'LIVE TV'}
 //           </div>
 //         </div>
         
@@ -109,20 +140,21 @@
           
 //           {/* Share Modal */}
 //           {showShare && (
-//             <div className="absolute left-0 right-0 top-full mt-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl z-50 border border-dark-border animate-fadeIn">
+//             <div className="absolute left-0 right-0 top-full mt-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl z-50 border border-gray-800 animate-fadeIn">
 //               <div className="flex items-center justify-between mb-3">
-//                 <h4 className="text-white font-bold">Share "{item.title}"</h4>
+//                 <h4 className="text-white font-bold text-sm">Share "{item.title}"</h4>
 //                 <button 
 //                   onClick={() => setShowShare(false)}
-//                   className="text-gray-400 hover:text-white"
+//                   className="text-gray-400 hover:text-white text-lg"
+//                   aria-label="Close"
 //                 >
 //                   ✕
 //                 </button>
 //               </div>
 //               <SocialShare
-//                 title={`Watch ${item.title}`}
-//                 description={item.overview || `Stream ${item.title} in HD quality`}
-//                 image={item.poster_path}
+//                 title={item.title}
+//                 description={item.overview || `Watch ${item.title} in HD quality`}
+//                 image={absoluteImage}
 //                 url={getShareUrl()}
 //                 type={item.media_type}
 //               />
@@ -130,7 +162,7 @@
 //           )}
           
 //           {/* Hover Info */}
-//           <div className="absolute left-0 right-0 bottom-full mb-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-dark-border">
+//           <div className="absolute left-0 right-0 bottom-full mb-3 bg-gray-900/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-gray-800">
 //             <p className="text-gray-200 text-sm line-clamp-3">{item.overview}</p>
 //             <div className="mt-3 pt-3 border-t border-gray-700">
 //               <button 
@@ -157,6 +189,14 @@
 
 
 
+
+
+
+
+
+
+
+
 import React, { useState } from 'react';
 import { Play, Star, Share2 } from 'lucide-react';
 import { MediaItem } from '../types';
@@ -168,6 +208,7 @@ interface MediaCardProps {
 
 const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
   const [showShare, setShowShare] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const handleWatch = () => {
     window.location.hash = `#/watch?id=${item.id}&type=${item.media_type}`;
@@ -183,31 +224,44 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
     return `watch?id=${item.id}&type=${item.media_type}`;
   };
 
-  // Get absolute image URL - SIMPLIFIED
-  const getAbsoluteImageUrl = (imgPath: string) => {
+  // SIMPLE image URL resolver - handles all cases from tmdb.ts
+  const getImageUrl = (imgPath: string): string => {
     if (!imgPath || imgPath === 'undefined' || imgPath.trim() === '') {
-      return 'https://uniwatchfree.vercel.app/og-image.jpg';
+      return '';
     }
     
-    // Already absolute URL
-    if (imgPath.startsWith('http')) {
+    // 1. If it's already a full URL (http:// or https://), use it as is
+    if (imgPath.startsWith('http://') || imgPath.startsWith('https://')) {
       return imgPath;
     }
     
-    // Local image
-    if (imgPath.startsWith('/')) {
-      return `https://uniwatchfree.vercel.app${imgPath}`;
-    }
-    
-    // TMDB image without protocol
-    if (imgPath.includes('image.tmdb.org')) {
+    // 2. If it starts with // (protocol-relative URL), add https:
+    if (imgPath.startsWith('//')) {
       return `https:${imgPath}`;
     }
     
+    // 3. For local images starting with /images/ or /tv/ or /sports/
+    if (imgPath.startsWith('/images/') || imgPath.startsWith('/tv/') || imgPath.startsWith('/sports/')) {
+      // In production (Vercel), use the full URL
+      // In development, the public folder is served at root
+      return imgPath; // Webpack/Vite will handle this during build
+    }
+    
+    // 4. For TMDB paths (starts with / but not our local paths)
+    if (imgPath.startsWith('/') && !imgPath.startsWith('/images/')) {
+      return `https://image.tmdb.org/t/p/w500${imgPath}`;
+    }
+    
+    // 5. Return as-is for any other case
     return imgPath;
   };
 
-  const absoluteImage = getAbsoluteImageUrl(item.poster_path);
+  const imageUrl = getImageUrl(item.poster_path);
+  
+  const handleImageError = () => {
+    console.error(`Failed to load image: ${imageUrl}`);
+    setImageError(true);
+  };
 
   return (
     <div 
@@ -219,17 +273,29 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
     >
       <div className="relative rounded-xl overflow-hidden bg-gray-900 border border-gray-800 transition-all duration-300 group-hover:border-brand-500 group-hover:shadow-2xl group-hover:shadow-brand-500/20">
         {/* Image Container */}
-        <div className="aspect-[2/3] relative overflow-hidden">
-          <img 
-            src={absoluteImage} 
-            alt={`Poster for ${item.title}`}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-            onError={(e) => {
-              console.error('MediaCard image failed:', absoluteImage);
-              e.currentTarget.src = 'https://uniwatchfree.vercel.app/og-image.jpg';
-            }}
-          />
+        <div className="aspect-[2/3] relative overflow-hidden bg-gray-900">
+          {!imageError && imageUrl ? (
+            <img 
+              src={imageUrl} 
+              alt={`Poster for ${item.title}`}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              style={{ filter: 'url(#ultraSharp) brightness(1.05) contrast(1.1) saturate(1.08) hue-rotate(5deg)' }}
+              loading="lazy"
+              onError={handleImageError}
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-4">
+              <div className="text-4xl mb-2">
+                {item.media_type === 'movie' ? '🎬' : 
+                 item.media_type === 'tv' ? '📺' : 
+                 item.media_type === 'sports' ? '⚽' : '📡'}
+              </div>
+              <div className="text-center">
+                <span className="text-gray-500 text-sm block">{item.title}</span>
+                <span className="text-gray-600 text-xs mt-1">No image available</span>
+              </div>
+            </div>
+          )}
           
           {/* Overlay Gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -313,7 +379,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ item }) => {
               <SocialShare
                 title={item.title}
                 description={item.overview || `Watch ${item.title} in HD quality`}
-                image={absoluteImage}
+                image={imageUrl}
                 url={getShareUrl()}
                 type={item.media_type}
               />

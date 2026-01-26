@@ -8,22 +8,22 @@ const BACKDROP_BASE = "https://image.tmdb.org/t/p/original";
 // Sports content
 const UNIQUE_SPORTS = [
   {
-    id: "bbl2025-26-challenger",
-    title: "BBL 2025-26 Challenger : Sixers vs Hurricanes",
-    poster_path: "/images/sports/bbl_1.jpg",
-    backdrop_path: "/images/sports/bbl_1.jpg",
+    id: "t20-cricket",
+    title: "T20 Cricket : South Africa vs. West Indies Live",
+    poster_path: "/images/tv/southvswest.jpg",
+    backdrop_path: "/images/tv/southvswest.jpg",
     release_date: "2026-01-23",
     vote_average: 8.5,
     duration: "Live",
     genres: ["Cricket", "Live", "Sports"],
     streams: {
       "Server 1":
-        "https://embedsports.top/embed/echo/bbl-challenger-sydney-sixers-vs-hobart-hurricanes-game-126262/2",
+        "https://embedsports.top/embed/charlie/south-africa-vs-west-indies-1629480154/1",
       "Server 2":
-        "https://embedsports.top/embed/echo/bbl-challenger-sydney-sixers-vs-hobart-hurricanes-game-126262/4",
-      "Server 3- Under Maintenance": "",
+        "https://embedsports.top/embed/charlie/south-africa-vs-west-indies-1629480154/2",
+      "Server 3": "https://daddyhd.com/stream/stream-346.php",
     },
-    overview: "BBL 2025-26 Challenger : Sixers vs Hurricanes Live matches",
+    overview: "T20 Cricket : South Africa vs. West Indies Live",
   },
   {
     id: "australian-open-live",
@@ -1391,10 +1391,24 @@ const UNIQUE_TV_SHOWS = [
   },
 ];
 // Helper to format TMDB response
+// Helper to format TMDB response
 const formatMedia = (
   item: any,
   type: "movie" | "tv" | "sports" | "tv_live",
 ): MediaItem => {
+  // Ensure poster_path and backdrop_path are properly formatted
+  let poster_path = item.poster_path || "";
+  let backdrop_path = item.backdrop_path || item.poster_path || "";
+  
+  // If it's a TMDB image URL that might be malformed, fix it
+  if (poster_path.includes('image.tmdb.org') && !poster_path.startsWith('http')) {
+    poster_path = `https://image.tmdb.org/t/p/w500${poster_path.replace('/t/p/w500', '')}`;
+  }
+  
+  if (backdrop_path.includes('image.tmdb.org') && !backdrop_path.startsWith('http')) {
+    backdrop_path = `https://image.tmdb.org/t/p/original${backdrop_path.replace('/t/p/original', '')}`;
+  }
+
   // Convert streams object to array if it exists
   let streamsArray = [];
   if (item.streams && typeof item.streams === "object") {
@@ -1409,9 +1423,8 @@ const formatMedia = (
   return {
     id: item.id?.toString() || Math.random().toString(),
     title: item.title || item.name || "Unknown Title",
-    poster_path: item.poster_path || "/images/placeholder.jpg",
-    backdrop_path:
-      item.backdrop_path || item.poster_path || "/images/placeholder.jpg",
+    poster_path: poster_path || "/images/placeholder.jpg",
+    backdrop_path: backdrop_path || poster_path || "/images/placeholder.jpg",
     release_date: item.release_date || item.first_air_date || "2024-01-01",
     vote_average: item.vote_average || 7.0,
     overview: item.overview || "No description available.",
