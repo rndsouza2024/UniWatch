@@ -164,13 +164,133 @@ const UNIQUE_TV_LIVE = [
 
 // 15 UNIQUE MOVIES (ALL FROM TMDB)
 const UNIQUE_MOVIES = [
+  {
+    id: '1236153',
+    title: 'Mercy (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/pyok1kZJCfyuFapYXzHcy7BLlQa.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/pyok1kZJCfyuFapYXzHcy7BLlQa.jpg',
+    release_date: '2026-01-16',
+    vote_average: 6.4,
+    duration: '2h 40m',
+    genres: ['Action ', 'Adventure', 'Comedy'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1236153",
+      "Server 2": "https://cinemaos.tech/player/1236153",
+      "Server 3": "https://zxcstream.xyz/player/movie/1236153/english?autoplay=false&back=true&server=0",
+      "Server 4 - HINDI": "https://byseqekaho.com/e/j1pt36tomnsn",
+      "Server 5": "https://www.cinezo.net/watch/movie/1236153",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1236153",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1236153"
+    },
+    overview: 'In the near future, a detective stands on trial accused of murdering his wife. He has ninety minutes to prove his innocence to the advanced AI Judge he once championed, before it determines his fate.'
+  },
+  {
+    id: '1584215',
+    title: 'The Internship (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/fYqSOkix4rbDiZW0ACNnvZCpT6X.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/fYqSOkix4rbDiZW0ACNnvZCpT6X.jpg',
+    release_date: '2026-01-16',
+    vote_average: 5.6,
+    duration: '2h 40m',
+    genres: ['Action ', 'Adventure', 'Thriller'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1584215",
+      "Server 2": "https://cinemaos.tech/player/1584215",
+      "Server 3": "https://zxcstream.xyz/player/movie/1584215/english?autoplay=false&back=true&server=0",
+      "Server 4 - HINDI": "https://byseqekaho.com/e/8d5wcz776i0h",
+      "Server 5": "https://www.cinezo.net/watch/movie/1584215",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1584215",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1584215"
+    },
+    overview: 'A CIA-trained assassin recruits other graduates from her secret childhood program, The Internship, to violently destroy the organization. The CIA fights back with deadly force.'
+  },
+  {
+    id: '1412598',
+    title: 'Killer Whale (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/cqbXxAw9sUr4tJ5ffEwtnz6IL9o.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/cqbXxAw9sUr4tJ5ffEwtnz6IL9o.jpg',
+    release_date: '2026-01-16',
+    vote_average: 6.5,
+    duration: '2h 40m',
+    genres: ['Thriller ', 'Horror', 'Action'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1412598",
+      "Server 2": "https://cinemaos.tech/player/1412598",
+      "Server 3": "https://zxcstream.xyz/player/movie/1412598/english?autoplay=false&back=true&server=0",
+      "Server 4 - HINDI": "https://byseqekaho.com/e/f7ekm2bm3nvv",
+      "Server 5": "https://www.cinezo.net/watch/movie/1412598",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1412598",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1412598"
+    },
+    overview: 'Follows best friends Maddie and Trish as they find themselves trapped in a remote lagoon with the dangerous killer whale named Ceto.'
+  },
+  {
+    id: '1443762',
+    title: 'The Big Fake (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/qNEL6chkH2s6gwvt0Jt9NfiXG8m.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/qNEL6chkH2s6gwvt0Jt9NfiXG8m.jpg',
+    release_date: '2026-01-16',
+    vote_average: 4.6,
+    duration: '2h 40m',
+    genres: ['Thriller ', 'Horror', 'Action'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1443762",
+      "Server 2": "https://cinemaos.tech/player/1443762",
+      "Server 3": "https://zxcstream.xyz/player/movie/1443762/english?autoplay=false&back=true&server=0",
+      "Server 4 - HINDI": "https://byseqekaho.com/e/0szn0b18ol41",
+      "Server 5": "https://www.cinezo.net/watch/movie/1443762",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1443762",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1443762"
+    },
+    overview: 'Toni Chichiarelli arrives in Rome with the dream of becoming a painter, but his talent leads him elsewhere — from art galleries to state secrets. Between art, crime, and power, his signature ends up everywhere — even in the history of Italy.'
+  },
+  {
+    id: '1306368',
+    title: 'The Rip (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/p4bW2sJKAwcHuLpfoZK7Zo63osA.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/p4bW2sJKAwcHuLpfoZK7Zo63osA.jpg',
+    release_date: '2026-01-16',
+    vote_average: 5.6,
+    duration: '2h 40m',
+    genres: ['Action ', 'Adventure', 'Comedy'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1306368",
+      "Server 2": "https://cinemaos.tech/player/1306368",
+      "Server 3": "https://zxcstream.xyz/player/movie/1306368/english?autoplay=false&back=true&server=0",
+      "Server 4 - HINDI": "https://byseqekaho.com/e/333a6f7gx1dw",
+      "Server 5": "https://www.cinezo.net/watch/movie/1306368",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1306368",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1306368"
+    },
+    overview: 'Trust frays when a team of Miami cops discovers millions in cash inside a run-down stash house, calling everyone — and everything — into question.'
+  },
+  {
+    id: '1034716',
+    title: 'People We Meet on Vacation (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/xzZaU0MN6L9oc1pl0RUXSB7hWwD.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/xzZaU0MN6L9oc1pl0RUXSB7hWwD.jpg',
+    release_date: '2026-01-16',
+    vote_average: 7.4,
+    duration: '2h 40m',
+    genres: ['Comedy ', 'Drama', 'Romance'],
+    streams: {
+      "Server 1": "https://xprime.today/watch/1034716",
+      "Server 2": "https://cinemaos.tech/player/1034716",
+      "Server 3": "https://zxcstream.xyz/player/movie/1034716/english?autoplay=false&back=true&server=0",
+      "Server 4 - HINDI": "https://byseqekaho.com/e/8anidmdjsvs4",
+      "Server 5": "https://www.cinezo.net/watch/movie/1034716",
+      "Server 6": "https://vidsrc-embed.ru/embed/movie/1034716",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1034716"
+    },
+    overview: 'Poppys a free spirit. Alex loves a plan. After years of summer vacations, these polar-opposite pals wonder if they could be a perfect romantic match.'
+  },
    {
     id: '1614077',
     title: 'Sulutan (2025)',
     poster_path: 'https://image.tmdb.org/t/p/w500/kd11696ab32WhHUeq5ZkWi9k09Y.jpg',
     backdrop_path: 'https://image.tmdb.org/t/p/original/kd11696ab32WhHUeq5ZkWi9k09Y.jpg',
     release_date: '2026-01-26',
-    vote_average: 5.1,
+    vote_average: 6.2,
     duration: '1h 19m',
     genres: ['Adult', 'Romance', 'Drama'],
     streams: {
@@ -669,6 +789,24 @@ const UNIQUE_MOVIES = [
 // 15 UNIQUE TV SHOWS (ALL FROM TMDB)
 const UNIQUE_TV_SHOWS = [
   {
+    id: '311632',
+    title: 'Space Gen: Chandrayaan S01 (2026)',
+    poster_path: 'https://image.tmdb.org/t/p/w500/d6WIr1vycFCCdYewgRf8dpWxQQE.jpg',
+    backdrop_path: 'https://image.tmdb.org/t/p/original/d6WIr1vycFCCdYewgRf8dpWxQQE.jpg',
+    release_date: '2026-01-08',
+    vote_average: 7.2,
+    duration: '45m',
+    streams: {
+      "Server 1": "https://zxcstream.xyz/player/tv/311632/s=1/e=1/hindi?autoplay=false&back=true&server=0",
+      "Server 2": "https://xprime.today/watch/311632/1/1",
+      "Server 3": "https://byseqekaho.com/e/yxv57pc9qtxs",
+      "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-311632/1/1",
+      "Server 5 ": "https://www.cinezo.net/watch/tv/311632?season=1&episode=1",
+     },
+    genres: ['Sci-Fi', 'Drama', 'Mystery'],
+    overview: 'Indian space engineers face mounting pressure to redeem themselves following the Chandrayaan 2 lunar mission\'s unexpected outcome.'
+  },
+  {
     id: '308482',
     title: 'Taskaree: The Smuggler"s Web S01 (2026)',
     poster_path: 'https://image.tmdb.org/t/p/w500/25fKRXvQLBq4nXu9vjOVJcvCiiD.jpg',
@@ -731,7 +869,7 @@ const UNIQUE_TV_SHOWS = [
     streams: {
       "Server 1": "https://zxcstream.xyz/player/tv/243826/s=1/e=1/hindi?autoplay=false&back=true&server=0",
       "Server 2 (Malayalam)": "https://xprime.today/watch/243826/1/1",
-      "Server 3 (Hindi)": "https://byseqekaho.com/e/zfelms1l4bx9"     
+      "Server 3 (Hindi)": "https://short.icu/PqYLFFeKU"     
      },
     genres: ['Drama', 'Crime', 'Mystery'],
     overview: 'A young medical representative struggles against the pharma game, masters it and eventually fights against it.'
