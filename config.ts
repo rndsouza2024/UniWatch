@@ -1,2 +1,0 @@
-export const TMDB_API_KEY = "be3e130c5ee08bf14bc9078514f1999a"; // Paste your TMDB API Key here inside the quotes
-export const Gemini API Key = "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";
