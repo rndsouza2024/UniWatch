@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getTrending, getMovies, getTVShows, getSports, getLiveTV, searchContent, UNIQUE_MOVIES, UNIQUE_TV_SHOWS, UNIQUE_SPORTS, UNIQUE_TV_LIVE, UNIQUE_HINDI_DUBBED, UNIQUE_ADULT } from '../services/tmdb';
 import MovieCard from '../components/MovieCard';
 import SEO from '../components/SEO';
-import { TVShow } from '../types';
+import { TVShow, MediaItem } from '../types';
 import { Tv, Search, X } from 'lucide-react';
 
 const TVShows: React.FC = () => {
@@ -43,7 +43,7 @@ const TVShows: React.FC = () => {
     const fetchMovies = async () => {
       try {
         const data = await getMovies('popular', 1);
-        setMovies(data);
+        getMovies(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -96,6 +96,7 @@ const TVShows: React.FC = () => {
       </div>
     );
   }
+
 
   return (
     <div className="min-h-screen bg-miraj-black pt-24 pb-20">

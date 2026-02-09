@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getTrending, getMovies, getTVShows, getSports, getLiveTV, searchContent, UNIQUE_MOVIES, UNIQUE_TV_SHOWS, UNIQUE_SPORTS, UNIQUE_TV_LIVE, UNIQUE_HINDI_DUBBED, UNIQUE_ADULT } from '../services/tmdb';
 import MovieCard from '../components/MovieCard';
 import SEO from '../components/SEO';
-import { Movie } from '../types';
+import { Movie, MediaItem } from '../types';
 import { Film, Search, X } from 'lucide-react';
 
 const Movies: React.FC = () => {
