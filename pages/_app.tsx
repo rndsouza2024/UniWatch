@@ -17,31 +17,36 @@ function MyApp({ Component, pageProps }: AppProps) {
     // Load ad scripts after page load to prevent blocking
     const loadAdScripts = () => {
       // Load first ad script
-    
       const adScript1 = document.createElement('script');
-      adScript1.innerHTML = `(function(s){s.dataset.zone='10501249',s.src='gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
+      adScript1.innerHTML = `(function(s){s.dataset.zone='10588493',s.src='gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
       document.head.appendChild(adScript1);
 
       // Load second ad script
     
       const adScript2 = document.createElement('script');
-      adScript2.innerHTML = `(function(s){s.dataset.zone='10501236',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
+      adScript2.innerHTML = `(function(s){s.dataset.zone='10588491',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
       document.head.appendChild(adScript2);
+
+       // Load third ad script
+    
+    //   const adScript3 = document.createElement('script');
+    //   adScript3.innerHTML = `(function(s){s.dataset.zone='209697',s.src='https://quge5.com/88/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
+    //   document.head.appendChild(adScript3);
 
       // Load clicky script
     
       const clickyScript1 = document.createElement('script');
       clickyScript1.async = true;
-      clickyScript1.setAttribute('data-id', '101500087');
+      clickyScript1.setAttribute('data-id', '101500993');
       clickyScript1.src = '//static.getclicky.com/js';
       document.head.appendChild(clickyScript1);
 
       // Load additional script
-    
+      
       const clickyScript2 = document.createElement('script');
       clickyScript2.async = true;
-      clickyScript2.setAttribute('data-id', '101500087');
-      clickyScript2.src = '/f2e6ab9e6e0.js';
+      clickyScript2.setAttribute('data-id', '101500993');
+      clickyScript2.src = '/d90822a4daee8.js';
       document.head.appendChild(clickyScript2);
     };
 
