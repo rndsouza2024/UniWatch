@@ -72,7 +72,7 @@
             
 //             {/* Download APK Button - Desktop */}
 //             <a
-//               href="https://median.co/share/abeeoyo"
+//               href="https://median.co/share/jbworwr"
 //               target="_blank"
 //               rel="noopener noreferrer"
 //               className="ml-2 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.1em] transition-all duration-300 bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/20 hover:scale-[1.02] active:scale-95"
@@ -95,7 +95,7 @@
 
 //             {/* Download APK Button - Mobile (Visible only on small screens) */}
 //             <a
-//               href="https://median.co/share/abeeoyo"
+//               href="https://median.co/share/jbworwr"
 //               target="_blank"
 //               rel="noopener noreferrer"
 //               className="lg:hidden flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-full text-[10px] sm:text-[11px] font-black uppercase tracking-[0.1em] transition-all duration-300 bg-gradient-to-r from-green-500 to-emerald-600 text-white active:scale-95 whitespace-nowrap"
@@ -178,7 +178,7 @@
 //           {/* Download APK Link */}
 //           <div className="mt-auto">
 //             <a
-//               href="https://median.co/share/abeeoyo"
+//               href="https://median.co/share/jbworwr"
 //               target="_blank"
 //               rel="noopener noreferrer"
 //               onClick={() => setIsMenuOpen(false)}
@@ -298,7 +298,7 @@ const Navbar: React.FC = () => {
             
             {/* Download APK Button - Desktop */}
             <a
-              href="https://median.co/share/abeeoyo"
+              href="https://median.co/share/jbworwr"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-2 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.1em] transition-all duration-300 bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/20 hover:scale-[1.02] active:scale-95"
@@ -321,7 +321,7 @@ const Navbar: React.FC = () => {
 
             {/* Download APK Button - Mobile (text hidden on smallest screens) */}
             <a
-              href="https://median.co/share/abeeoyo"
+              href="https://median.co/share/jbworwr"
               target="_blank"
               rel="noopener noreferrer"
               className="lg:hidden flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-full text-[10px] sm:text-[11px] font-black uppercase tracking-[0.1em] transition-all duration-300 bg-gradient-to-r from-green-500 to-emerald-600 text-white active:scale-95 whitespace-nowrap"
@@ -404,7 +404,7 @@ const Navbar: React.FC = () => {
           {/* Download APK Link */}
           <div className="mt-auto">
             <a
-              href="https://median.co/share/abeeoyo"
+              href="https://median.co/share/jbworwr"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsMenuOpen(false)}
