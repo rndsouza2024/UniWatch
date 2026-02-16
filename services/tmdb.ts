@@ -783,7 +783,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: [{ id: 1, name: "Crime" }, { id: 2, name: "Action" }, { id: 3, name: "Mystery" }],
     streams: {
-      "Server 1": "https://vidara.to/e/kYuQQzKDopYa",
+      "Server 1": "https://vidara.so/e/kYuQQzKDopYa",
       "Server 2": "https://cinemaos.tech/player/1339876-3",
       "Server 3": "https://www.vidking.net/embed/movie/1339876?autoPlay=true&nextEpisode=true&episodeSelector=true",
     },
@@ -801,7 +801,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: ["Drama ", "Silence", "Mystery"],
     streams: {
-      "Server 1": "https://vidara.to/e/BbQpHGHdJKZGn",
+      "Server 1": "https://vidara.so/e/BbQpHGHdJKZGn",
       "Server 2": "https://cinemaos.tech/player/786567",
       "Server 3": "https://www.vidking.net/embed/movie/786567?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4 - MAIN": "https://short.icu/PhuS5WVOq?thumbnail=https://media.themoviedb.org/t/p/w780/4Cqad6ZpWJRhBumGE1QwHs9pVuB.jpg",
@@ -823,7 +823,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adventure ", "Comedy", "Mystery"],
     streams: {
-      "Server 1": "https://vidara.to/e/cTWgLAJ4I50v7",
+      "Server 1": "https://vidara.so/e/cTWgLAJ4I50v7",
       "Server 2": "https://byseqekaho.com/e/ptpj1jv2799q",
       "Server 3": "https://www.vidking.net/embed/movie/1617852?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1617852",
@@ -846,7 +846,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adventure ", "Comedy", "Mystery"],
     streams: {
-      "Server 1": "https://vidara.to/e/acWrQSPMfmrqZ",
+      "Server 1": "https://vidara.so/e/acWrQSPMfmrqZ",
       "Server 2": "https://byseqekaho.com/e/vo038510cxcp",
       "Server 3": "https://www.vidking.net/embed/movie/1592019?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1592019",
@@ -868,7 +868,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: ["Mystery", "Drama", "Thriller"],
     streams: {
-      "Server 1": "https://vidara.to/e/9QQnTyfcCRiB",
+      "Server 1": "https://vidara.so/e/9QQnTyfcCRiB",
       "Server 2": "https://byseqekaho.com/e/4l8x3qvzikp0/",
     },
     overview: "When Riya's husband is away, an ordinary evening takes an unexpected turn. Out of boredom, she begins chatting online with a stranger — someone charming yet mysterious. But soon, a pizza delivery boy shows up at her door with an order she never placed. As the night progresses, strange events begin to unfold. The delivery boy insists she accept the pizza, and the online stranger seems to know more about her than she ever shared. Caught between reality and suspicion, Riya must uncover who is behind the web of deceit — the delivery boy, the man on the cam, or someone else entirely. A gripping mystery–thriller where every message, every knock, and every face hides a secret.",
@@ -885,7 +885,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: ["Romance", "Drama", "Thriller"],
     streams: {
-      "Server 1": "https://vidara.to/e/DoMsumAkAZVA",
+      "Server 1": "https://vidara.so/e/DoMsumAkAZVA",
       "Server 2": "https://byseqekaho.com/e/ibdepxzeu8vz/",
       
     },
@@ -903,7 +903,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: ["Action", "Crime", "Thriller"],
     streams: {
-      "Server 1": "https://vidara.to/e/5FigxkywkeEG",
+      "Server 1": "https://vidara.so/e/5FigxkywkeEG",
       "Server 2": "https://www.vidking.net/embed/movie/1568964?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 3": "https://cinemaos.tech/player/1568964",
       "Server 4": "https://xprime.today/watch/1568964",
@@ -925,7 +925,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: ["Action", "Crime", "Thriller"],
     streams: {
-      "Server 1": "https://vidara.to/e/3tIsnubKKjK2",
+      "Server 1": "https://vidara.so/e/3tIsnubKKjK2",
       "Server 2": "https://byseqekaho.com/e/aclqmbxitdv4/",
       "Server 3": "https://www.vidking.net/embed/movie/1595507?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1595507",
@@ -948,7 +948,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     media_type: 'movie',
     genres: ["Comedy", "Family", "Drama"],
     streams: {
-      "Server 1": "https://vidara.to/e/PIwgWmce3PzM",
+      "Server 1": "https://vidara.so/e/PIwgWmce3PzM",
       "Server 2": "https://byseqekaho.com/e/4p0e0o3vtyn0/",
       "Server 3": "https://www.vidking.net/embed/movie/1587124?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1587124",
@@ -973,7 +973,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     streams: {
       "Server 1": "https://iframe.mediadelivery.net/embed/596139/f8abca44-b7fb-4b6c-afb3-8023a21e4d34?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
       "Server 2": "https://byseqekaho.com/e/a4rljxtip9g5/",
-      "Server 3": "https://vidara.to/e/SHuWR9w1UWVYD",
+      "Server 3": "https://vidara.so/e/SHuWR9w1UWVYD",
         },
     overview: "Buried memories from his subconscious mind suddenly resurface. A triggering event turns his life upside down. From this turmoil is born a thrilling, suspenseful, and thought-provoking case - Case Number 73.",
   },
@@ -991,7 +991,7 @@ export const UNIQUE_MOVIES: MediaItem[] = [
     streams: {
       "Server 1": "https://byseqekaho.com/e/04o8sanluesy/",
       "Server 2": "https://iframe.mediadelivery.net/embed/596139/2d99e316-742a-441b-8bd5-b9e3c66e12c0?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
-      "Server 3": "https://vidara.to/e/KwAHYxJ1v2Za",
+      "Server 3": "https://vidara.so/e/KwAHYxJ1v2Za",
       
         },
     overview: "A manhole cleaner and vegetable vendor fall in love during secret meetings in a train bathroom. When she stops appearing, he begins a dangerous search to find her.",
@@ -1013,7 +1013,50 @@ export const UNIQUE_MOVIES: MediaItem[] = [
       
         },
     overview: "Godaan tells the story of Surbhi, an Indian cow who transforms a modern scientist’s beliefs. Her presence leads to discoveries in Panchgavya-based medicine, sustainable living, and the spiritual science behind cow reverence.",
+  },
+  {
+    id: "o-romeo-2026",
+    yt_id: "2M4hKmuBzUU",
+    title: "O'Romeo (2026)", 
+    poster_path: "https://media.themoviedb.org/t/p/w500/vScPZDuyaMjkw5Z8SBsBbDjcVyt.jpg",
+    backdrop_path: "https://media.themoviedb.org/t/p/w780/sawC6SHeusolyFuPEEZyYryfdKt.jpg",
+    release_date: "2026-01-16",
+    vote_average: 6.4,
+    duration: "2h 40m",
+    media_type: 'movie',
+    genres: ["Crime", "Drama", "Thriller"],
+    streams: {
+      "Server 1": "https://byseqekaho.com/e/3h72impo0yfu/",
+      "Server 2": "https://vidara.so/e/iDbd8CkTAPQc",
+      "Server 3": "https://iframe.mediadelivery.net/embed/596139/39bb8448-d006-4f68-96b8-227b8769fb5e?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
+      "Server 4": "https://cinemaos.tech/player/1275574",
+      "Server 5": "https://xprime.today/watch/1275574",
+      "Server 6": "https://www.cinezo.net/watch/movie/1275574",
+      "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1275574",  
+        },
+    overview: "What fate awaits a stonehearted gangster and bloodthirsty womaniser when true love claims him, helpless and unguarded? A gang war that shakes the entire underworld and crime syndicate to their very roots. A forbidden love; the tale of an unrequited passion.",
+  },
+   {
+    id: "punha-ekda-sade-made-teen-2026",
+    yt_id: "kHxuOtgde_M",
+    title: "Punha Ekda Sade Made 3 (2026)", 
+    poster_path: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/punha-ekda-sade-made-teen-et00481769-1768381865.jpg",
+    backdrop_path: "https://img-cdn.publive.online/filters:format(webp)/filters:format(webp)/movietalkies/media/media_files/2025/12/25/punha-ekda-sade-madhe-teen-release-2-2025-12-25-11-49-53.jpeg",
+    release_date: "2026-01-16",
+    vote_average: 6.4,
+    duration: "2h 40m",
+    media_type: 'movie',
+    genres: ["Comedy", "Drama", "Thriller"],
+    streams: {
+      "Server 1": "https://byseqekaho.com/e/2whep1yk2fpq/",
+      "Server 2": "https://vidara.so/e/Di0ExFXG5J5pG",
+      "Server 3": "https://iframe.mediadelivery.net/embed/596139/43a00953-bb47-4ec3-9c9f-40760bca5bcc?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
+         },
+    overview: "WThree eccentric brothers maintain their ]no women, no marriage' rule at their garage, but a return sparks fresh chaos. As old habits clash with new troubles, the iconic trio finds their world hilariously spiraling out of control.",
   }
+  
+
+  
 ];
 
 
@@ -1037,7 +1080,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     media_type: 'movie',
     genres: ["Comedy ", "Drama", "Romance"],
     streams: {
-      "Server 1- Multi-Lang": "https://vidara.to/e/XvqZsVUzrTfYy",    
+      "Server 1- Multi-Lang": "https://vidara.so/e/XvqZsVUzrTfYy",    
     },
     overview: "After being raised as the reincarnation of a famous actor, a man finds himself clashing with his grandfather's expectations of him.",
   },
@@ -1053,7 +1096,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adventure ", "Comedy", "Mystery"],
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/wSmdv3CDpCNml",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/wSmdv3CDpCNml",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/ubqlst0a8wuc",
     },
     overview: "A group of friends facing mid-life crises head to the rainforest with the intention of remaking their favorite movie from their youth, only to find themselves in a fight for their lives against natural disasters, giant snakes and violent criminals",
@@ -1071,7 +1114,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adventure ", "Comedy", "Mystery"],
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/LOMcIVE2bYo9n",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/LOMcIVE2bYo9n",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/286iv24wz00l",
     },
     overview: "Estranged half-brothers Jonny and James reunite after their father's mysterious death. As they search for the truth, buried secrets reveal a conspiracy threatening to tear their family apart.",
@@ -1088,7 +1131,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     media_type: 'movie',
     genres: ["Romance ", "Comedy", "Drama"],
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/fzh60cMcTmlf",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/fzh60cMcTmlf",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/1hppdabczy1n/",
     },
     overview: "When TV producer Leah Caldwell aims to become the first woman running New York's top morning show, her ex competes for the same role. Leah stays focused on her career, until chemistry with her ex challenges her priorities.",
@@ -1105,7 +1148,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     media_type: 'movie',
     genres: ["Romance ", "Comedy", "Drama"],
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/TP5qsutqmLRk",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/TP5qsutqmLRk",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/4xk7wo9mqyg0/",
     },
     overview: "A high school girl wakes up each day with no memory of yesterday. When she agrees to date a shy classmate, can their love grow with every new beginning?",
@@ -1122,7 +1165,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     media_type: 'movie',
     genres: ["Romance ", "Comedy", "Drama"],
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/CiPRB7uPObye",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/CiPRB7uPObye",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/ffypfpdjkg6v/",
     },
     overview: "A young man's life turns upside down when he finds himself caught between two women, leading to an unexpected love triangle filled with emotions, misunderstandings, and tough decisions. As relationships intertwine, he must confront his feelings, face reality, and choose what truly matters, blending romance with heartfelt family drama.",
@@ -1139,7 +1182,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     media_type: 'movie',
     genres: ["Crime ", "Documentary", "Drama"],
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/84Xt99ybdoYAo",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/84Xt99ybdoYAo",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/u50jr9d6b0tx/",
       "Server 3": "https://www.vidking.net/embed/movie/1620991?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1620991",
@@ -1184,7 +1227,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     streams: {
       "Server 1 - Multi-Lang": "https://iframe.mediadelivery.net/embed/596139/ac31b254-7a1e-48b7-8ef0-20122586d771?autoplay=false&loop=false&muted=true&preload=true&responsive=true",    
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/dq0g476rkqo3/",
-      "Server 3 - Multi-Lang": "https://vidara.to/e/nGzQV6CNslx57",
+      "Server 3 - Multi-Lang": "https://vidara.so/e/nGzQV6CNslx57",
      },
     
     overview: "After returning from her first space mission, astronaut Sam Walker is placed under NASA’s care at a high security house for rehabilitation and medical testing. However, when disturbing occurrences begin happening around the property, she fears that something extraterrestrial has followed her back to Earth.",
@@ -1203,7 +1246,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     streams: {
       "Server 1 - Multi-Lang": "https://iframe.mediadelivery.net/embed/596139/a4a98ea9-3f55-4dec-a11b-ef6f9a04c2d8?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/m9ns3cpprph5/",
-      "Server 3 - Multi-Lang": "https://vidara.to/e/1VwXJnWdXIL2D",
+      "Server 3 - Multi-Lang": "https://vidara.so/e/1VwXJnWdXIL2D",
        "Server 4": "https://cinemaos.tech/player/1315303",
       "Server 5": "https://xprime.today/watch/1315303",
       "Server 6": "https://www.cinezo.net/watch/movie/1315303",
@@ -1227,7 +1270,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     streams: {
       "Server 1 - Multi-Lang": "https://iframe.mediadelivery.net/embed/596139/96583c70-121b-40cc-971f-dfeafa27bc2e?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/lucjyc64ttlx/",
-      "Server 3 - Multi-Lang": "https://vidara.to/e/nhXcofWUiKEJ",
+      "Server 3 - Multi-Lang": "https://vidara.so/e/nhXcofWUiKEJ",
        "Server 4": "https://cinemaos.tech/player/1596291",
       "Server 5": "https://xprime.today/watch/1596291",
       "Server 6": "https://www.cinezo.net/watch/movie/1596291",
@@ -1271,7 +1314,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     genres: ["Action ", "Crime", "Thriller"],
     streams: {
       "Server 1 - Multi-Lang": "https://byseqekaho.com/e/4vdbms6mhva8/",
-      "Server 2 - Multi-Lang": "https://vidara.to/e/EIjP84hbEf6b7",
+      "Server 2 - Multi-Lang": "https://vidara.so/e/EIjP84hbEf6b7",
       "Server 3": "https://www.vidking.net/embed/movie/1181540?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1181540",
       "Server 5": "https://xprime.today/watch/1181540",
@@ -1293,7 +1336,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     genres: ["Action ", "Crime", "Thriller"],
     streams: {
       "Server 1 - Multi-Lang": "https://byseqekaho.com/e/g0jmgyuvyt4b/",
-      "Server 2 - Multi-Lang": "https://vidara.to/e/O7DOapKazrpy2",
+      "Server 2 - Multi-Lang": "https://vidara.so/e/O7DOapKazrpy2",
       "Server 3": "https://www.vidking.net/embed/movie/1340110?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1340110",
       "Server 5": "https://xprime.today/watch/1340110",
@@ -1315,7 +1358,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     genres: ["Horror ", "Mystery", "Thriller"],
     streams: {
       "Server 1 - Multi-Lang": "https://byseqekaho.com/e/q4ihrv5i0fub/",
-      "Server 2 - Multi-Lang": "https://vidara.to/e/3UNqgpNCeHmGh",
+      "Server 2 - Multi-Lang": "https://vidara.so/e/3UNqgpNCeHmGh",
       "Server 3": "https://www.vidking.net/embed/movie/680493?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/680493",
       "Server 5": "https://xprime.today/watch/680493",
@@ -1337,7 +1380,7 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
     genres: ["Horror ", "Mystery", "Thriller"],
     streams: {
       "Server 1 - Multi-Lang": "https://byseqekaho.com/e/a659bel7ym71/",
-      "Server 2 - Multi-Lang": "https://vidara.to/e/CQLTpO47YK74d",
+      "Server 2 - Multi-Lang": "https://vidara.so/e/CQLTpO47YK74d",
       "Server 3": "https://www.vidking.net/embed/movie/1198994?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1198994",
       "Server 5": "https://xprime.today/watch/1198994",
@@ -1345,6 +1388,29 @@ export const UNIQUE_HINDI_DUBBED: MediaItem[] = [
       "Server 7": "https://api.cinezo.net/embed/tmdb-movie-1198994",
     },
     overview: "Two colleagues become stranded on a deserted island, the only survivors of a plane crash. On the island, they must overcome past grievances and work together to survive, but ultimately, it's a battle of wills and wits to make it out alive.",
+  },
+  {
+    id: "joes-college-road-trip-2026-multi-lang",
+    yt_id: "yuBO0wfQKR0",
+    title: "Joe's College Road Trip (2026) Multi-Lang",
+    poster_path: "https://media.themoviedb.org/t/p/w500/jWGOCUlzF4aCVLwHoiuqWWfhcrA.jpg",
+    backdrop_path: "https://media.themoviedb.org/t/p/w780/dbr3eceKuGnKc9v5GaVTVtegZNK.jpg",
+    release_date: "2026-01-16",
+    vote_average: 6.4,
+    duration: "2h 40m",
+    media_type: 'movie',
+    genres: ["Comedy ", "Drama", "Thriller"],
+    streams: {
+      "Server 1 - Multi-Lang": "https://byseqekaho.com/e/fqyqhns7dw3j/",
+      "Server 2 - Multi-Lang": "https://vidara.so/e/tGAEGt7JesR8G",
+      "Server 3 - Multi-Lang": "https://iframe.mediadelivery.net/embed/596139/a3d2ad39-ee6c-4e69-845b-22e37b4c23bb?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
+      "Server 4": "https://www.vidking.net/embed/movie/1243460?autoPlay=true&nextEpisode=true&episodeSelector=true",
+      "Server 5": "https://cinemaos.tech/player/1243460",
+      "Server 6": "https://xprime.today/watch/1243460",
+      "Server 7": "https://www.cinezo.net/watch/movie/1243460",
+      "Server 8": "https://api.cinezo.net/embed/tmdb-movie-1243460",
+    },
+    overview: "To teach his sheltered grandson about the real world, Madea's foul-mouthed brother Joe takes the college-bound teen on a raucous cross-country road trip.",
   }
 
   
@@ -1372,7 +1438,7 @@ export const UNIQUE_ADULT: MediaItem[] = [
     streams: {
       "Server 1": "https://www.vidking.net/embed/movie/1614077?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 2": "https://cinemaos.tech/player/1614077",
-      "Server 3": "https://vidara.to/e/KzdrsSXHjFgKS",
+      "Server 3": "https://vidara.so/e/KzdrsSXHjFgKS",
       "Server 4": "https://xprime.today/watch/1614077",
       "Server 5": "https://www.cinezo.net/watch/movie/1614077",
       "Server 6": "https://vidsrc-embed.ru/embed/movie/1614077",
@@ -1391,7 +1457,7 @@ export const UNIQUE_ADULT: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adult", "Romance", "Drama"],
     streams: {
-      "Server 1": "https://vidara.to/v/BA8XvvvsU7zmm",
+      "Server 1": "https://vidara.so/v/BA8XvvvsU7zmm",
       "Server 2": "https://www.vidking.net/embed/movie/1555917?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 3": "https://cinemaos.tech/player/1555917",
       "Server 4": "https://xprime.today/watch/1555917",
@@ -1414,7 +1480,7 @@ export const UNIQUE_ADULT: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adult", "Romance", "Drama"],
     streams: {
-      "Server 1": "https://vidara.to/e/vAlUJTcd8elxH",
+      "Server 1": "https://vidara.so/e/vAlUJTcd8elxH",
       "Server 2": "https://cinemaos.tech/player/1597538",
       "Server 3": "https://xprime.today/watch/1597538",
       "Server 4": "https://www.cinezo.net/watch/movie/1597538",
@@ -1454,7 +1520,7 @@ export const UNIQUE_ADULT: MediaItem[] = [
     genres: [{ id: 1, name: "Adult" }, { id: 2, name: "Romance" }, { id: 3, name: "Drama" }],
     streams: {
       "Server 1": "https://byseqekaho.com/e/9a650rp8vdaa/",
-      "Server 2": "https://vidara.to/e/PNUePFxDwvjVx",
+      "Server 2": "https://vidara.so/e/PNUePFxDwvjVx",
       "Server 3": "https://short.icu/QYmidACiu?thumbnail=https://media-files.atrangii.in/media-metadata/6979de0ef60fc20caae469ce",
     },
     overview: "Chemistry Part 2",
@@ -1471,7 +1537,7 @@ export const UNIQUE_ADULT: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adult", "Romance", "Drama"],
     streams: {
-      "Server 1": "https://vidara.to/e/nKnly2xFa69Fs",
+      "Server 1": "https://vidara.so/e/nKnly2xFa69Fs",
       "Server 2": "https://short.icu/nzkD33Ujr?thumbnail=https://img.youtube.com/vi/ID1smTZldw0/maxresdefault.jpg",
       "Server 3": "https://byseqekaho.com/e/w0nud4ssbmbt",
     },
@@ -1489,7 +1555,7 @@ export const UNIQUE_ADULT: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adult", "Romance", "Drama"],
     streams: {
-      "Server 1": "https://vidara.to/e/5XJazmKmm5l5Y",
+      "Server 1": "https://vidara.so/e/5XJazmKmm5l5Y",
       "Server 2": "https://byseqekaho.com/e/35nhuh8xcxvs/",
       "Server 3": "https://www.vidking.net/embed/movie/1621394?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 4": "https://cinemaos.tech/player/1621394",
@@ -1508,7 +1574,7 @@ export const UNIQUE_ADULT: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adult", "Romance", "Drama"],
     streams: {
-      "Server 1": "https://vidara.to/e/lYENS9mtvukML",
+      "Server 1": "https://vidara.so/e/lYENS9mtvukML",
       "Server 2": "https://byseqekaho.com/e/aq6rr0tgebsi",
     },
     overview: "Lena and Mara are drawn into a secret affair that defies boundaries and threatens everything they've built. When Mara uncovers her groom's betrayal, she finds solace in Lena, a newfound friend who soon becomes something more. As passion and secrecy collide, their choices endanger careers, fracture relationships, and lead to devastating consequences.",
@@ -1524,7 +1590,7 @@ export const UNIQUE_ADULT: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adult", "Romance", "Drama"],
     streams: {
-      "Server 1": "https://vidara.to/e/7tyq4fhUZ3xx",
+      "Server 1": "https://vidara.so/e/7tyq4fhUZ3xx",
       "Server 2": "https://www.vidking.net/embed/movie/1559596?autoPlay=true&nextEpisode=true&episodeSelector=true",
       "Server 3": "https://cinemaos.tech/player/1559596",
       "Server 4": "https://xprime.today/watch/1559596",
@@ -1533,9 +1599,9 @@ export const UNIQUE_ADULT: MediaItem[] = [
     overview: "VMX hottie Christy Imperial gives fans a taste of VMX GL Crush Robb Guinto's spiciest and tastiest scenes",
   },
   {
-    id: "audacity-2026",
+    id: "audacity-part-1-2026",
     yt_id: "sDfKGG6Q06E",
-    title: "Audacity (2026)",
+    title: "Audacity Part 1 (2026)",
     poster_path: "https://www.coolmoviez.baby/files/images/Audacity_(2026)_Part_2_Atrangii_Hindi_Unrated_Webseries.jpg",
     backdrop_path: "https://i.ytimg.com/vi/tULnumoXoWk/maxresdefault.jpg",
     release_date: "2026-01-26",
@@ -1544,10 +1610,28 @@ export const UNIQUE_ADULT: MediaItem[] = [
     media_type: 'movie',
     genres: ["Adult", "Romance", "Drama"],
     streams: {
-      "Server 1": "https://vidara.to/e/jOktxgon2ZQlO",
+      "Server 1": "https://vidara.so/e/jOktxgon2ZQlO",
       "Server 2": "https://byseqekaho.com/e/zldtte3alzfk/",
       },
-    overview: "VMX hottie Christy Imperial gives fans a taste of VMX GL Crush Robb Guinto's spiciest and tastiest scenes",
+    overview: "When Pratham helps Kaveri escape her past, he unknowingly ignites a silent war between two sisters. And one unexpected confession changes everything., Starring Falak Hasan, Joshua Chhabra , Soma ...",
+  },
+  {
+    id: "audacity-part-2-2026",
+    yt_id: "Otyw66139lw",
+    title: "Audacity Part 2 (2026)",
+    poster_path: "https://www.coolmoviez.forum/files/images/Audacity_(2026)_Part_2_Atrangii_Hindi_Unrated_Webseries1.jpg",
+    backdrop_path: "https://img.youtube.com/vi/Otyw66139lw/maxresdefault.jpg",
+    release_date: "2026-01-26",
+    vote_average: 6.2,
+    duration: "1h 19m",
+    media_type: 'movie',
+    genres: ["Adult", "Romance", "Drama"],
+    streams: {
+      "Server 1": "https://byseqekaho.com/e/gx67fba87t0a/",
+      "Server 2": "https://vidara.so/e/1EaEgmeZfSwIl",
+      "Server 3": "https://iframe.mediadelivery.net/embed/596139/3db5a849-aa31-4a7b-8d71-80f5dbd74e83?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
+      },
+    overview: "When Pratham helps Kaveri escape her past, he unknowingly ignites a silent war between two sisters. And one unexpected confession changes everything., Starring Falak Hasan, Joshua Chhabra , Soma ...",
   },
   
 ];
@@ -1574,7 +1658,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     duration: "45m",
     media_type: 'tv',
     streams: {
-      "Server 1": "https://vidara.to/e/4OtUU7kOtUK87",
+      "Server 1": "https://vidara.so/e/4OtUU7kOtUK87",
       "Server 2": "https://xprime.today/watch/249766/1/1",
     },
     genres: [{ id: 1, name: "Drama" }, { id: 2, name: "Thriller" }, { id: 3, name: "Mystery" }],
@@ -1591,7 +1675,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     duration: "45m",
     media_type: 'tv',
     streams: {
-      "Server 1": "https://vidara.to/e/2zYH1fFQgKys",
+      "Server 1": "https://vidara.so/e/2zYH1fFQgKys",
       "Server 2": "https://xprime.today/watch/311632/1/1",
       "Server 3": "https://byseqekaho.com/e/yxv57pc9qtxs",
       "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-311632/1/1",
@@ -1611,7 +1695,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     duration: "45m",
     media_type: 'tv',
     streams: {
-      "Server 1": "https://vidara.to/e/YJ80jBb6C9B5",
+      "Server 1": "https://vidara.so/e/YJ80jBb6C9B5",
       "Server 2": "https://xprime.today/watch/308482/1/1",
       "Server 3": "https://byseqekaho.com/e/wrnmbynqqeyk",
       "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-308482/1/1",
@@ -1631,7 +1715,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     duration: "45m",
     media_type: 'tv',
     streams: {
-      "Server 1": "https://vidara.to/e/PaMIpZTnAE7b",
+      "Server 1": "https://vidara.so/e/PaMIpZTnAE7b",
       "Server 2": "https://xprime.today/watch/297594/2/1",
       "Server 3": "https://byseqekaho.com/e/hv81w9p30urb",
       "Server 4 ": "https://api.cinezo.net/embed/tmdb-tv-297594/2/1",
@@ -1651,7 +1735,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     duration: "45m",
     media_type: 'tv',
     streams: {
-      "Server 1": "https://vidara.to/e/euvvLY1BD8F7",
+      "Server 1": "https://vidara.so/e/euvvLY1BD8F7",
       "Server 2": "https://xprime.today/watch/311171/1/1",
       "Server 3": "https://byseqekaho.com/e/f1i18ua20w0r",
       "Server 4": "https://short.icu/5ALJ-TlBZ?thumbnail=https://media.themoviedb.org/t/p/w780/eQJUKQMl0SvoHiYwAW2E0VoAwR2.jpg"
@@ -1705,7 +1789,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     duration: "45m",
     media_type: 'tv',
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/F8buk6C8LoTbE",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/F8buk6C8LoTbE",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/yjf50n6tpbkh",
       "Server 3 ": "https://short.icu/ME-KYdtBuU?thumbnail=https://media.themoviedb.org/t/p/w780/iHT55IAd2qErJKhH8vCGKbZSniU.jpg",
     },
@@ -1723,7 +1807,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     duration: "45m",
     media_type: 'tv',
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/KkIRxv3mQDeP",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/KkIRxv3mQDeP",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/jm9h9ts4zkvl",
       "Server 3 ": "https://short.icu/Sl7KwC5M7?thumbnail=https://media.themoviedb.org/t/p/w780/los8S8iCRn5Q7irl0LNAp6C6Gmz.jpg",
     },
@@ -1742,7 +1826,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     media_type: 'tv',
     genres: ["War ", "Political", "Drama"],
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/Bc7L0bPOfyok",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/Bc7L0bPOfyok",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/57tgagfdddcd",
     },
     overview: "Mayasabha is a period political drama set in Mid 70s Andhra Pradesh. Krishnama Naidu, an idealistic student leader and a charismatic MS Rami Reddy wade into the world of Andhra politics. As they turn thick friends, they strive to use politics as a means to achieve public good. But caste fault lines erupt, loyalties are tested and their bond is pushed to the brink. Will their friendship sustain the brutal ascent of power where there is place for only one at the summit?",
@@ -1759,7 +1843,7 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     media_type: 'tv',
     genres: ["Crime ", "Action", "Drama"],
     streams: {
-      "Server 1 - Multi-Lang": "https://vidara.to/e/of0qQX1SdWpvo",
+      "Server 1 - Multi-Lang": "https://vidara.so/e/of0qQX1SdWpvo",
       "Server 2 - Multi-Lang": "https://byseqekaho.com/e/ajssdlwajoj4/",
       "Server 3": "https://api.cinezo.net/embed/tmdb-tv-274776",
     },
@@ -1778,9 +1862,10 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     streams: {
       "Server 1 - Multi-Lang": "https://byseqekaho.com/e/ph2inyx7o6mj/",
       "Server 2 - Multi-Lang": "https://iframe.mediadelivery.net/embed/596139/f03ab48c-bb05-4927-b5e5-7a07934c997c?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
-      "Server 3": "https://xprime.today/watch/213306/1/1",
-      "Server 4": "https://www.vidking.net/embed/tv/213306/1/8?autoPlay=true&nextEpisode=true&episodeSelector=true",
-      "Server 5": "https://api.cinezo.net/embed/tmdb-tv-213306",
+      "Server 3 - Multi-Lang": "https://vidara.so/e/69WQ0kUr7i7yI",
+      "Server 4": "https://xprime.today/watch/213306/1/1",
+      "Server 5": "https://www.vidking.net/embed/tv/213306/1/8?autoPlay=true&nextEpisode=true&episodeSelector=true",
+      "Server 6": "https://api.cinezo.net/embed/tmdb-tv-213306",
     },
     genres: ["Drama", "Crime", "Mystery"],
     overview: "Alex Cross is a brilliant but flawed homicide detective and full of contradictions. A doting father and family man, Cross is single-minded to the point of obsession when he hunts killers. He is desperate for love, but his wife’s murder has left him too damaged to receive it.",
@@ -1798,9 +1883,10 @@ export const UNIQUE_TV_SHOWS: MediaItem[] = [
     streams: {
       "Server 1 - Multi-Lang": "https://byseqekaho.com/e/agzevue8rtps/",
       "Server 2 - Multi-Lang": "https://iframe.mediadelivery.net/embed/596139/b3c83030-59f6-4cf3-a533-8782881678fe?autoplay=false&loop=false&muted=true&preload=true&responsive=true",
-      "Server 3": "https://xprime.today/watch/230034/2/1",
-      "Server 4": "https://www.vidking.net/embed/tv/230034/2/8?autoPlay=true&nextEpisode=true&episodeSelector=true",
-      "Server 5": "https://api.cinezo.net/embed/tmdb-tv-230034",
+      "Server 3 - Multi-Lang": "https://vidara.so/e/3Eqs7IbrclVxv",
+      "Server 4": "https://xprime.today/watch/230034/2/1",
+      "Server 5": "https://www.vidking.net/embed/tv/230034/2/8?autoPlay=true&nextEpisode=true&episodeSelector=true",
+      "Server 6": "https://api.cinezo.net/embed/tmdb-tv-230034",
     },
     genres: ["Drama", "Crime", "Mystery"],
     overview: "When an NRI bridegroom is found dead days before his wedding in the countryside of Punjab, two cops must unravel the troubling case as turbulence unfolds in their own lives.",
